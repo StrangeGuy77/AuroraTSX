@@ -46,11 +46,10 @@ export default class Server {
   private async database() {
     // This method check environment to switch between local and remote database.
     if (process.env.NODE_ENV === "development") {
-      const uri: string | any = process.env.MONGO_DEV_URI;
+      const uri: string | any = process.env.MDB_LOCALHOST;
       await mongoose
         .connect(uri, {
           useNewUrlParser: true,
-          useCreateIndex: true,
           useFindAndModify: false,
           useUnifiedTopology: true
         })

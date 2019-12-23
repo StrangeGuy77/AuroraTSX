@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "This is just the typscript-kind backend of AuroraTSX version",
   "scripts": {
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+    "dev": "NODE_ENV=development concurrently \"tsc -w\" \"nodemon dist/index.js\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/StrangeGuy77/AuroraTSX#readme",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/compression": "^1.0.1",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.2",
