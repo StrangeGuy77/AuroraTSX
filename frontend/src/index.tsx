@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./css/bootstrap.min.css";
-import "./css/mdb-boots/css/mdb.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "mdb-boots/css/mdb.min.css";
 import "./css/style.css";
 import App from "./components/App";
 

@@ -6,7 +6,7 @@ export default class Nav extends Component {
   render() {
     return (
       <div className="navigation">
-        <nav className="navbar navbar-expand-lg text-dark bg-white">
+        <nav className="navbar navbar-expand-lg text-dark">
           <Link to="/" className="navbar-logo text-white">
             <img src={BrandLogo} alt="" className="" />{" "}
             <h4 className="navbar-brand ml-4"> Aurora Development</h4>
@@ -56,8 +56,10 @@ export default class Nav extends Component {
                 </li>
               </ul>
               <div className="form-inline my-2 my-lg-0">
-                <button className="btn btn-outline-dark mr-sm-2">Signup</button>
-                <button className="btn btn-outline-dark my-2 my-sm-0">
+                <button className="btn btn-outline-light mr-sm-2">
+                  Signup
+                </button>
+                <button className="btn btn-outline-light my-2 my-sm-0">
                   Signin
                 </button>
               </div>
