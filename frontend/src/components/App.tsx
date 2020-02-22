@@ -3,7 +3,7 @@ import Navigation from "./Navigation/Navigation";
 import SoftwareHome from "../pages/software/SoftwareHome";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <Router>
@@ -13,3 +13,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;
