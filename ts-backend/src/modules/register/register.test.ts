@@ -33,7 +33,7 @@ describe("Register user", () => {
     );
     expect(response).toEqual({ register: null });
     const users = await User.find({ where: { email } });
-    expect(users).toHaveLength(2);
+    expect(users).toHaveLength(1);
     expect(users[0].email).toEqual(email);
     expect(users[0].password).not.toEqual(password);
 
