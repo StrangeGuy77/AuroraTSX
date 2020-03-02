@@ -1,23 +1,37 @@
-.navigation {
-  height: 80px;
-}
-
-.navbar-logo img {
-  width: 25%;
-}
-
-.navbar-brand {
-  font: normal 23px "Cookie", cursive;
-}
-
 nav {
-  background: #004445;
+  height: 105px;
 }
 
 body {
-  background: #f2f3ee;
+  background-color: azure;
 }
 
 .nav-hr {
   border-top: 2px solid rgb(218, 255, 255);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.navbar-brand img {
+  width: 35%;
+}
+
+.navbar-brand p {
+  font: normal 22px "Cookie", cursive;
+}
+
+.nav-color {
+  background-color: #292c2f;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  font: bold 16px sans-serif;
+  padding: 20px 50px;
+}
+
+.navbar-adjustment {
+  width: 100%;
 }

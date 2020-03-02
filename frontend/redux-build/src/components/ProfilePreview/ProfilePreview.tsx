@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import * as React from "react";
 
-class ProfilePreview extends Component {
-  render() {
-    return <div></div>;
-  }
-}
+const ProfilePreview: React.FC<any> = () => {
+  return <div className="x">
+
+  </div>;
+};
 
 export default ProfilePreview;

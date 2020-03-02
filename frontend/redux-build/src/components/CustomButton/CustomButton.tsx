@@ -1,7 +1,19 @@
-import React from "react";
+import * as React from "react";
 
-const CustomButton = () => {
-  return <div></div>;
+const CustomButton: React.FC<IProps> = ({ children, className, onClickHandler, name }) => {
+
+  return (
+    <div>
+      <button className={className} onClick={async () => await onClickHandler(name)}>
+        {children}
+      </button>
+    </div>
+  );
 };
 
 export default CustomButton;
+
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  className: string;
+  onClickHandler: (...args: any) => any;
+}
