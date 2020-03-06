@@ -6,7 +6,6 @@ import ILanguage from '../../redux/language/Lang';
 import QuestionComponent from '../../components/Faq/QuestionComponent';
 import UserAgreementComponent from '../../components/Faq/UserAgreementComponent';
 
-
 const ContactUs: React.FC<IProps> = ({ language: { faq, softwareInfo } }) => {
 
     const {
@@ -17,8 +16,7 @@ const ContactUs: React.FC<IProps> = ({ language: { faq, softwareInfo } }) => {
         howLongDoesItTakesForAnAnswer,
         hldtAnswer,
         whereToFindCookiesAndUserAgreement
-    }
-        = faq;
+    } = faq;
     const FAQ = faq.faq;
     const { sendEmail, signContent, signEmail, signIssue } = softwareInfo;
 

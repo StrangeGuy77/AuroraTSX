@@ -43,7 +43,7 @@ const UserAgreement: React.FC<IProps> = ({ language: { userAgreementPolicy, faq:
             >
                 {userAgreementModal}
             </button>
-            <div className="modal fade bd-example-modal-lg" tabIndex={-1} role="dialog" aria-hidden="true">
+            <div className="modal fade bd-example-modal-lg" tabIndex={-1} role="dialog" aria-hidden="true" aria-labelledby="myLargeModalLabel">
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -51,18 +51,18 @@ const UserAgreement: React.FC<IProps> = ({ language: { userAgreementPolicy, faq:
                                 {userAgreementTitle}
                             </h5>
                         </div>
-                        <div className="modal-bod">
+                        <div className="modal-body">
                             <p style={{ fontWeight: 700 }}>
                                 {userAgreementPolicyTitle}
                             </p>
                             <span>
                                 {userAgreementPrivacyPolicyFP}
                             </span>
-                            <br />
+                            <br /> <br />
                             <span>
                                 {userAgreementPrivacyPolicySP}
                             </span>
-                            <br />
+                            <hr />
 
                             <p style={{ fontWeight: 700 }}>
                                 {userAgreementReceivedDataTitle}
@@ -70,7 +70,7 @@ const UserAgreement: React.FC<IProps> = ({ language: { userAgreementPolicy, faq:
                             <span>
                                 {userAgreementReceivedData}
                             </span>
-                            <br />
+                            <hr />
 
                             <p style={{ fontWeight: 700 }}>
                                 {userAgreementDataUseTitle}
@@ -78,25 +78,25 @@ const UserAgreement: React.FC<IProps> = ({ language: { userAgreementPolicy, faq:
                             <span>
                                 {userAgreementDataUseFP}
                             </span>
-                            <br />
+                            <br /> <br />
                             <span>
                                 {userAgreementDataUseSP}
                             </span>
-
+                            <hr />
                             <p style={{ fontWeight: 700 }}>
                                 Cookies
                             </p>
                             <span>
                                 {userAgreementCookiesFP}
                             </span>
-                            <br />
+                            <br /> <br />
                             <span>
                                 {userAgreementCookiesSP}
                             </span>
                             <span>
                                 {userAgreementCookiesTP}
                             </span>
-                            <br />
+                            <hr />
 
                             <p style={{ fontWeight: 700 }}>
                                 {userAgreementThirdPartyLinksTitle}
@@ -104,7 +104,7 @@ const UserAgreement: React.FC<IProps> = ({ language: { userAgreementPolicy, faq:
                             <span>
                                 {userAgreementThirdPartyLinks}
                             </span>
-                            <br />
+                            <hr />
 
                             <p style={{ fontWeight: 700 }}>
                                 {userAgreementPersonalInformationControlTitle}
@@ -112,9 +112,8 @@ const UserAgreement: React.FC<IProps> = ({ language: { userAgreementPolicy, faq:
                             <span>
                                 {userAgreementPersonalInformationControl}
                             </span>
-                            <br />
                         </div>
-                        <div className="modal-foote">
+                        <div className="modal-footer">
                             <button className="btn btn-secondary" type="button" data-dismiss="modal">
                                 {userAgreementDecline}
                             </button>
