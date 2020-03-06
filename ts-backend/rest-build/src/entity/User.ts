@@ -13,6 +13,11 @@ export class User extends BaseEntity {
   @Column("text")
   password: string;
 
+  @Column("varchar", {
+    length: 55
+  })
+  username: string;
+
   @Column("boolean", { default: false })
   confirmed: boolean;
 
@@ -21,8 +26,8 @@ export class User extends BaseEntity {
   })
   createdAt: string;
 
-  @Column("integer", {
-    default: 0,
+  @Column("varchar", {
+    default: "unconfirmed",
     name: "user_role"
   })
   userRole: string;
@@ -30,7 +35,7 @@ export class User extends BaseEntity {
   @Column("varchar", {
     length: 50,
     name: "profile_pic",
-    default: "default_profile_pic.jpg"
+    default: "default_profile_pic.png"
   })
   profilePic: string;
 

@@ -3,6 +3,7 @@ import { createConnection } from "typeorm";
 import * as express from "express";
 import * as multer from "multer";
 import * as path from "path";
+import router from "../routes/index.routes";
 
 const startServer = async () => {
   const app = express();
@@ -16,6 +17,8 @@ const startServer = async () => {
       dest: path.join(__dirname, "../temp/upload")
     }).array("file")
   );
+
+  router(app);
   app.listen(app.get("port"));
   console.log(`Listening on port ${app.get("port")}`);
 };
