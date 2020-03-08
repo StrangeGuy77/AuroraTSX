@@ -3,7 +3,8 @@
 # dependencies
 frontend/apollo-build/node_modules
 frontend/redux-build/node_modules
-ts-backend/node_modules
+ts-backend/graphql-build/node_modules
+ts-backend/rest-build/node_modules
 frontend/apollo-build/.pnp
 frontend/redux-build//.pnp
 frontend/apollo-build/.pnp.js
@@ -22,16 +23,20 @@ frontend/redux-build/.DS_Store
 frontend/apollo-build/.DS_Store
 frontend/redux-build/.env.local
 frontend/apollo-build/.env.local
-ts-backend/.env.local
+ts-backend/graphql-build/.env.local
+ts-backend/rest-build/.env.local
 frontend/redux-build/.env.development.local
 frontend/apollo-build/.env.development.local
-ts-backend/.env.development.local
+ts-backend/graphql-build/.env.development.local
+ts-backend/rest-build/.env.development.local
 frontend/redux-build/.env.test.local
 frontend/apollo-build/.env.test.local
-ts-backend/.env.test.local
+ts-backend/graphql-build/.env.test.local
+ts-backend/rest-build/.env.test.local
 frontend/redux-build/.env.production.local
 frontend/apollo-build/.env.production.local
-ts-backend/.env.production.local
+ts-backend/graphql-build/.env.production.local
+ts-backend/rest-build/.env.production.local
 
 frontend/redux-build/npm-debug.log*
 frontend/apollo-build/npm-debug.log*

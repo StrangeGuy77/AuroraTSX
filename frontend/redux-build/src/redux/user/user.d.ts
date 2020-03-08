@@ -1,9 +1,9 @@
 export default interface IUser {
   _id?: any;
   username: string;
-  user_email: string;
+  email: string;
   user_registered_date?: string;
-  user_confirmed: boolean;
+  confirmed: boolean;
   user_role: string;
   profile_pic?: string;
   name?: string;

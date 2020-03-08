@@ -6,37 +6,45 @@ import { genRandomId } from "../../utils/helper";
 import { User } from "../../entity/User";
 
 export const uploadSoftware = async (req: Request, res: Response) => {
-  if (!req.body) {
-    res.status(400).json({
+  if (!req.body)
+  {
+    res.json({
       message: "Body is empty! You cannot save an empty software."
     });
-  } else {
+  } else
+  {
     const { title, description, devLanguages, price } = req.body;
     const { userId } = req.params;
 
-    if (!userId) {
-      res.status(400).json({
+    if (!userId)
+    {
+      res.json({
         message:
           "userId param is empty! You cannot save a software without a user relationship. Please add userId to the route with /softwares/:userId"
       });
-    } else {
-      if (!title || !description || !devLanguages || !price) {
-        res.status(400).json({
+    } else
+    {
+      if (!title || !description || !devLanguages || !price)
+      {
+        res.json({
           message:
             "At least one of the following properties aren't within the body: title, description, devLanguages, price"
         });
-      } else {
+      } else
+      {
         const userExist = await User.findOneOrFail({
           where: {
             id: userId
           }
         });
-        if (!userExist) {
+        if (!userExist)
+        {
           res.json({
             message:
               "The user who you're trying to relate to this software cannot be found within database. Please verify that the userId you put in the route param is correct."
           });
-        } else {
+        } else
+        {
           let url: string, result: any;
           url = genRandomId();
           result = await Software.find({
@@ -56,7 +64,8 @@ export const uploadSoftware = async (req: Request, res: Response) => {
             ext === ".jpeg" ||
             ext === ".gif" ||
             ext === ".svg"
-          ) {
+          )
+          {
             await fs.rename(imageTempPath, targetPath);
 
             const newSoftware = Software.create({
@@ -68,10 +77,15 @@ export const uploadSoftware = async (req: Request, res: Response) => {
               user: userExist
             });
 
-            try {
+            try
+            {
               await newSoftware.save();
-            } catch (error) {
-              res.status(400).json({
+              res.json({
+                message: "Software succesfully saved."
+              });
+            } catch (error)
+            {
+              res.json({
                 message: "There was a problem trying to save the software.",
                 error
               });
