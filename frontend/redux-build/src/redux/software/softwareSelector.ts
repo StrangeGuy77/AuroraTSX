@@ -1,26 +1,12 @@
 import GlobalState from "../State";
-import Axios from 'axios';
 import { SoftwareSchema } from './software';
 
-export const getAllSoftwares = async () => {
-    const { data } = await JSON.parse(JSON.stringify(Axios.get('http://localhost:3500/softwares')));
-    console.log(data);
-    return data;
-};
+export const updateSoftwaresArray = (softwares: SoftwareSchema[]) => [...softwares];
 
 export const getSoftwaresFromState = (state: GlobalState) => state.softwares as SoftwareSchema[];
 
-export const getOneSoftware = async (softwareId: string) => {
-    const { data } = await JSON.parse(JSON.stringify(Axios.get(`http://localhost:3500/softwares/${softwareId}`)));
-    console.log(data);
-    return data;
-};
+export const getOneSoftware = (softwareId: string, { softwares }: GlobalState) => (softwares as SoftwareSchema[]).find((soft: SoftwareSchema) => soft.id === softwareId);
 
-export const uploadASoftware = async (newSoftware: SoftwareSchema, currentSoftwareState: SoftwareSchema[]) => [...currentSoftwareState, newSoftware];
+export const uploadASoftware = (newSoftware: SoftwareSchema, currentSoftwareState: SoftwareSchema[]) => [...currentSoftwareState, newSoftware];
 
-
-export const deleteASoftware = async (softwareId: string) => {
-    const response = await JSON.parse(JSON.stringify(Axios.delete(`http://localhost:3500/softwares/${softwareId}`)));
-    console.log(response);
-    return response;
-};
+export const deleteASoftware = (softwareId: string, { softwares }: GlobalState) => (softwares as SoftwareSchema[]).filter((soft: SoftwareSchema) => soft.id !== softwareId);

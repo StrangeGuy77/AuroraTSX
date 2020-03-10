@@ -1,8 +1,14 @@
 export interface SoftwareSchema {
+    id?: string;
     filename?: string;
     title: string;
     description: string;
-    devLanguages?: any;
+    devLanguages?: string | string[];
     price: string;
-    uniqueId?: string;
+    user?: IUser;
+    frameworks?: string[];
+    views?: number;
+    likes?: number;
+    timesDownloaded?: number;
+    createdAt?: any;
 }

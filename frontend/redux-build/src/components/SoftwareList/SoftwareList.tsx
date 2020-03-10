@@ -30,7 +30,7 @@ const SoftwareList: React.FC<IProps> = ({
                   <div className="col-md-4">
                     <div className="card">
                       <div className="card-image">
-                        <Link to={`/softwares/${soft.uniqueId}`}>
+                        <Link to={`/softwares/${soft.id}`}>
                           <img
                             src={soft.filename}
                             alt={soft.title}

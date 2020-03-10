@@ -3,8 +3,8 @@ import {
   Column,
   BaseEntity,
   PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn
+  JoinColumn,
+  ManyToOne
 } from "typeorm";
 import { User } from "./User";
 
@@ -55,7 +55,7 @@ export class Software extends BaseEntity {
   })
   timesDownloaded: number;
 
-  @OneToOne(_ => User)
+  @ManyToOne(_ => User)
   @JoinColumn()
   user: User;
 

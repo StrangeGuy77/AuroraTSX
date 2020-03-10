@@ -16,8 +16,9 @@ export const uploadSoftware = (software: SoftwareSchema) => ({
     payload: software
 });
 
-export const getAllSoftwares = () => ({
-    type: softwareTypes.GET_SOFTWARES
+export const updateSoftwaresArray = (softwares: SoftwareSchema[]) => ({
+    type: softwareTypes.GET_SOFTWARES,
+    payload: softwares
 });
 
 export const getOneSoftware = (softwareId: string) => ({

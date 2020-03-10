@@ -90,7 +90,8 @@ export const uploadSoftware = async (req: Request, res: Response) => {
                   {
                     await newSoftware.save();
                     res.json({
-                      message: "Software succesfully saved."
+                      message: "Software succesfully saved.",
+                      newSoftware
                     });
                   } catch (error)
                   {

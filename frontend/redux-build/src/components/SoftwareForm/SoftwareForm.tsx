@@ -9,10 +9,6 @@ import { uploadSoftware } from "../../redux/software/softwareActions";
 import Axios from "axios";
 
 class SoftwareForm extends React.Component<IProps> {
-  constructor(props: IProps) {
-    super(props);
-  }
-
   state = {
     title: "",
     description: "",
@@ -70,8 +66,12 @@ class SoftwareForm extends React.Component<IProps> {
           newSoftware
         );
 
-        console.log(response);
-      } catch (error) {}
+        this.props.uploadSoftware(response.data.newSoftware);
+      } catch (error) {
+        console.log(
+          "There was an error while sending information to the server."
+        );
+      }
     } else {
       console.log("No sé XDDD");
     }
@@ -194,7 +194,7 @@ const mapStateToProps = (state: GlobalState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  uploadASoftware: (software: SoftwareSchema) =>
+  uploadSoftware: (software: SoftwareSchema) =>
     dispatch(uploadSoftware(software))
 });
 
@@ -202,4 +202,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(SoftwareForm);
 
 interface IProps {
   language: ILanguage;
+  uploadSoftware: (software: SoftwareSchema) => any;
 }
