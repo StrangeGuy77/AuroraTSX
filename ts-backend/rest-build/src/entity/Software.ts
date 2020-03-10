@@ -27,7 +27,8 @@ export class Software extends BaseEntity {
   devLanguages: [string];
 
   @Column("varchar", {
-    array: true
+    array: true,
+    nullable: true
   })
   frameworks: [string];
 
@@ -57,11 +58,6 @@ export class Software extends BaseEntity {
   @OneToOne(_ => User)
   @JoinColumn()
   user: User;
-
-  @Column("varchar", {
-    length: 50
-  })
-  userUploaderName: string;
 
   @Column("date", {
     default: () => "CURRENT_TIMESTAMP"

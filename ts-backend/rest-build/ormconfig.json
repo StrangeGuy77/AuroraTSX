@@ -7,11 +7,17 @@
   "password": "",
   "database": "aurora_tsx",
   "synchronize": true,
-  "dropSchema": true,
+  "dropSchema": false,
   "logging": false,
-  "entities": ["src/entity/**/*.ts"],
-  "migrations": ["src/migration/**/*.ts"],
-  "subscribers": ["src/subscriber/**/*.ts"],
+  "entities": [
+    "src/entity/**/*.ts"
+  ],
+  "migrations": [
+    "src/migration/**/*.ts"
+  ],
+  "subscribers": [
+    "src/subscriber/**/*.ts"
+  ],
   "cli": {
     "entitiesDir": "src/entity",
     "migrationsDir": "src/migration",

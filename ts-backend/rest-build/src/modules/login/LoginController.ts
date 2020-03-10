@@ -6,8 +6,9 @@ export const Login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     if (!email || !password)
     {
-        res.status(400).json({
-            message: "There are fields that are compulsory for login and are not within the body. Check email or password fields."
+        res.json({
+            message: "There are fields that are compulsory for login and are not within the body. Check email or password fields.",
+            code: 400
         });
     } else
     {
@@ -15,33 +16,35 @@ export const Login = async (req: Request, res: Response) => {
         const isValidEmail = emailPattern.test(email);
         if (!isValidEmail)
         {
-            res.status(400).json({
-                message: "The email you've sent is not valid. Check the correct email structuration: test@test.com"
+            res.json({
+                message: "The email you've sent is not valid. Check the correct email structuration: test@test.com",
+                code: 400
             });
         } else
         {
-            const isValidUser = await User.findOneOrFail({
+            const isValidUser = await User.findOne({
                 where: {
                     email
                 }
             });
             if (!isValidUser)
             {
-                res.status(400).json({
-                    message: "Incorrect email or password"
+                res.json({
+                    message: "Incorrect email or password",
+                    code: 400
                 });
             } else
             {
                 const isValidLogin = bcrypt.compareSync(password, isValidUser.password);
                 if (!isValidLogin)
                 {
-                    res.status(400).json({
+                    res.json({
                         message: "Incorrect email or password"
                     });
                 } else
                 {
                     isValidUser.password = "";
-                    res.status(400).json({
+                    res.json({
                         message: "Succesfully logged in",
                         userData: isValidUser
                     });
