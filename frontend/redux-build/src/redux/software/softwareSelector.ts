@@ -16,11 +16,8 @@ export const getOneSoftware = async (softwareId: string) => {
     return data;
 };
 
-export const uploadASoftware = async (software: SoftwareSchema, userUploaderId: string) => {
-    const response = await JSON.parse(JSON.stringify(Axios.post(`http://localhost:3500/softwares/${userUploaderId}`, software)));
-    console.log(response);
-    return response;
-};
+export const uploadASoftware = async (newSoftware: SoftwareSchema, currentSoftwareState: SoftwareSchema[]) => [...currentSoftwareState, newSoftware];
+
 
 export const deleteASoftware = async (softwareId: string) => {
     const response = await JSON.parse(JSON.stringify(Axios.delete(`http://localhost:3500/softwares/${softwareId}`)));

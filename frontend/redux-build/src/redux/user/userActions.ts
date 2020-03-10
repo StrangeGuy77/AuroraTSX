@@ -9,16 +9,7 @@ export const signIn = (email: string, password: string) => ({
     }
 });
 
-export const signUp = (email: string, password: string, username: string) => ({
-    type: userTypes.SIGN_UP,
-    payload: {
-        email,
-        password,
-        username
-    }
-});
-
-export const updateUser = (userInfo: IUser) => ({
-    type: userTypes.UPDATE_USER,
-    payload: userInfo
+export const setCurrentUser = (user: IUser) => ({
+    type: userTypes.SET_CURRENT_USER,
+    payload: user
 });

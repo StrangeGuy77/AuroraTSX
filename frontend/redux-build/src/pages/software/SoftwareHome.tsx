@@ -6,19 +6,22 @@ import GlobalState from "../../redux/State";
 import { connect } from "react-redux";
 import SoftwareList from "../../components/SoftwareList/SoftwareList";
 import SoftwareForm from "../../components/SoftwareForm/SoftwareForm";
+import { SoftwareSchema } from "../../redux/software/software";
 
-const SoftwareHome: React.FC<IProps> = () => {
-  return (
-    <div className="container-fluid p4">
-      <div className="row">
-        <div className="col-md-8">
-          <SoftwareForm />
-          <SoftwareList />
+class SoftwareHome extends React.Component<IProps, SoftwareSchema> {
+  render() {
+    return (
+      <div className="container-fluid p4">
+        <div className="row">
+          <div className="col-md-8">
+            <SoftwareForm />
+            <SoftwareList />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state)

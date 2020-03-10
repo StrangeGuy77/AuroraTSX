@@ -4,13 +4,16 @@ import { getLanguage } from "../../redux/language/LangSelector";
 import GlobalState from "../../redux/State";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { signIn } from "../../redux/user/userActions";
+import { setCurrentUser } from "../../redux/user/userActions";
+import IUser from "../../redux/user/user";
+import Axios from "axios";
 
 class SignInModal extends React.Component<IProps, IState> {
   state = {
     openRegisterModal: false,
     email: "",
-    password: ""
+    password: "",
+    signInErrors: ""
   };
 
   handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,9 +28,36 @@ class SignInModal extends React.Component<IProps, IState> {
   signInEvent = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const { email, password } = this.state;
-    const { signIn } = this.props;
-    await signIn(email, password);
+    const { setCurrentUser } = this.props;
+
+    try {
+      const response: IUser | Promise<IUser> | null | any = JSON.parse(
+        JSON.stringify(
+          await Axios.post(`http://localhost:3500/user/login`, {
+            email,
+            password
+          })
+        )
+      );
+      console.log(response);
+      if (response.data.code === 200) {
+        const test = setCurrentUser(response as IUser);
+        console.log(test);
+      } else {
+        this.setState({
+          signInErrors: response.data.message
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  componentWillUnmount() {
+    this.setState({
+      signInErrors: ""
+    });
+  }
 
   render() {
     const { login, cancel } = this.props.language.sectionsInfo;
@@ -107,10 +137,9 @@ class SignInModal extends React.Component<IProps, IState> {
                 <div className="form-group">
                   <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                      <p
-                        style={{ color: "#ff0000" }}
-                        id="login-alert-section"
-                      ></p>
+                      <p style={{ color: "#ff0000" }} id="login-alert-section">
+                        {this.state.signInErrors}
+                      </p>
                       <hr />
                     </div>
                   </div>
@@ -162,18 +191,19 @@ const mapStateToProps = (state: GlobalState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  signIn: (email: string, password: string) => dispatch(signIn(email, password))
+  setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInModal);
 
 interface IProps {
   language: ILanguage;
-  signIn: (email: string, password: string) => any;
+  setCurrentUser: (user: IUser) => any;
 }
 
 interface IState {
   openRegisterModal: boolean | string;
   email: string;
   password: string;
+  signInErrors: string | null;
 }

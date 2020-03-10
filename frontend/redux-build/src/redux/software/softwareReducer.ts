@@ -22,10 +22,10 @@ const softwareReducer = async (state: GlobalState = INITIAL_STATE, action: Softw
             };
 
         case actions.UPLOAD_SOFTWARE:
-            await uploadASoftware(action.payload[0] as SoftwareSchema, action.payload[1] as string);
+
             return {
                 ...state,
-                softwares: await getAllSoftwares()
+                softwares: uploadASoftware(action.payload, state.softwares as SoftwareSchema[])
             };
         case actions.DELETE_SOFTWARE:
             await deleteASoftware(action.payload);

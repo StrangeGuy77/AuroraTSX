@@ -3,38 +3,114 @@ import GlobalState from "../../redux/State";
 import { getLanguage } from "../../redux/language/LangSelector";
 import { connect } from "react-redux";
 import ILanguage from "../../redux/language/Lang";
-import { SoftwareSchema } from "../../redux/software/software.d";
+import { SoftwareSchema } from "../../redux/software/software";
 import { Dispatch } from "redux";
 import { uploadSoftware } from "../../redux/software/softwareActions";
+import Axios from "axios";
 
-const SoftwareForm: React.FC<IProps> = ({ language: { softwareInfo } }) => {
-  const {
-    signSoftwareTitle,
-    uploadYourSoftware,
-    signSelectFile,
-    signSoftwareDescription,
-    signSoftwareLanguage,
-    signSoftwarePrice,
-    upload
-  } = softwareInfo;
+class SoftwareForm extends React.Component<IProps> {
+  constructor(props: IProps) {
+    super(props);
+  }
 
-  return (
-    <div className="card">
-      <div className="card-header bg-dark">
-        <h3 className="card-title text-white">
-          <i className="far fa-file-code">{uploadYourSoftware}</i>
-        </h3>
-      </div>
-      <div className="card-body">
-        <form>
+  state = {
+    title: "",
+    description: "",
+    price: "",
+    devLanguages: "",
+    file: ""
+  };
+
+  handleInput = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { value, name } = e.currentTarget;
+    const files: FileList = (e.currentTarget as HTMLInputElement)
+      .files as FileList;
+
+    if (files) {
+      if ((files as FileList).length > 0) {
+        this.setState(_ => ({
+          file: (files as FileList).item(0)
+        }));
+      }
+    } else {
+      this.setState(_ => ({
+        [name]: value
+      }));
+    }
+  };
+
+  uploadSoftware = async () => {
+    const { description, price, title, devLanguages, file } = this.state;
+
+    const verFlag = () => {
+      for (const iterator of Object.values(this.state)) {
+        if (iterator === "" || iterator === undefined || iterator === null) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    if (verFlag()) {
+      try {
+        const newSoftware = new FormData();
+        newSoftware.append("file", file);
+        newSoftware.append("description", description);
+        newSoftware.append("price", price);
+        newSoftware.append("title", title);
+        newSoftware.append("devLanguages", devLanguages);
+
+        const userUploaderId = "20e5f568-0461-49c4-8f22-dcfe4fa725f9";
+        const response = await Axios.post(
+          `http://localhost:3500/softwares/${userUploaderId}`,
+          newSoftware
+        );
+
+        console.log(response);
+      } catch (error) {}
+    } else {
+      console.log("No sé XDDD");
+    }
+  };
+
+  render() {
+    const {
+      signSoftwareTitle,
+      uploadYourSoftware,
+      signSelectFile,
+      signSoftwareDescription,
+      signSoftwareLanguage,
+      signSoftwarePrice,
+      upload
+    } = this.props.language.softwareInfo;
+
+    return (
+      <div className="card">
+        <div className="card-header bg-dark">
+          <h3 className="card-title text-white">
+            <i className="far fa-file-code">{uploadYourSoftware}</i>
+          </h3>
+        </div>
+        <div className="card-body">
           <div className="form-group">
             <div className="input-group">
               <div className="custom-file">
-                <i className="fas fa-file-code"></i>
+                <i className="fas fa-file-code" />
                 <div className="input-group-prepend">
                   <span className="input-group-text">{uploadYourSoftware}</span>
                 </div>
-                <input type="file" name="image" className="custom-file-input" />
+                <input
+                  type="file"
+                  name="image"
+                  className="custom-file-input"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    this.handleInput(e)
+                  }
+                />
                 <label htmlFor="inputGroupFile" className="custom-file-label">
                   {signSelectFile}
                 </label>
@@ -42,26 +118,40 @@ const SoftwareForm: React.FC<IProps> = ({ language: { softwareInfo } }) => {
             </div>
           </div>
           <div className="form-group">
-            <i className="fas fa-tag icon"></i>
+            <i className="fas fa-tag icon" />
             <input
               type="text"
               name="title"
               className="form-control"
               placeholder={`${signSoftwareTitle}`}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                this.handleInput(e)
+              }
             />
           </div>
           <div className="form-group">
-            <i className="fas fa-info-circle icon"></i>
+            <i className="fas fa-info-circle icon" />
             <textarea
               name="description"
               rows={2}
               className="form-control"
               placeholder={`${signSoftwareDescription}`}
-            ></textarea>
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                this.handleInput(e)
+              }
+            />
           </div>
           <div className="form-group">
-            <i className="fab fa-js icon"></i>
-            <select name="language" id="" className="form-control" required>
+            <i className="fab fa-js icon" />
+            <select
+              name="devLanguages"
+              id=""
+              className="form-control"
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                this.handleInput(e)
+              }
+              required
+            >
               <option value="null">{signSoftwareLanguage}</option>
               <option value="js">Javascript</option>
               <option value="ruby">Ruby</option>
@@ -74,32 +164,38 @@ const SoftwareForm: React.FC<IProps> = ({ language: { softwareInfo } }) => {
             </select>
           </div>
           <div className="form-group">
-            <i className="fas fa-dollar-sign icon"></i>
+            <i className="fas fa-dollar-sign icon" />
             <input
               type="text"
               name="price"
               className="form-control"
               placeholder={signSoftwarePrice}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                this.handleInput(e)
+              }
             />
           </div>
           <div className="form-group">
-            <button className="btn btn-success" type="submit">
+            <button
+              className="btn btn-success"
+              onClick={() => this.uploadSoftware()}
+            >
               {upload}
             </button>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  uploadASoftware: (software: SoftwareSchema, userId: string) =>
-    dispatch(uploadSoftware(software, userId))
+  uploadASoftware: (software: SoftwareSchema) =>
+    dispatch(uploadSoftware(software))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SoftwareForm);

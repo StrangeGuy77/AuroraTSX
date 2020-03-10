@@ -1,6 +1,6 @@
 import IUser from "./user.d";
 import userTypes from "./userTypes";
-import { loginWithUser, signUpUser, updateUserInfo } from "./userSelector";
+import { selectCurrentUser, setCurrentUser } from "./userSelector";
 
 const INITIAL_STATE: IUser = {
   username: "",
@@ -18,20 +18,15 @@ export const userReducer = async (
 ) => {
   switch (action.type)
   {
-    case userTypes.SIGN_IN:
+    case userTypes.SELECT_CURRENT_USER:
       return {
         ...state,
-        currentUser: await loginWithUser(action.payload.email, action.payload.password)
+        currentUser: selectCurrentUser(state)
       };
-    case userTypes.SIGN_UP:
+    case userTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: await signUpUser(action.payload.email, action.payload.password, action.payload.username)
-      };
-    case userTypes.UPDATE_USER:
-      return {
-        ...state,
-        currentUser: await updateUserInfo(action.payload)
+        currentUser: setCurrentUser(state, action.payload)
       };
     default:
       return state;

@@ -11,9 +11,9 @@ export const deleteSoftware = (softId: string) => ({
     payload: softId
 });
 
-export const uploadSoftware = (software: SoftwareSchema, softId: string) => ({
+export const uploadSoftware = (software: SoftwareSchema) => ({
     type: softwareTypes.UPLOAD_SOFTWARE,
-    payload: [software, softId]
+    payload: software
 });
 
 export const getAllSoftwares = () => ({

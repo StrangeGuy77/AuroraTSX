@@ -3,9 +3,16 @@ import IUser from "./user";
 import GlobalState from "../State";
 
 export const loginWithUser = async (email: string, password: string) => {
-    const response = await Axios.post('http://localhost:3500/users/login', { email, password });
-    console.log(response);
-    return response.data;
+    try
+    {
+        const response = await Axios.post('http://localhost:3500/user/login', { email, password });
+        console.log(response);
+        return response.data;
+
+    } catch (error)
+    {
+        console.log(error);
+    }
 };
 
 export const signUpUser = async (email: string, password: string, username: string) => {
@@ -19,5 +26,7 @@ export const updateUserInfo = async (userInfo: IUser) => {
     console.log(response);
     return response.data;
 };
+
+export const setCurrentUser = (state: GlobalState, user: IUser) => state.currentUser = user;
 
 export const selectCurrentUser = (state: GlobalState) => state.currentUser;
