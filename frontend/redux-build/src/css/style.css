@@ -35,3 +35,11 @@ body {
 .navbar-adjustment {
   width: 100%;
 }
+
+.icon {
+  padding: 10px;
+  background: #fc1b1b;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}

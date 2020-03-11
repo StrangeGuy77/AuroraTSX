@@ -9,11 +9,12 @@ import SoftwareForm from "../../components/SoftwareForm/SoftwareForm";
 import { SoftwareSchema } from "../../redux/software/software";
 import Axios from "axios";
 import { updateSoftwaresArray } from "../../redux/software/softwareActions";
+import { Dispatch } from "redux";
 
 class SoftwareHome extends React.Component<IProps, SoftwareSchema> {
   async componentDidMount() {
     const response = await Axios.get("http://localhost:3500/softwares");
-    updateSoftwaresArray(response.data.data);
+    this.props.updateSoftwaresArray(response.data.data);
   }
 
   render() {
@@ -34,8 +35,14 @@ const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state)
 });
 
-export default connect(mapStateToProps)(SoftwareHome);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  updateSoftwaresArray: (software: SoftwareSchema[]) =>
+    dispatch(updateSoftwaresArray(software))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SoftwareHome);
 
 interface IProps {
   language: ILanguage;
+  updateSoftwaresArray: (software: SoftwareSchema[]) => any;
 }

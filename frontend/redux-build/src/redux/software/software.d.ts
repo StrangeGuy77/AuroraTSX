@@ -8,6 +8,8 @@ export interface SoftwareSchema {
     user?: IUser;
     frameworks?: string[];
     views?: number;
+    imageUrl?: string;
+    userUploaderName?: string;
     likes?: number;
     timesDownloaded?: number;
     createdAt?: any;

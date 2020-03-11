@@ -65,6 +65,7 @@ class SoftwareForm extends React.Component<IProps> {
           `http://localhost:3500/softwares/${userUploaderId}`,
           newSoftware
         );
+        console.log(response);
 
         this.props.uploadSoftware(response.data.newSoftware);
       } catch (error) {

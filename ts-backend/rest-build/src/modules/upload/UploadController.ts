@@ -4,6 +4,7 @@ import * as fs from "fs-extra";
 import { Software } from "../../entity/Software";
 import { genRandomId } from "../../utils/helper";
 import { User } from "../../entity/User";
+import * as cloudinary from 'cloudinary';
 
 export const uploadSoftware = async (req: Request, res: Response) => {
   if (!req.body)
@@ -73,30 +74,49 @@ export const uploadSoftware = async (req: Request, res: Response) => {
               )
               {
 
+                /*
+                * Example Cloudinary uploading
+                * cloudinary.uploader.upload("sample.jpg", {"crop":"limit","tags":"samples","width":3000,"height":2000}, function(result) { console.log(result) });
+                */
+
                 try
                 {
                   await fs.rename(imageTempPath, targetPath);
 
-                  const newSoftware = Software.create({
-                    description,
-                    price,
-                    title,
-                    devLanguages: [devLanguages],
-                    filename: url + ext,
-                    user: userExist
-                  });
-
                   try
                   {
-                    await newSoftware.save();
-                    res.json({
-                      message: "Software succesfully saved.",
-                      newSoftware
+                    const response = await cloudinary.v2.uploader.upload(targetPath, {
+
                     });
+                    const newSoftware = Software.create({
+                      description,
+                      price,
+                      title,
+                      devLanguages: [devLanguages],
+                      filename: url + ext,
+                      userUploaderName: userExist.username,
+                      imageUrl: response.secure_url,
+                      user: userExist
+                    });
+
+                    try
+                    {
+                      await newSoftware.save();
+                      res.json({
+                        message: "Software succesfully saved.",
+                        newSoftware
+                      });
+                    } catch (error)
+                    {
+                      res.json({
+                        message: "There was a problem trying to save the software.",
+                        error
+                      });
+                    }
                   } catch (error)
                   {
                     res.json({
-                      message: "There was a problem trying to save the software.",
+                      message: "There was an error uploading image to the remote server.",
                       error
                     });
                   }

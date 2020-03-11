@@ -9,7 +9,6 @@ const INITIAL_STATE = {
 
 
 const softwareReducer = (state: GlobalState = INITIAL_STATE, action: SoftwareAction) => {
-
     switch (action.type)
     {
         case actions.GET_SOFTWARES:

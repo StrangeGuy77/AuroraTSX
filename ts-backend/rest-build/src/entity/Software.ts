@@ -40,6 +40,18 @@ export class Software extends BaseEntity {
   })
   filename: string;
 
+  @Column("varchar", {
+    length: 255,
+    nullable: true
+  })
+  userUploaderName: string;
+
+  @Column("varchar", {
+    length: 255,
+    nullable: true
+  })
+  imageUrl: string;
+
   @Column("integer", {
     default: 0
   })
