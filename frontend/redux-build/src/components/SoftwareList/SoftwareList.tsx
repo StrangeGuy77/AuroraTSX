@@ -8,14 +8,15 @@ import { SoftwareSchema } from "../../redux/software/software.d";
 import { getSoftwaresFromState } from "../../redux/software/softwareSelector";
 import {
   MDBCard,
-  MDBCardHeader,
-  MDBIcon,
+  // MDBIcon,
   MDBCardBody,
   MDBRow,
   MDBCol,
   MDBCardImage,
   MDBCardTitle,
-  MDBCardText
+  MDBCardText,
+  MDBContainer,
+  MDBCardGroup
 } from "mdbreact";
 
 const SoftwareList: React.FC<IProps> = ({
@@ -27,14 +28,26 @@ const SoftwareList: React.FC<IProps> = ({
   return (
     <div>
       {softwares.softwares.length > 0 ? (
-        <MDBCard className="mt-3" ecommerce>
-          <MDBCardHeader>
-            <h3>
-              <MDBIcon icon="fas fa-clock" children={recentUploads} />
-            </h3>
-          </MDBCardHeader>
-          <MDBCard>
-            <MDBRow>
+        // <MDBCard className="mt-3" ecommerce>
+        //   <MDBCardHeader>
+        //     <h3>
+        //       <MDBIcon icon="fas fa-clock" children={recentUploads} />
+        //     </h3>
+        //   </MDBCardHeader>
+
+        // </MDBCard>
+        <MDBContainer>
+          <h2 className="h1-responsive font-weight-bold text-center my-5">
+            {recentUploads}
+          </h2>
+          <p className="text-center w-responsive mx-auto pb-5">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit,
+            error amet numquam iure provident voluptate esse quasi, veritatis
+            totam voluptas nostrum quisquam eum porro a pariatur veniam.
+          </p>
+
+          <MDBRow>
+            <MDBCardGroup>
               {softwares.softwares.map((soft: SoftwareSchema) =>
                 soft ? (
                   <React.Fragment key={soft.id}>
@@ -61,9 +74,9 @@ const SoftwareList: React.FC<IProps> = ({
                   </React.Fragment>
                 ) : null
               )}
-            </MDBRow>
-          </MDBCard>
-        </MDBCard>
+            </MDBCardGroup>
+          </MDBRow>
+        </MDBContainer>
       ) : null}
     </div>
   );

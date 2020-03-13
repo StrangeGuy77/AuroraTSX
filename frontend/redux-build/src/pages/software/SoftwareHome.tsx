@@ -13,13 +13,9 @@ import { Dispatch } from "redux";
 class SoftwareHome extends React.Component<IProps, SoftwareSchema> {
   render() {
     return (
-      <div className="container-fluid p4">
-        <div className="row">
-          <div className="col-md-8">
-            <SoftwareForm />
-            <SoftwareList />
-          </div>
-        </div>
+      <div>
+        <SoftwareForm />
+        <SoftwareList />
       </div>
     );
   }
