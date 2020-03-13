@@ -2,6 +2,7 @@ import * as React from "react";
 import Navigation from "./Navigation/Navigation";
 import SoftwareHome from "../pages/software/SoftwareHome";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import "../css/style.css";
@@ -12,6 +13,7 @@ import { updateSoftwaresArray } from "../redux/software/softwareActions";
 import { connect } from "react-redux";
 import { SoftwareSchema } from "../redux/software/software";
 import { Dispatch } from "redux";
+import SignInCard from "./SignIn/SignInModal";
 
 class App extends React.Component<IProps> {
   async componentDidMount() {
@@ -25,6 +27,7 @@ class App extends React.Component<IProps> {
         <Navigation />
         <div className="container-fluid p-5">
           <div className="row">
+            <Route exact path="/signin" component={SignInCard} />
             <Route exact path="/software" component={SoftwareHome} />
             <Route
               exact

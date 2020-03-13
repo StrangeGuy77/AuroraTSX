@@ -1,86 +1,136 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import GlobalState from '../../redux/State';
-import { getLanguage } from '../../redux/language/LangSelector';
-import ILanguage from '../../redux/language/Lang';
-import QuestionComponent from '../../components/Faq/QuestionComponent';
-import UserAgreementComponent from '../../components/Faq/UserAgreementComponent';
+import * as React from "react";
+import { connect } from "react-redux";
+import GlobalState from "../../redux/State";
+import { getLanguage } from "../../redux/language/LangSelector";
+import ILanguage from "../../redux/language/Lang";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBIcon,
+  MDBBtn,
+  MDBInput,
+  MDBCard,
+  MDBCardHeader
+} from "mdbreact";
+import QuestionComponent from "../../components/Faq/QuestionComponent";
+import UserAgreementComponent from "../../components/Faq/UserAgreementComponent";
 
 const ContactUs: React.FC<IProps> = ({ language: { faq, softwareInfo } }) => {
+  const {
+    howToUploadASoftware,
+    htuSAnswer,
+    howToUploadABook,
+    htuBAnswer,
+    howLongDoesItTakesForAnAnswer,
+    hldtAnswer,
+    whereToFindCookiesAndUserAgreement
+  } = faq;
+  const FAQ = faq.faq;
+  const { sendEmail, signContent, signEmail, signIssue } = softwareInfo;
 
-    const {
-        howToUploadASoftware,
-        htuSAnswer,
-        howToUploadABook,
-        htuBAnswer,
-        howLongDoesItTakesForAnAnswer,
-        hldtAnswer,
-        whereToFindCookiesAndUserAgreement
-    } = faq;
-    const FAQ = faq.faq;
-    const { sendEmail, signContent, signEmail, signIssue } = softwareInfo;
+  return (
+    <MDBContainer>
+      <h2 className="h1-responsive font-weight-bold text-center my-5">
+        Contact us
+      </h2>
+      <p className="text-center w-responsive mx-auto pb-5">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
+        amet numquam iure provident voluptate esse quasi, veritatis totam
+        voluptas nostrum quisquam eum porro a pariatur veniam.
+      </p>
+      <MDBRow>
+        <MDBCol md="9" className="md-0 mb-5">
+          <form>
+            <MDBRow>
+              <MDBCol md="6">
+                <div className="md-form mb-0">
+                  <MDBInput type="text" id="contact-name" label="Your name" />
+                </div>
+              </MDBCol>
+              <MDBCol md="6">
+                <div className="md-form mb-0">
+                  <MDBInput type="text" id="email" label={signEmail} />
+                </div>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol md="12">
+                <div className="md-form mb-0">
+                  <MDBInput type="text" id="issue" label={signIssue} />
+                </div>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol md="12">
+                <div className="md-form mb-0">
+                  <MDBInput
+                    type="textarea"
+                    id="contact-message"
+                    label={signContent}
+                  />
+                </div>
+              </MDBCol>
+            </MDBRow>
+          </form>
+          <div className="text-center text-md-left">
+            <MDBBtn color="primary" size="sm">
+              {sendEmail}
+            </MDBBtn>
+          </div>
+        </MDBCol>
+        <MDBCol md="3" className="text-center">
+          <ul className="list-unstyled mb-0">
+            <li>
+              <MDBIcon icon="map-marker-alt" size="2x" className="blue-text" />
+              <p>San Francisco, CA 94126, USA</p>
+            </li>
+            <li>
+              <MDBIcon icon="phone" size="2x" className="blue-text mt-4" />
+              <p>+ 01 234 567 89</p>
+            </li>
+            <li>
+              <MDBIcon icon="envelope" size="2x" className="blue-text mt-4" />
+              <p>contact@example.com</p>
+            </li>
+          </ul>
+        </MDBCol>
+      </MDBRow>
 
-    return (
-        <div className="container">
-            <div className="col-lg-12">
-                <div className="card">
-                    <div className="card-header bg-dark">
-                        <div className="card-title text-white">
-                            <i className="far fa-envelope"></i>
-                            {}
-                        </div>
-                    </div>
-                    <div className="card-body">
-                        <form>
-                            <div className="form-group">
-                                <i className="fas fa-tag sender-icon"></i>
-                                <input type="text" name="subject" className="form-control"
-                                    placeholder={signIssue} required />
-                            </div>
-                            <div className="form-group">
-                                <i className="fas fa-envelope sender-icon"></i>
-                                <input type="text" name="sender" className="form-control"
-                                    placeholder={signEmail} required />
-                            </div>
-                            <div className="form-group">
-                                <i className="fas fa-info-circle sender-icon"></i>
-                                <textarea name="issue" className="form-control" rows={2}
-                                    placeholder={signContent} required></textarea>
-                            </div>
-                            <div className="form-group">
-                                <button className="btn btn-success">
-                                    <i className="far fa-share-square"></i> {sendEmail}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+      <MDBCol md="9" className="md-0 mb-5">
+        <h4 className="h1-responsive font-weight-bold text-center my-5 offset-4">
+          {FAQ}
+        </h4>
+      </MDBCol>
 
-                <div className="card">
-                    <div className="card-header bg-dark align-items-center">
-                        <h4 className="card-title text-white">
-                            <i className="fas fa-question"></i>
-                            {FAQ}
-                        </h4>
-                    </div>
-                </div>
-                <div className="card-header align-items-center">
-                    <QuestionComponent question={howToUploadASoftware} Answer={htuSAnswer} />
-                    <QuestionComponent question={howToUploadABook} Answer={htuBAnswer} />
-                    <QuestionComponent question={howLongDoesItTakesForAnAnswer} Answer={hldtAnswer} />
-                    <QuestionComponent question={whereToFindCookiesAndUserAgreement} Answer={UserAgreementComponent} />
-                </div>
-            </div>
-        </div>
-    );
+      <MDBCard>
+        <MDBCardHeader className="align-items-center ">
+          {" "}
+          <QuestionComponent
+            question={howToUploadASoftware}
+            Answer={htuSAnswer}
+          />
+          <QuestionComponent question={howToUploadABook} Answer={htuBAnswer} />{" "}
+          <QuestionComponent
+            question={howLongDoesItTakesForAnAnswer}
+            Answer={hldtAnswer}
+          />{" "}
+          <QuestionComponent
+            question={whereToFindCookiesAndUserAgreement}
+            Answer={UserAgreementComponent}
+          />{" "}
+        </MDBCardHeader>
+      </MDBCard>
+    </MDBContainer>
+  );
 };
 
 const mapDispatchToProps = (state: GlobalState) => ({
-    language: getLanguage(state)
+  language: getLanguage(state)
 });
 
 export default connect(mapDispatchToProps)(ContactUs);
 
 interface IProps {
-    language: ILanguage;
+  language: ILanguage;
 }

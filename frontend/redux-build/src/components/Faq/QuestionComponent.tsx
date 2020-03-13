@@ -1,39 +1,46 @@
-import * as React from 'react';
+import * as React from "react";
+import { MDBCardBody, MDBIcon } from "mdbreact";
 
 export default class QuestionComponent extends React.Component<IProps, IState> {
+  state = {
+    hiddenAnswer: false,
+    fadeOutAnimation: "slideInDown"
+  };
 
-    state = {
-        hiddenAnswer: false
-    };
-
-    render () {
-        const { question, Answer } = this.props;
-        return (
-            <div>
-                <div className="card-header" onClick={() => this.setState((prevState: IState, _: any) => { return { hiddenAnswer: !prevState.hiddenAnswer }; })}>
-                    {question}
-                    <i className="fas fa-sort-down"></i>
-                </div>
-                {
-                    this.state.hiddenAnswer ?
-                        <div className="card-body">
-                            {
-                                typeof Answer !== 'object' ? Answer :
-                                    <Answer />
-                            }
-                        </div>
-                        : null
-                }
-            </div>
-        );
-    }
+  render() {
+    const { question, Answer } = this.props;
+    return (
+      <div>
+        <MDBCardBody
+          onClick={() =>
+            this.setState((prevState: IState, _: any) => {
+              return {
+                hiddenAnswer: !prevState.hiddenAnswer,
+                fadeOutAnimation: "fadeOutUp"
+              };
+            })
+          }
+          className="text-center"
+        >
+          <div>{question}</div>
+          <MDBIcon icon="fas fa-sort-down" />
+          {this.state.hiddenAnswer ? (
+            <MDBCardBody className={`animated ${this.state.fadeOutAnimation}`}>
+              {typeof Answer !== "object" ? Answer : <Answer />}
+            </MDBCardBody>
+          ) : null}
+        </MDBCardBody>
+      </div>
+    );
+  }
 }
 
 interface IProps {
-    question: string;
-    Answer: string | any;
+  question: string;
+  Answer: string | any;
 }
 
 interface IState {
-    hiddenAnswer: boolean;
+  hiddenAnswer: boolean;
+  fadeOutAnimation: string;
 }
