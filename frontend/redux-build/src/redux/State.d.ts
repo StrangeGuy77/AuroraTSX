@@ -6,5 +6,5 @@ export default interface GlobalState {
   currentLanguage?: string;
   language?: ILanguage;
   softwares?: SoftwareSchema[];
-  currentUser?: IUser;
+  user?: IUser;
 }

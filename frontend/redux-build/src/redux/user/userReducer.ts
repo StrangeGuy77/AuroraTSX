@@ -1,19 +1,8 @@
-import IUser from "./user.d";
 import userTypes from "./userTypes";
 import { selectCurrentUser, setCurrentUser } from "./userSelector";
 
-const INITIAL_STATE: IUser = {
-  username: "",
-  email: "",
-  confirmed: false,
-  user_role: "unconfirmed",
-  show_public_email: false,
-  show_public_location: false,
-  show_public_name: false
-};
-
-export const userReducer = async (
-  state: any = INITIAL_STATE,
+export const userReducer = (
+  state: any = {},
   action: IAction
 ) => {
   switch (action.type)
@@ -21,12 +10,12 @@ export const userReducer = async (
     case userTypes.SELECT_CURRENT_USER:
       return {
         ...state,
-        currentUser: selectCurrentUser(state)
+        user: selectCurrentUser(state)
       };
     case userTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: setCurrentUser(state, action.payload)
+        user: setCurrentUser(state, action.payload)
       };
     default:
       return state;

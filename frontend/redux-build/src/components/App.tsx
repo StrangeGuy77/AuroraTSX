@@ -7,8 +7,18 @@ import "mdbreact/dist/css/mdb.css";
 import "../css/style.css";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import SoftwareView from "./SoftwareView/SoftwareView";
+import Axios from "axios";
+import { updateSoftwaresArray } from "../redux/software/softwareActions";
+import { connect } from "react-redux";
+import { SoftwareSchema } from "../redux/software/software";
+import { Dispatch } from "redux";
 
-class App extends React.Component {
+class App extends React.Component<IProps> {
+  async componentDidMount() {
+    const response = await Axios.get("http://localhost:3500/softwares");
+    this.props.updateSoftwaresArray(response.data.data);
+  }
+
   render() {
     return (
       <Router>
@@ -29,4 +39,13 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  updateSoftwaresArray: (software: SoftwareSchema[]) =>
+    dispatch(updateSoftwaresArray(software))
+});
+
+export default connect(null, mapDispatchToProps)(App);
+
+interface IProps {
+  updateSoftwaresArray: (software: SoftwareSchema[]) => any;
+}

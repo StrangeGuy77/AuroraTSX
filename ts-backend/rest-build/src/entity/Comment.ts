@@ -3,8 +3,8 @@ import {
   BaseEntity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn
+  JoinColumn,
+  ManyToOne
 } from "typeorm";
 import { User } from "./User";
 
@@ -24,7 +24,7 @@ export class Comment extends BaseEntity {
   })
   timestamp: string;
 
-  @OneToOne(_ => User)
+  @ManyToOne(_ => User)
   @JoinColumn()
   user: User;
 }

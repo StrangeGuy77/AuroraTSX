@@ -2,12 +2,14 @@ import * as React from "react";
 import { getLanguage } from "../../redux/language/LangSelector";
 import GlobalState from "../../redux/State";
 import { connect } from "react-redux";
-import { RouteChildrenProps, Link } from "react-router-dom";
+import { Link, match, withRouter, RouteComponentProps } from "react-router-dom";
 import ILanguage from "../../redux/language/Lang";
 import { SoftwareSchema } from "../../redux/software/software";
 import { getOneSoftware } from "../../redux/software/softwareSelector";
+import { selectCurrentUser } from "../../redux/user/userSelector";
+import IUser from "../../redux/user/user";
 
-class SoftwareView extends React.Component<IProps | any, SoftwareSchema> {
+class SoftwareView extends React.Component<IProps, SoftwareSchema> {
   render() {
     const { software } = this.props;
     console.log(this.props);
@@ -18,13 +20,14 @@ class SoftwareView extends React.Component<IProps | any, SoftwareSchema> {
       like,
       comments
     } = this.props.language.softwareInfo;
-    return (
+
+    return software ? (
       <div className="container-fluid p-4">
         <div className="row">
           <div className="col-md-8">
             <div className="card">
               <div className="card-header d-flex justify-content-between align-items-center">
-                <h2 className="card-title">{software?.title}</h2>
+                <h2 className="card-title">{software.title}</h2>
                 {/* super user?  */
                 /*
                  *<button className="btn btn-danger" id="btn-delete" data-id="{{soft.uniqueId}}">
@@ -36,11 +39,11 @@ class SoftwareView extends React.Component<IProps | any, SoftwareSchema> {
                 <p style={{ fontWeight: 700 }}>
                   {userWhoUploaded}:
                   <Link to={`/users/${software?.userUploaderName}`}>
-                    {software?.userUploaderName}
+                    {software.userUploaderName}
                   </Link>
                 </p>
                 <p style={{ fontWeight: 700 }}>
-                  {price}: {software?.price}$
+                  {price}: {software.price}$
                 </p>
                 <p style={{ fontWeight: 700 }}>
                   {description}: {software?.description}
@@ -125,20 +128,25 @@ class SoftwareView extends React.Component<IProps | any, SoftwareSchema> {
           }
         </div>
       </div>
-    );
+    ) : null;
   }
 }
 
 const mapStateToProps = (state: GlobalState, ownProps: IProps) => ({
   language: getLanguage(state),
-  software: getOneSoftware(ownProps.match?.params.softwareId as string, state)
+  software: getOneSoftware(
+    (ownProps.match as match<IMatchParams>).params.softwareId as string,
+    state
+  ),
+  user: selectCurrentUser(state) as IUser
 });
 
-export default connect(mapStateToProps)(SoftwareView);
+export default withRouter(connect(mapStateToProps)(SoftwareView));
 
-interface IProps extends RouteChildrenProps<IMatchParams> {
+interface IProps extends RouteComponentProps<IMatchParams> {
   language: ILanguage;
-  software?: SoftwareSchema;
+  software: SoftwareSchema;
+  user: IUser;
 }
 
 interface IMatchParams {

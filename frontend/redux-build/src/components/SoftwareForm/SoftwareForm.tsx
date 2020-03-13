@@ -1,12 +1,14 @@
 import * as React from "react";
 import GlobalState from "../../redux/State";
 import { getLanguage } from "../../redux/language/LangSelector";
+import { selectCurrentUser } from "../../redux/user/userSelector";
 import { connect } from "react-redux";
 import ILanguage from "../../redux/language/Lang";
 import { SoftwareSchema } from "../../redux/software/software";
 import { Dispatch } from "redux";
 import { uploadSoftware } from "../../redux/software/softwareActions";
 import Axios from "axios";
+import IUser from "../../redux/user/user";
 
 class SoftwareForm extends React.Component<IProps> {
   state = {
@@ -65,7 +67,6 @@ class SoftwareForm extends React.Component<IProps> {
           `http://localhost:3500/softwares/${userUploaderId}`,
           newSoftware
         );
-        console.log(response);
 
         this.props.uploadSoftware(response.data.newSoftware);
       } catch (error) {
@@ -88,6 +89,8 @@ class SoftwareForm extends React.Component<IProps> {
       signSoftwarePrice,
       upload
     } = this.props.language.softwareInfo;
+
+    const { confirmed, _id } = this.props.user as IUser;
 
     return (
       <div className="card">
@@ -180,6 +183,7 @@ class SoftwareForm extends React.Component<IProps> {
             <button
               className="btn btn-success"
               onClick={() => this.uploadSoftware()}
+              disabled={confirmed && _id ? false : true}
             >
               {upload}
             </button>
@@ -191,7 +195,8 @@ class SoftwareForm extends React.Component<IProps> {
 }
 
 const mapStateToProps = (state: GlobalState) => ({
-  language: getLanguage(state)
+  language: getLanguage(state),
+  user: selectCurrentUser(state)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -204,4 +209,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(SoftwareForm);
 interface IProps {
   language: ILanguage;
   uploadSoftware: (software: SoftwareSchema) => any;
+  user: IUser | any;
 }

@@ -7,16 +7,10 @@ import { connect } from "react-redux";
 import SoftwareList from "../../components/SoftwareList/SoftwareList";
 import SoftwareForm from "../../components/SoftwareForm/SoftwareForm";
 import { SoftwareSchema } from "../../redux/software/software";
-import Axios from "axios";
 import { updateSoftwaresArray } from "../../redux/software/softwareActions";
 import { Dispatch } from "redux";
 
 class SoftwareHome extends React.Component<IProps, SoftwareSchema> {
-  async componentDidMount() {
-    const response = await Axios.get("http://localhost:3500/softwares");
-    this.props.updateSoftwaresArray(response.data.data);
-  }
-
   render() {
     return (
       <div className="container-fluid p4">

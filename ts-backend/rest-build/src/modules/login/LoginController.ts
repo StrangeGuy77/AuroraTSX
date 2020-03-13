@@ -39,14 +39,16 @@ export const Login = async (req: Request, res: Response) => {
                 if (!isValidLogin)
                 {
                     res.json({
-                        message: "Incorrect email or password"
+                        message: "Incorrect email or password",
+                        code: 400
                     });
                 } else
                 {
                     isValidUser.password = "";
                     res.json({
                         message: "Succesfully logged in",
-                        userData: isValidUser
+                        userData: isValidUser,
+                        code: 200
                     });
                 }
             }

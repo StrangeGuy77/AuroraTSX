@@ -16,8 +16,7 @@ const SignIn: React.FC<IProps> = ({ language: { sectionsInfo } }) => {
           data-toggle="modal"
           data-target="#loginModal"
         >
-          <i className="fas fa-user-plus"></i>
-          {login}
+          <i className="fas fa-user"> {login}</i>
         </button>
         <SignInModal />
       </li>

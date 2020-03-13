@@ -27,6 +27,12 @@ export const updateUserInfo = async (userInfo: IUser) => {
     return response.data;
 };
 
-export const setCurrentUser = (state: GlobalState, user: IUser) => state.currentUser = user;
+export const setCurrentUser = (state: GlobalState, user: IUser) => {
+    for (const iterator of Object.keys(user))
+    {
+        (state as any)[iterator] = (user as any)[iterator];
+    }
+    return state;
+};
 
-export const selectCurrentUser = (state: GlobalState) => state.currentUser;
+export const selectCurrentUser = (state: GlobalState) => state.user;

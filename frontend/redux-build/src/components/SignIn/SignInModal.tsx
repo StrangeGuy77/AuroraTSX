@@ -7,13 +7,17 @@ import { Dispatch } from "redux";
 import { setCurrentUser } from "../../redux/user/userActions";
 import IUser from "../../redux/user/user";
 import Axios from "axios";
+import { RouteComponentProps, withRouter, Link } from "react-router-dom";
 
 class SignInModal extends React.Component<IProps, IState> {
   state = {
     openRegisterModal: false,
     email: "",
     password: "",
-    signInErrors: ""
+    signInErrors: "",
+    signInErrorsColor: "#ff0000",
+    fadeOut: "",
+    dataDismiss: ""
   };
 
   handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,25 +43,22 @@ class SignInModal extends React.Component<IProps, IState> {
           })
         )
       );
-      console.log(response);
       if (response.data.code === 200) {
-        const test = setCurrentUser(response as IUser);
-        console.log(test);
+        setCurrentUser(response.data.userData as IUser);
+        this.setState({
+          dataDismiss: "modal"
+        });
       } else {
         this.setState({
           signInErrors: response.data.message
         });
       }
     } catch (error) {
-      console.log(error);
+      this.setState({
+        signInErrors: `There was a problem sending data to the server: ${error}`
+      });
     }
   };
-
-  componentWillUnmount() {
-    this.setState({
-      signInErrors: ""
-    });
-  }
 
   render() {
     const { login, cancel } = this.props.language.sectionsInfo;
@@ -70,7 +71,7 @@ class SignInModal extends React.Component<IProps, IState> {
 
     return (
       <div
-        className="modal fade"
+        className={`modal fade animated ${this.state.fadeOut}`}
         id="loginModal"
         tabIndex={-1}
         role="dialog"
@@ -83,13 +84,18 @@ class SignInModal extends React.Component<IProps, IState> {
               <h5 className="modal-title" id="loginModalLabel">
                 {login}
               </h5>
-              <button
-                className="close"
-                type="button"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
+              <button className="close" type="button" aria-label="Close">
+                <span
+                  aria-hidden="true"
+                  data-dismiss="modal"
+                  onClick={() => {
+                    this.setState((_: IState) => ({
+                      fadeOut: "fadeOutUp delay-0s"
+                    }));
+                  }}
+                >
+                  &times;
+                </span>
               </button>
             </div>
             <div className="modal-body">
@@ -137,7 +143,10 @@ class SignInModal extends React.Component<IProps, IState> {
                 <div className="form-group">
                   <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                      <p style={{ color: "#ff0000" }} id="login-alert-section">
+                      <p
+                        style={{ color: this.state.signInErrorsColor }}
+                        id="login-alert-section"
+                      >
                         {this.state.signInErrors}
                       </p>
                       <hr />
@@ -145,27 +154,12 @@ class SignInModal extends React.Component<IProps, IState> {
                   </div>
                   <p>
                     {NotRegisteredYet}
-                    <a
-                      onClick={() =>
-                        this.setState((prevState: IState) => {
-                          return {
-                            openRegisterModal: !prevState.openRegisterModal
-                          };
-                        })
-                      }
-                    >
-                      {SignUpHere}
-                      {this.state.openRegisterModal ? (
-                        <React.Fragment>
-                          {/* Render signup modal */}
-                        </React.Fragment>
-                      ) : null}
-                    </a>
+                    <Link to="/signup">{SignUpHere}</Link>
                   </p>
                 </div>
               </div>
-              <div className="modal-foote">
-                <button className="btn btn-secondary" data-dismiss="modal">
+              <div className="modal-footer">
+                <button className="btn btn-secondary" data-dimiss="modal">
                   {cancel}
                 </button>
                 <button
@@ -174,6 +168,7 @@ class SignInModal extends React.Component<IProps, IState> {
                   onClick={(e: React.FormEvent<HTMLButtonElement>) =>
                     this.signInEvent(e)
                   }
+                  data-dismiss={this.state.dataDismiss}
                 >
                   {login}
                 </button>
@@ -194,9 +189,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignInModal);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SignInModal)
+);
 
-interface IProps {
+interface IProps extends RouteComponentProps {
   language: ILanguage;
   setCurrentUser: (user: IUser) => any;
 }
@@ -206,4 +203,7 @@ interface IState {
   email: string;
   password: string;
   signInErrors: string | null;
+  signInErrorsColor: string;
+  fadeOut: string;
+  dataDismiss: string;
 }

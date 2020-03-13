@@ -8,7 +8,7 @@ export default interface IUser {
   profile_pic?: string;
   name?: string;
   lastname?: string;
-  cellphone?: string;
+  cellphone?: string | number;
   worksite?: string;
   enterprise?: string;
   country?: string;
@@ -18,7 +18,7 @@ export default interface IUser {
   show_public_name: boolean;
   show_public_email: boolean;
   show_public_location: boolean;
-  followers?: string;
-  times_liked?: string;
-  times_posted?: string;
+  followers?: string | number;
+  times_liked?: string | number;
+  times_posted?: string | number;
 }
