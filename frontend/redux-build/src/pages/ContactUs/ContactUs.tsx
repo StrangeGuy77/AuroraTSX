@@ -16,7 +16,13 @@ import {
 import QuestionComponent from "../../components/Faq/QuestionComponent";
 import UserAgreementComponent from "../../components/Faq/UserAgreementComponent";
 
-const ContactUs: React.FC<IProps> = ({ language: { faq, softwareInfo } }) => {
+const ContactUs: React.FC<IProps> = ({
+  language: {
+    faq,
+    softwareInfo,
+    sectionsInfo: { contactUs }
+  }
+}) => {
   const {
     howToUploadASoftware,
     htuSAnswer,
@@ -32,7 +38,7 @@ const ContactUs: React.FC<IProps> = ({ language: { faq, softwareInfo } }) => {
   return (
     <MDBContainer>
       <h2 className="h1-responsive font-weight-bold text-center my-5">
-        Contact us
+        {contactUs}
       </h2>
       <p className="text-center w-responsive mx-auto pb-5">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error

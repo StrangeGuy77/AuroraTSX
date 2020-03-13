@@ -15,8 +15,7 @@ export default class QuestionComponent extends React.Component<IProps, IState> {
           onClick={() =>
             this.setState((prevState: IState, _: any) => {
               return {
-                hiddenAnswer: !prevState.hiddenAnswer,
-                fadeOutAnimation: "fadeOutUp"
+                hiddenAnswer: !prevState.hiddenAnswer
               };
             })
           }

@@ -9,6 +9,7 @@ import { Dispatch } from "redux";
 import { uploadSoftware } from "../../redux/software/softwareActions";
 import Axios from "axios";
 import IUser from "../../redux/user/user";
+import { MDBContainer, MDBCol, MDBRow, MDBInput, MDBBtn } from "mdbreact";
 
 class SoftwareForm extends React.Component<IProps> {
   state = {
@@ -20,7 +21,7 @@ class SoftwareForm extends React.Component<IProps> {
   };
 
   handleInput = (
-    e: React.ChangeEvent<
+    e: React.FormEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
@@ -55,12 +56,13 @@ class SoftwareForm extends React.Component<IProps> {
 
     if (verFlag()) {
       try {
+        const devLanguagesArray = JSON.stringify(devLanguages.split(","));
         const newSoftware = new FormData();
         newSoftware.append("file", file);
         newSoftware.append("description", description);
         newSoftware.append("price", price);
         newSoftware.append("title", title);
-        newSoftware.append("devLanguages", devLanguages);
+        newSoftware.append("devLanguages", devLanguagesArray);
 
         const userUploaderId = "20e5f568-0461-49c4-8f22-dcfe4fa725f9";
         const response = await Axios.post(
@@ -93,103 +95,118 @@ class SoftwareForm extends React.Component<IProps> {
     const { confirmed, _id } = this.props.user as IUser;
 
     return (
-      <div className="card">
-        <div className="card-header bg-dark">
-          <h3 className="card-title text-white">
-            <i className="far fa-file-code">{uploadYourSoftware}</i>
-          </h3>
-        </div>
-        <div className="card-body">
-          <div className="form-group">
-            <div className="input-group">
-              <div className="custom-file">
-                <i className="fas fa-file-code" />
-                <div className="input-group-prepend">
-                  <span className="input-group-text">{uploadYourSoftware}</span>
+      <MDBContainer>
+        <h2 className="h1-responsive font-weight-bold text-left ml-auto my-5">
+          {uploadYourSoftware}
+        </h2>
+        <MDBCol md="9" className="md-0 mb-5">
+          <form>
+            <MDBRow>
+              <MDBCol md="12">
+                <div className="input-group">
+                  <div className="input-group-prepend">
+                    <span
+                      className="input-group-text"
+                      id="inputGroupFileAddon01"
+                    >
+                      {this.state.file === ""
+                        ? "No file selected"
+                        : (this.state.file as any).name}
+                    </span>
+                  </div>
+                  <div className="custom-file">
+                    <input
+                      type="file"
+                      className="custom-file-input"
+                      id="inputGroupFile01"
+                      aria-describedby="inputGroupFileAddon01"
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        this.handleInput(e)
+                      }
+                      required
+                    />
+                    <label
+                      className="custom-file-label"
+                      htmlFor="inputGroupFile01"
+                    >
+                      {signSelectFile}
+                    </label>
+                  </div>
                 </div>
-                <input
-                  type="file"
-                  name="image"
-                  className="custom-file-input"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol md="12">
+                <MDBInput
+                  type="text"
+                  label={signSoftwareTitle}
+                  icon="fas fa-tag"
+                  name="title"
+                  onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                    this.handleInput(e)
+                  }
+                  required
+                />
+              </MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol md="12">
+                <MDBInput
+                  type="textarea"
+                  name="description"
+                  rows={2}
+                  className="form-control"
+                  label={signSoftwareDescription}
+                  onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                    this.handleInput(e)
+                  }
+                  icon="fas fa-info-circle"
+                  required
+                />
+              </MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol md="12">
+                <MDBInput
+                  type="text"
+                  label={signSoftwareLanguage}
+                  icon="fab fa-node-js"
+                  name="devLanguages"
+                  onChange={(e: React.FormEvent<HTMLInputElement>) =>
+                    this.handleInput(e)
+                  }
+                  required
+                />
+              </MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol md="12">
+                <MDBInput
+                  label={signSoftwarePrice}
+                  type="number"
+                  name="price"
+                  icon="fas fa-dollar-sign"
+                  className="form-control"
+                  onChange={(e: React.FormEvent<HTMLInputElement>) =>
                     this.handleInput(e)
                   }
                 />
-                <label htmlFor="inputGroupFile" className="custom-file-label">
-                  {signSelectFile}
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="form-group">
-            <i className="fas fa-tag icon" />
-            <input
-              type="text"
-              name="title"
-              className="form-control"
-              placeholder={`${signSoftwareTitle}`}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                this.handleInput(e)
-              }
-            />
-          </div>
-          <div className="form-group">
-            <i className="fas fa-info-circle icon" />
-            <textarea
-              name="description"
-              rows={2}
-              className="form-control"
-              placeholder={`${signSoftwareDescription}`}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                this.handleInput(e)
-              }
-            />
-          </div>
-          <div className="form-group">
-            <i className="fab fa-js icon" />
-            <select
-              name="devLanguages"
-              id=""
-              className="form-control"
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                this.handleInput(e)
-              }
-              required
-            >
-              <option value="null">{signSoftwareLanguage}</option>
-              <option value="js">Javascript</option>
-              <option value="ruby">Ruby</option>
-              <option value="python">Python</option>
-              <option value="cpp">C++</option>
-              <option value="cs">C#</option>
-              <option value="c">C</option>
-              <option value="java">Java</option>
-              <option value="php">PHP</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <i className="fas fa-dollar-sign icon" />
-            <input
-              type="text"
-              name="price"
-              className="form-control"
-              placeholder={signSoftwarePrice}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                this.handleInput(e)
-              }
-            />
-          </div>
-          <div className="form-group">
-            <button
-              className="btn btn-success"
-              onClick={() => this.uploadSoftware()}
-              disabled={confirmed && _id ? false : true}
-            >
-              {upload}
-            </button>
-          </div>
-        </div>
-      </div>
+              </MDBCol>
+            </MDBRow>
+            <MDBRow>
+              <MDBCol md="12">
+                <MDBBtn
+                  className="btn btn-success"
+                  onClick={() => this.uploadSoftware()}
+                  disabled={confirmed && _id ? false : false}
+                >
+                  {upload}
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
+          </form>
+        </MDBCol>
+      </MDBContainer>
     );
   }
 }

@@ -6,6 +6,17 @@ import ILanguage from "../../redux/language/Lang";
 import { Link } from "react-router-dom";
 import { SoftwareSchema } from "../../redux/software/software.d";
 import { getSoftwaresFromState } from "../../redux/software/softwareSelector";
+import {
+  MDBCard,
+  MDBCardHeader,
+  MDBIcon,
+  MDBCardBody,
+  MDBRow,
+  MDBCol,
+  MDBCardImage,
+  MDBCardTitle,
+  MDBCardText
+} from "mdbreact";
 
 const SoftwareList: React.FC<IProps> = ({
   language: {
@@ -16,51 +27,43 @@ const SoftwareList: React.FC<IProps> = ({
   return (
     <div>
       {softwares.softwares.length > 0 ? (
-        <div className="card mt-3">
-          <div className="card-header bg-dark text-white">
+        <MDBCard className="mt-3" ecommerce>
+          <MDBCardHeader>
             <h3>
-              <i className="fas"></i>
-              {recentUploads}
+              <MDBIcon icon="fas fa-clock" children={recentUploads} />
             </h3>
-          </div>
-          <div className="card-body">
-            <div className="row">
+          </MDBCardHeader>
+          <MDBCard>
+            <MDBRow>
               {softwares.softwares.map((soft: SoftwareSchema) =>
                 soft ? (
                   <React.Fragment key={soft.id}>
-                    <div className="col-md-4">
-                      <div className="card mt-4">
-                        <div className="card-image">
-                          <Link to={`/software/${soft.id}`}>
-                            <img
-                              src={soft.imageUrl}
-                              alt={soft.title}
-                              className="w-100 h-100 img-thumbnail"
-                            />
-                          </Link>
-                        </div>
-                        <div className="card-content">
-                          <span className="card-title">{soft.title}</span>
-                          <hr />
-                          <p>
-                            <i className="fas fa-info-circ" />
-                            {soft.description}
-                          </p>
-                          <hr />
-                          <p>
-                            <i className="fas fa-money-bill-wave icon d-block">
-                              <span className="d-block">{soft.price}</span>
-                            </i>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
+                    <MDBCol md="4">
+                      <MDBCard>
+                        <Link to={`/software/${soft.id}`}>
+                          <MDBCardImage
+                            className="img-fluid"
+                            src={soft.imageUrl}
+                            waves
+                          />
+                        </Link>
+                        <MDBCardBody>
+                          <MDBCardTitle>{soft.title}</MDBCardTitle>
+                          <MDBCardText>{soft.description}</MDBCardText>
+                          <div className="d-flex justify-content-end">
+                            <MDBCardText className="font-weight-bold">
+                              ${soft.price}
+                            </MDBCardText>
+                          </div>
+                        </MDBCardBody>
+                      </MDBCard>
+                    </MDBCol>
                   </React.Fragment>
                 ) : null
               )}
-            </div>
-          </div>
-        </div>
+            </MDBRow>
+          </MDBCard>
+        </MDBCard>
       ) : null}
     </div>
   );

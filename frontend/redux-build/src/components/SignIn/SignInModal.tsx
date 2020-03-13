@@ -7,20 +7,19 @@ import { Dispatch } from "redux";
 import { setCurrentUser } from "../../redux/user/userActions";
 import IUser from "../../redux/user/user";
 import Axios from "axios";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { RouteComponentProps, withRouter, Link } from "react-router-dom";
 import {
+  MDBModal,
+  MDBModalHeader,
+  MDBModalBody,
+  MDBModalFooter,
   MDBBtn,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCol
+  MDBInput
 } from "mdbreact";
 
-class SignInCard extends React.Component<IProps, IState> {
+class SignInModal extends React.Component<IProps, IState> {
   state = {
-    openRegisterCard: false,
+    isOpen: false,
     email: "",
     password: "",
     signInErrors: "",
@@ -29,7 +28,7 @@ class SignInCard extends React.Component<IProps, IState> {
     dataDismiss: ""
   };
 
-  handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const { name, value } = e.currentTarget;
     this.setState((prevState: IState) => ({
@@ -55,8 +54,15 @@ class SignInCard extends React.Component<IProps, IState> {
       if (response.data.code === 200) {
         setCurrentUser(response.data.userData as IUser);
         this.setState({
-          dataDismiss: "card"
+          signInErrors: response.data.message,
+          signInErrorsColor: "#4BB543"
         });
+        setTimeout(() => {
+          this.props.toggler();
+          this.setState({
+            signInErrors: ""
+          });
+        }, 1300);
       } else {
         this.setState({
           signInErrors: response.data.message
@@ -70,130 +76,70 @@ class SignInCard extends React.Component<IProps, IState> {
   };
 
   render() {
-    // const { login, cancel } = this.props.language.sectionsInfo;
-    // const {
-    //   email,
-    //   password,
-    //   NotRegisteredYet,
-    //   SignUpHere
-    // } = this.props.language.userInfo;
-
+    const { login, cancel } = this.props.language.sectionsInfo;
+    const {
+      email,
+      password,
+      NotRegisteredYet,
+      SignUpHere
+    } = this.props.language.userInfo;
     return (
-      <MDBCol>
-        <MDBCard style={{ width: "22rem" }}>
-          <MDBCardImage
-            className="img-fluid"
-            src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg"
-            waves
+      <MDBModal
+        isOpen={this.props.isOpen as boolean}
+        toggle={this.props.toggler}
+      >
+        <MDBModalHeader toggle={this.props.toggler}>
+          <div className="h5-responsive modal-title">{login}</div>
+        </MDBModalHeader>
+        <MDBModalBody>
+          <MDBInput
+            label={email}
+            icon="fas fa-at"
+            name="email"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              this.handleInput(e)
+            }
           />
-          <MDBCardBody>
-            <MDBCardTitle>Card title</MDBCardTitle>
-            <MDBCardText>
-              Some quick example text to build on the card title and make up the
-              bulk of the card&apos;s content.
-            </MDBCardText>
-            <MDBBtn href="#">MDBBtn</MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-      // <div className="card-md-2">
-      //   <div className="card-content">
-      //     <div className="card-header">
-      //       <h5 className="card-title" id="loginCardLabel">
-      //         {login}
-      //       </h5>
-      //       <button className="close" type="button" aria-label="Close">
-      //         <span
-      //           aria-hidden="true"
-      //           data-dismiss="card"
-      //           onClick={() => {
-      //             this.setState((_: IState) => ({
-      //               fadeOut: "fadeOutUp delay-0s"
-      //             }));
-      //           }}
-      //         >
-      //           &times;
-      //         </span>
-      //       </button>
-      //     </div>
-      //     <div className="card-body">
-      //       <div className="form-group">
-      //         <div className="input-group mb-3">
-      //           <div className="input-group-prepend">
-      //             <span className="input-group-text" id="basic-addon1">
-      //               <i className="fas fa-at"></i>
-      //             </span>
-      //           </div>
-      //           <input
-      //             type="text"
-      //             className="form-control"
-      //             placeholder={email}
-      //             aria-label="Username"
-      //             aria-describedby="basic-addon1"
-      //             name="email"
-      //             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-      //               this.handleInput(e)
-      //             }
-      //             required
-      //           />
-      //         </div>
-      //       </div>
-      //       <div className="form-group">
-      //         <div className="input-group mb-3">
-      //           <div className="input-group-prepend">
-      //             <span className="input-group-text" id="basic-addon1">
-      //               <i className="fas fa-key"></i>
-      //             </span>
-      //             <input
-      //               type="password"
-      //               className="form-control"
-      //               placeholder={password}
-      //               aria-label="Password"
-      //               aria-describedby="basic-addon1"
-      //               name="password"
-      //               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-      //                 this.handleInput(e)
-      //               }
-      //               required
-      //             />
-      //           </div>
-      //         </div>
-      //         <div className="form-group">
-      //           <div className="input-group mb-3">
-      //             <div className="input-group-prepend">
-      //               <p
-      //                 style={{ color: this.state.signInErrorsColor }}
-      //                 id="login-alert-section"
-      //               >
-      //                 {this.state.signInErrors}
-      //               </p>
-      //               <hr />
-      //             </div>
-      //           </div>
-      //           <p>
-      //             {NotRegisteredYet}
-      //             <Link to="/signup">{SignUpHere}</Link>
-      //           </p>
-      //         </div>
-      //       </div>
-      //       <div className="card-footer">
-      //         <button className="btn btn-secondary" data-dimiss="card">
-      //           {cancel}
-      //         </button>
-      //         <button
-      //           className="btn btn-primary"
-      //           type="submit"
-      //           onClick={(e: React.FormEvent<HTMLButtonElement>) =>
-      //             this.signInEvent(e)
-      //           }
-      //           data-dismiss={this.state.dataDismiss}
-      //         >
-      //           {login}
-      //         </button>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
+          <MDBInput
+            type="password"
+            label={password}
+            name="password"
+            icon="fas fa-key"
+            onChange={(e: React.FormEvent<HTMLInputElement>) =>
+              this.handleInput(e)
+            }
+          />
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <p
+                style={{ color: this.state.signInErrorsColor }}
+                id="login-alert-section"
+              >
+                {this.state.signInErrors}
+              </p>
+              <hr />
+            </div>
+            <p>
+              {NotRegisteredYet}
+              <Link to="/signup">{SignUpHere}</Link>
+            </p>
+          </div>
+        </MDBModalBody>
+        <MDBModalFooter>
+          <MDBBtn color="secondary" onClick={this.props.toggler}>
+            {cancel}
+          </MDBBtn>
+          <MDBBtn
+            color="primary"
+            type="submit"
+            onClick={(e: React.FormEvent<HTMLButtonElement>) =>
+              this.signInEvent(e)
+            }
+          >
+            {login}
+          </MDBBtn>
+        </MDBModalFooter>
+      </MDBModal>
     );
   }
 }
@@ -207,16 +153,18 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(SignInCard)
+  connect(mapStateToProps, mapDispatchToProps)(SignInModal)
 );
 
 interface IProps extends RouteComponentProps {
   language: ILanguage;
   setCurrentUser: (user: IUser) => any;
+  isOpen: boolean;
+  toggler: () => any;
 }
 
 interface IState {
-  openRegisterCard: boolean | string;
+  isOpen: boolean | string;
   email: string;
   password: string;
   signInErrors: string | null;

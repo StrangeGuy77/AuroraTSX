@@ -3,31 +3,45 @@ import GlobalState from "../../redux/State";
 import ILanguage from "../../redux/language/Lang";
 import { getLanguage } from "../../redux/language/LangSelector";
 import { connect } from "react-redux";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import SignInModal from "./SignInModal";
+import { MDBBtn } from "mdbreact";
 
-const SignIn: React.FC<IProps> = ({ language: { sectionsInfo }, history }) => {
-  const { login } = sectionsInfo;
+class SignIn extends React.Component<IProps, IState> {
+  state = {
+    isOpen: false
+  };
 
-  return (
-    <div>
-      <li className="login-sec">
-        <button
-          className="btn btn-dark"
-          onClick={() => history.push("/signin")}
-        >
-          <i className="fas fa-user"> {login}</i>
-        </button>
-      </li>
-    </div>
-  );
-};
+  openModal = () => {
+    this.setState((prevState: IState) => ({
+      isOpen: !prevState.isOpen
+    }));
+  };
+
+  render() {
+    const { login } = this.props.language.sectionsInfo;
+    return (
+      <div>
+        <li className="login-sec">
+          <MDBBtn color="indigo" onClick={() => this.openModal()}>
+            <i className="fas fa-user"> {login}</i>
+          </MDBBtn>
+          <SignInModal isOpen={this.state.isOpen} toggler={this.openModal} />
+        </li>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state)
 });
 
-export default withRouter(connect(mapStateToProps)(SignIn));
+export default connect(mapStateToProps)(SignIn);
 
-interface IProps extends RouteComponentProps {
+interface IProps {
   language: ILanguage;
+}
+
+interface IState {
+  isOpen: boolean;
 }
