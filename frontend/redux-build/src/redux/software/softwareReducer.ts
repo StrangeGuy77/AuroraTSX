@@ -1,7 +1,7 @@
 import { SoftwareSchema } from './software.d';
 import GlobalState from '../State';
 import actions from './softwareTypes';
-import { updateSoftwaresArray, uploadASoftware, deleteASoftware } from './softwareSelector';
+import { updateSoftwaresArray, deleteASoftware } from './softwareSelector';
 
 const INITIAL_STATE = {
     softwares: []
@@ -20,7 +20,7 @@ const softwareReducer = (state: GlobalState = INITIAL_STATE, action: SoftwareAct
         case actions.UPLOAD_SOFTWARE:
             return {
                 ...state,
-                softwares: updateSoftwaresArray(uploadASoftware(action.payload, state.softwares as SoftwareSchema[]))
+                softwares: updateSoftwaresArray(state.softwares as SoftwareSchema[], action.payload)
             };
         case actions.DELETE_SOFTWARE:
             return {

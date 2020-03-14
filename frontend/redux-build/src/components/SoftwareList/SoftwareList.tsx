@@ -27,15 +27,7 @@ const SoftwareList: React.FC<IProps> = ({
 }) => {
   return (
     <div>
-      {softwares.softwares.length > 0 ? (
-        // <MDBCard className="mt-3" ecommerce>
-        //   <MDBCardHeader>
-        //     <h3>
-        //       <MDBIcon icon="fas fa-clock" children={recentUploads} />
-        //     </h3>
-        //   </MDBCardHeader>
-
-        // </MDBCard>
+      {softwares.length > 0 ? (
         <MDBContainer>
           <h2 className="h1-responsive font-weight-bold text-center my-5">
             {recentUploads}
@@ -48,7 +40,7 @@ const SoftwareList: React.FC<IProps> = ({
 
           <MDBRow>
             <MDBCardGroup>
-              {softwares.softwares.map((soft: SoftwareSchema) =>
+              {softwares.map((soft: SoftwareSchema) =>
                 soft ? (
                   <React.Fragment key={soft.id}>
                     <MDBCol md="4">
