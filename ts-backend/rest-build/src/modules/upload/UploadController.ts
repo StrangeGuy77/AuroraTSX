@@ -82,17 +82,14 @@ export const uploadSoftware = async (req: Request, res: Response) => {
                 try
                 {
                   await fs.rename(imageTempPath, targetPath);
-
                   try
                   {
-                    const response = await cloudinary.v2.uploader.upload(targetPath, {
-
-                    });
+                    const response = await cloudinary.v2.uploader.upload(targetPath, {});
                     const newSoftware = Software.create({
                       description,
                       price,
                       title,
-                      devLanguages: [devLanguages],
+                      devLanguages: JSON.parse(devLanguages),
                       filename: url + ext,
                       userUploaderName: userExist.username,
                       imageUrl: response.secure_url,

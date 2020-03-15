@@ -1,13 +1,14 @@
 import { Software } from "../../entity/Software";
 import { Request, Response } from "express";
 
-export const getRecentSoftwares = async (req: Request, res: Response) => {
+export const getRecentSoftwares = async (_: Request, res: Response) => {
   try
   {
     const data = await Software.find({
       order: {
         createdAt: "ASC"
       }
+
     });
     res.json({
       message: "Succesful",
