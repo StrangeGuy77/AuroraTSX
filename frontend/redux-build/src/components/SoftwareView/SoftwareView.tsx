@@ -27,10 +27,13 @@ import { isEmpty } from "../../utils/utils";
 import { format } from "timeago.js";
 
 class SoftwareView extends React.Component<IProps, SoftwareSchema> {
+  deleteSoftware = () => {};
+
+  likeSoftware = () => {};
+
   render() {
     const { software } = this.props;
     const {
-      // userWhoUploaded,
       // price,
       // description,
       like
@@ -135,13 +138,6 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
 
     //         {/* Comment action */}
     //       </div>
-    //       {/* {{#if sidebar.stats.softwares}} */} */}
-    //       {
-    //         //     <div className="col-md-4">
-    //         //     {{> sidebar/stats}}
-    //         //     {{> components/softwareComponents/profilePreview}}
-    //         // </div>
-    //       }
     //     </div>
     //   </div>
     null;
