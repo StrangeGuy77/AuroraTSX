@@ -33,7 +33,7 @@ export class User extends BaseEntity {
   userRole: string;
 
   @Column("varchar", {
-    length: 50,
+    length: 255,
     name: "profile_pic",
     default: "default_profile_pic.png"
   })

@@ -1,5 +1,6 @@
 import { Software } from "../../entity/Software";
 import { Request, Response } from "express";
+import { User } from "../../entity/User";
 
 export const getRecentSoftwares = async (_: Request, res: Response) => {
   try
@@ -92,6 +93,102 @@ export const deleteASoftware = async (req: Request, res: Response) => {
       res.json({
         message: "There was an error while trying to delete the software",
         error
+      });
+    }
+  }
+};
+
+export const getUsers = async (req: Request, res: Response) => {
+  if (!req.query)
+  {
+    res.json({
+      message: "To find a user you must send either his Id or his username through the query param. ?userId= || ?username="
+    });
+  } else
+  {
+    if (req.query.userId)
+    {
+      const { userId } = req.query;
+      const uuidRegex = /[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}/;
+      if (uuidRegex.test(userId))
+      {
+        try
+        {
+          const userExist = await User.findOne({
+            where: {
+              id: userId
+            }
+          });
+          if (userExist)
+          {
+            userExist.password = "";
+            res.json({
+              message: "Success",
+              code: 200,
+              user: userExist
+            });
+          } else
+          {
+            res.json({
+              message: "The user you're trying to search doesn't exist."
+            });
+          }
+        } catch (error)
+        {
+          res.json({
+            message: "There was an error while searching for the user.",
+            error
+          });
+        }
+      } else
+      {
+        res.json({
+          message: "The ID you've sent doesnt match the UUID pattern. Check it out."
+        });
+      }
+    } else if (req.query.username)
+    {
+      const { username } = req.query;
+      if (username !== "")
+      {
+        try
+        {
+          const userExist = await User.findOne({
+            where: {
+              username
+            }
+          });
+          if (userExist)
+          {
+            userExist.password = "";
+            res.json({
+              message: "Success",
+              code: 200,
+              user: userExist
+            });
+          } else
+          {
+            res.json({
+              message: "The user you're trying to search doesn't exist."
+            });
+          }
+        } catch (error)
+        {
+          res.json({
+            message: "There was an error while searching for the user.",
+            error
+          });
+        }
+      } else
+      {
+        res.json({
+          message: "The username you've sent is empty"
+        });
+      }
+    } else
+    {
+      res.json({
+        message: "To find a user you must send either his Id or his username through the query param. ?userId= || ?username="
       });
     }
   }
