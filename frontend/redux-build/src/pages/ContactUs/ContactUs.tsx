@@ -89,15 +89,15 @@ const ContactUs: React.FC<IProps> = ({
           <ul className="list-unstyled mb-0">
             <li>
               <MDBIcon icon="map-marker-alt" size="2x" className="blue-text" />
-              <p>San Francisco, CA 94126, USA</p>
+              <p>Km. 5 Av. Las Palmas</p>
             </li>
             <li>
               <MDBIcon icon="phone" size="2x" className="blue-text mt-4" />
-              <p>+ 01 234 567 89</p>
+              <p>+57 322 277 0726</p>
             </li>
             <li>
               <MDBIcon icon="envelope" size="2x" className="blue-text mt-4" />
-              <p>contact@example.com</p>
+              <p>contact@auroradevelopment.com</p>
             </li>
           </ul>
         </MDBCol>

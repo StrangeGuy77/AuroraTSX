@@ -110,15 +110,14 @@ class SignInModal extends React.Component<IProps, IState> {
             }
           />
           <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <p
-                style={{ color: this.state.signInErrorsColor }}
-                id="login-alert-section"
-              >
-                {this.state.signInErrors}
-              </p>
-              <hr />
-            </div>
+            <p
+              style={{ color: this.state.signInErrorsColor }}
+              className="text-center"
+              id="login-alert-section"
+            >
+              {this.state.signInErrors}
+            </p>
+            <hr />
             <p>
               {NotRegisteredYet}
               <Link to="/signup">{SignUpHere}</Link>

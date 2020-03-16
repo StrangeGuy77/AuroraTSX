@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { SoftwareSchema } from "../redux/software/software";
 import { Dispatch } from "redux";
 import SignInCard from "./SignIn/SignInModal";
+import Footer from "./Footer/Footer";
 
 class App extends React.Component<IProps> {
   async componentDidMount() {
@@ -37,6 +38,7 @@ class App extends React.Component<IProps> {
             <Route path="/contact-us" component={ContactUs} />
           </div>
         </div>
+        <Footer />
       </Router>
     );
   }

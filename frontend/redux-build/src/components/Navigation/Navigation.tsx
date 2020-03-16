@@ -11,12 +11,14 @@ import { getLanguage } from "../../redux/language/LangSelector";
 import { changeLanguage } from "../../redux/language/LangActions";
 import { selectCurrentUser } from "../../redux/user/userSelector";
 import SignIn from "../SignIn/SignIn";
+import SignUp from "../SignUp/SignUp";
 
 const Navigation: React.FC<IProps> = ({
   selectLanguage,
   language: { sectionsInfo },
-  currentUser
+  user
 }) => {
+  console.log(user);
   const {
     home,
     library,
@@ -137,13 +139,15 @@ const Navigation: React.FC<IProps> = ({
               </ul>
             </div>
           </ul>
-          {currentUser ? (
+          {user ? (
             <React.Fragment>
               <SignIn />
+              <SignUp />
             </React.Fragment>
           ) : (
             <React.Fragment>
               <SignIn />
+              <SignUp />
             </React.Fragment>
           )}
         </div>
@@ -158,7 +162,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state),
-  currentUser: selectCurrentUser(state)
+  user: selectCurrentUser(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
@@ -166,5 +170,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
 interface IProps {
   language: ILanguage;
   selectLanguage: (language: string) => any;
-  currentUser: any;
+  user: any;
 }

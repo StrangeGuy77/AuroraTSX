@@ -6,6 +6,8 @@ export const selectLanguage = (language: string = "en") => {
   return File.default;
 };
 
+export const getLanguageAcronym = (state: GlobalState | any) => state.language.currentLanguage;
+
 export const getLanguage = (state: GlobalState | any) =>
   state.language.language;
 

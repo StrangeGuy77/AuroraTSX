@@ -17,8 +17,14 @@ import {
   MDBCardBody,
   MDBCardTitle,
   MDBCardText,
-  MDBCardFooter
+  MDBCardFooter,
+  MDBIcon,
+  MDBBtn
 } from "mdbreact";
+import ProfilePreview from "../ProfilePreview/ProfilePreview";
+import StripeButtonCheckout from "../StripeButton/StripeButton";
+import { isEmpty } from "../../utils/utils";
+import { format } from "timeago.js";
 
 class SoftwareView extends React.Component<IProps, SoftwareSchema> {
   render() {
@@ -27,10 +33,10 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
       // userWhoUploaded,
       // price,
       // description,
-      // like,
+      like
       // comments
     } = this.props.language.softwareInfo;
-    console.log(this.props.user);
+    const { youNeedToBeLogged } = this.props.language.buyInfo;
 
     return software ? (
       <MDBContainer className="p-4">
@@ -40,75 +46,60 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
               <MDBCardImage src={software.imageUrl} className="img-fluid" />
               <MDBCardBody>
                 <MDBCardTitle>{software.title}</MDBCardTitle>
-                <MDBCardTitle></MDBCardTitle>
-                <MDBCardText>{software.description}</MDBCardText>
+                <MDBCardText>${software.price}</MDBCardText>
+                <div className="d-flex justify-content-start align-items-end">
+                  <MDBBtn color="dark-green" data-id="{{soft.filename}}">
+                    <MDBIcon icon="fas fa-thumbs-up"></MDBIcon> {like}
+                  </MDBBtn>
+                </div>
               </MDBCardBody>
-              <MDBCardFooter></MDBCardFooter>
+              <MDBCardFooter>
+                <div className="d-flex justify-content-between align-items-center">
+                  <MDBBtn color="dark-green" data-id="{{soft.filename}}">
+                    <MDBIcon icon="fas fa-thumbs-up" /> {like}
+                  </MDBBtn>
+                  <p>
+                    {software.likes}
+                    <MDBIcon icon="fas fa-heart" />
+                  </p>
+                  <p>
+                    {software.views} <MDBIcon icon="fas fa-eye" />
+                  </p>
+                  <p>
+                    <MDBIcon icon="far fa-clock" />
+                    {format(software.createdAt)}
+                  </p>
+                </div>
+              </MDBCardFooter>
+              <MDBCardFooter>
+                {isEmpty(this.props.user) ? (
+                  <MDBBtn color="dark" disabled>
+                    {youNeedToBeLogged}
+                  </MDBBtn>
+                ) : (
+                  <StripeButtonCheckout
+                    description={software.description}
+                    image={software.imageUrl as string}
+                    price={software.price}
+                    email={
+                      isEmpty(this.props.user)
+                        ? ""
+                        : (this.props.user as any).user.email
+                    }
+                  />
+                )}
+              </MDBCardFooter>
             </MDBCard>
-            {/* <div className="h5-responsive font-weight-bold">
-              <div className="d-flex offset-0">
-                {userWhoUploaded}:{" "}
-                <Link to={`/user/${software.userUploaderName}`} className="co">
-                  {software.userUploaderName}
-                </Link>
-              </div>
-            </div> */}
-            <div className="h5-responsive font-weight-bold">
-              <div className="d-flex offset-1">{software.description}</div>
-            </div>
-            <div className="h5-responsive font-weight-bold">
-              <div className="d-flex offset-1">{software.price}</div>
-            </div>
+          </MDBCol>
+          <MDBCol md="4">
+            <ProfilePreview
+              username={software.userUploaderName as string}
+              softdesc={software.description}
+            />
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-    ) : //   <div className="container-fluid p-4">
-    //     <div className="row">
-    //       <div className="col-md-8">
-    //         <div className="card">
-    //           <div className="card-header d-flex justify-content-between align-items-center">
-    //             <h2 className="card-title">{software.title}</h2>
-    //             {/* super user?  */
-    //             /*
-    //              *<button className="btn btn-danger" id="btn-delete" data-id="{{soft.uniqueId}}">
-    //              *<i className="fa fa-times"></i> {{language.softwareInfo.delete}}
-    //              *</button>
-    //              */}
-    //           </div>
-    //           <div className="card-body">
-    //             <p style={{ fontWeight: 700 }}>
-    //               {userWhoUploaded}:
-    //               <Link to={`/users/${software?.userUploaderName}`}>
-    //                 {software.userUploaderName}
-    //               </Link>
-    //             </p>
-    //             <p style={{ fontWeight: 700 }}>
-    //               {price}: {software.price}$
-    //             </p>
-    //             <p style={{ fontWeight: 700 }}>
-    //               {description}: {software?.description}
-    //             </p>
-    //             <div className="text-center">
-    //               <img src={software?.imageUrl} alt="" className="img-fluid" />
-    //             </div>
-    //             <p></p>
-    //             {/* If software is already bought <button onClick="window.location.href='/{{languageFinder}}/software/{{soft.uniqueId}}/download'"
-    //                     className="btn btn-info" id="btn-download" data-id="{{soft.filename}}">
-    //                     <i className="fas fa-download"></i> {{language.softwareInfo.download}}
-    //                 </button> */
-    //             /* Else  <div className="card-footer">
-    //                     <form action="/{{languageFinder}}/software/{{soft.uniqueId}}/buy" method="GET">
-    //                         <script src="https://checkout.stripe.com/checkout.js" className="stripe-button"
-    //                             data-key="pk_test_Z5JZQq8QxBrvoKf8bgss1PkH0072q9LKtb" data-locale="{{languageFinder}}"
-    //                             data-amount="{{soft.price}}00" data-name="{{soft.title}}"
-    //                             data-description="{{soft.description}}" data-image="/public/upload/{{soft.filename}}"
-    //                             data-locale="auto" data-currency="usd" data-email="{{session.email}}">
-    //                             </script>
-    //                         <script>
-    //                             document.getElementsByclassNameName('stripe-button-el')[0].style.display = 'none';
-    //                         </script>
-    //                         {
-    //                             /* User is not logged? */
+    ) : //                             /* User is not logged? */
     //             /*
     //                             *<button className="btn btn-dark btn-block" disabled>
     //                             {{language.buyInfo.youNeedToBeLogged}} <i className="fas fa-shopping-cart"></i>
@@ -124,22 +115,7 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
     //                 </div>*/}
     //           </div>
     //           <div className="card-footer d-flex justify-content-between align-items-center">
-    //             <button
-    //               className="btn btn-success"
-    //               id="btn-like"
-    //               data-id="{{soft.filename}}"
-    //             >
-    //               <i className="fas fa-thumbs-up"></i> {like}
-    //             </button>
-    //             <p>
-    //               {/* <span className="likes-count">{{soft.likes}}</span> */}
-    //               <i className="fas fa-heart"></i>
-    //             </p>
-    //             <p>{/* {{soft.views}} <i className="fas fa-eye"></i> */}</p>
-    //             <p>
-    //               <i className="far fa-clock"></i>
-    //               {/* {{timeago soft.timestamp}} */}
-    //             </p>
+
     //           </div>
     //         </div>
     //         <div className="card mt-2">
