@@ -1,5 +1,3 @@
-require("ts-node/register");
-
 const { setup } = require("./setupTest");
 
 module.exports = async function() {

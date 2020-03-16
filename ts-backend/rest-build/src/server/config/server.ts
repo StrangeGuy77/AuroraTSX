@@ -1,15 +1,20 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+// import { createConnection } from "typeorm";
 import * as express from "express";
 import * as multer from "multer";
 import * as path from "path";
 import router from "../routes/index.routes";
 import * as cors from 'cors';
 import * as cloudinary from 'cloudinary';
+import { config } from 'dotenv';
+import { createTypeOrmConn } from "../../utils/ormConn";
 
-const startServer = async () => {
+
+const startServer = async (getServer?: boolean) => {
   const app = express();
-  await createConnection();
+
+  config();
+  await createTypeOrmConn();
 
   cloudinary.v2.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME || 'strangeguy77',
@@ -28,10 +33,16 @@ const startServer = async () => {
 
 
   router(app);
-  app.listen(app.get("port"));
+  const server = app.listen(app.get("port"));
   console.log(`Listening on port ${app.get("port")}`);
 
-  return app;
+  if (getServer)
+  {
+    return server;
+  } else
+  {
+    return app;
+  }
 };
 
 export default startServer;

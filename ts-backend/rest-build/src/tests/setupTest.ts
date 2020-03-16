@@ -5,10 +5,6 @@ import startServer from "../server/config/server";
  */
 
 export const setup = async () => {
-    const app = await startServer();
-    const x = app.request.originalUrl;
-    // tslint:disable-next-line: one-variable-per-declaration
-    const y: any[] | any | any = x;
-    const port = y.port;
-    process.env.TEST_HOST = `http://127.0.0.1:${port}`;
+    await startServer();
+    process.env.TEST_HOST = `http://localhost:${3500}`;
 };
