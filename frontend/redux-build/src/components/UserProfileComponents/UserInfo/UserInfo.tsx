@@ -1,9 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import GlobalState from "../../redux/State";
-import { getLanguage } from "../../redux/language/LangSelector";
-import ILanguage from "../../redux/language/Lang";
-import IUser from "../../redux/user/user";
+import GlobalState from "../../../redux/State";
+import { getLanguage } from "../../../redux/language/LangSelector";
+import ILanguage from "../../../redux/language/Lang";
+import IUser from "../../../redux/user/user";
 import { MDBListGroup, MDBListGroupItem, MDBIcon, MDBBadge } from "mdbreact";
 
 class UserInfo extends React.Component<IProps> {

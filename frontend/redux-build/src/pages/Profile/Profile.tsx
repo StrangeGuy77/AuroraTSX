@@ -16,12 +16,14 @@ import {
   MDBContainer,
   MDBCol
 } from "mdbreact";
-import UserInfo from "../../components/UserInfo/UserInfo";
+import UserInfo from "../../components/UserProfileComponents/UserInfo/UserInfo";
+import { isEmpty } from "../../utils/utils";
+import UserSettings from "../../components/UserProfileComponents/UserSettings/UserSettings";
 
-export class Profile extends React.Component<IProps, IState> {
+class Profile extends React.Component<IProps, IState> {
   state = {
-    isOwnProfile: false,
-    userProfileOwner: null,
+    isOwnProfile: true,
+    userProfileOwner: undefined,
     activeItem: "1"
   };
 
@@ -30,10 +32,19 @@ export class Profile extends React.Component<IProps, IState> {
     const { data } = await Axios.get(
       `http://localhost:3500/user?username=${username}`
     );
-    if (data) {
+    if (data.user) {
       this.setState({
         userProfileOwner: data.user
       });
+      if (!isEmpty(this.props.user)) {
+        const { id } = (this.props.user as any).user;
+        console.log((this.state.userProfileOwner as any).id === id);
+        if ((this.state.userProfileOwner as any).id === id) {
+          this.setState({
+            isOwnProfile: true
+          });
+        }
+      }
     } else {
       this.props.history.push("/");
     }
@@ -48,6 +59,11 @@ export class Profile extends React.Component<IProps, IState> {
   };
 
   render() {
+    const { home } = this.props.language.sectionsInfo;
+
+    const { Settings, Contact, PayingHistory } = this.props.language.userInfo;
+    console.log(this.state.userProfileOwner);
+
     return (
       <div>
         <MDBContainer className="d-flex" fluid>
@@ -68,19 +84,23 @@ export class Profile extends React.Component<IProps, IState> {
                     onClick={this.toggle("1")}
                     role="tab"
                   >
-                    Home
+                    {home}
                   </MDBNavLink>
                 </MDBNavItem>
-                <MDBNavItem>
-                  <MDBNavLink
-                    to="#"
-                    active={this.state.activeItem === "2"}
-                    onClick={this.toggle("2")}
-                    role="tab"
-                  >
-                    Profile
-                  </MDBNavLink>
-                </MDBNavItem>
+                {this.state.isOwnProfile ? (
+                  <React.Fragment>
+                    <MDBNavItem>
+                      <MDBNavLink
+                        to="#"
+                        active={this.state.activeItem === "2"}
+                        onClick={this.toggle("2")}
+                        role="tab"
+                      >
+                        {Settings}
+                      </MDBNavLink>
+                    </MDBNavItem>
+                  </React.Fragment>
+                ) : null}
                 <MDBNavItem>
                   <MDBNavLink
                     to="#"
@@ -88,9 +108,23 @@ export class Profile extends React.Component<IProps, IState> {
                     onClick={this.toggle("3")}
                     role="tab"
                   >
-                    Profile
+                    {Contact}
                   </MDBNavLink>
                 </MDBNavItem>
+                {this.state.isOwnProfile ? (
+                  <React.Fragment>
+                    <MDBNavItem>
+                      <MDBNavLink
+                        to="#"
+                        active={this.state.activeItem === "4"}
+                        onClick={this.toggle("4")}
+                        role="tab"
+                      >
+                        {PayingHistory}
+                      </MDBNavLink>
+                    </MDBNavItem>
+                  </React.Fragment>
+                ) : null}
               </MDBNav>
               <MDBTabContent activeItem={this.state.activeItem}>
                 <MDBTabPane tabId="1" role="tabpanel">
@@ -102,22 +136,19 @@ export class Profile extends React.Component<IProps, IState> {
                     minima.
                   </p>
                 </MDBTabPane>
-                <MDBTabPane tabId="2" role="tabpanel">
-                  <p className="mt-2">
-                    Quisquam aperiam, pariatur. Tempora, placeat ratione porro
-                    voluptate odit minima. Lorem ipsum dolor sit amet,
-                    consectetur adipisicing elit. Nihil odit magnam minima,
-                    soluta doloribus reiciendis molestiae placeat unde eos
-                    molestias.
-                  </p>
-                  <p>
-                    Quisquam aperiam, pariatur. Tempora, placeat ratione porro
-                    voluptate odit minima. Lorem ipsum dolor sit amet,
-                    consectetur adipisicing elit. Nihil odit magnam minima,
-                    soluta doloribus reiciendis molestiae placeat unde eos
-                    molestias.
-                  </p>
-                </MDBTabPane>
+                {this.state.isOwnProfile ? (
+                  <React.Fragment>
+                    <MDBTabPane tabId="2" role="tabpanel">
+                      <UserSettings
+                        user={
+                          this.state.userProfileOwner
+                            ? this.state.userProfileOwner
+                            : (this.props.user as any)
+                        }
+                      />
+                    </MDBTabPane>
+                  </React.Fragment>
+                ) : null}
                 <MDBTabPane tabId="3" role="tabpanel">
                   <p className="mt-2">
                     Quisquam aperiam, pariatur. Tempora, placeat ratione porro
@@ -127,6 +158,19 @@ export class Profile extends React.Component<IProps, IState> {
                     molestias.
                   </p>
                 </MDBTabPane>
+                {this.state.isOwnProfile ? (
+                  <React.Fragment>
+                    <MDBTabPane tabId="4" role="tabpanel">
+                      <p className="mt-2">
+                        Quisquam aperiam, pariatur. Tempora, placeat ratione
+                        porro voluptate odit minima. Lorem ipsum dolor sit amet,
+                        consectetur adipisicing elit. Nihil odit magnam minima,
+                        soluta doloribus reiciendis molestiae placeat unde eos
+                        molestias.
+                      </p>
+                    </MDBTabPane>
+                  </React.Fragment>
+                ) : null}
               </MDBTabContent>
             </MDBCol>
           </div>
@@ -141,9 +185,7 @@ const mapStateToProps = (state: GlobalState) => ({
   user: selectCurrentUser(state) as IUser
 });
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps)(Profile);
 
 interface IProps extends RouteComponentProps<MatchingParams> {
   language: ILanguage;
@@ -152,7 +194,7 @@ interface IProps extends RouteComponentProps<MatchingParams> {
 
 interface IState {
   isOwnProfile: boolean;
-  userProfileOwner: IUser | null;
+  userProfileOwner: IUser | undefined;
   activeItem: string | number;
 }
 

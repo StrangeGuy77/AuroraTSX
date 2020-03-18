@@ -3,6 +3,7 @@ import IUser from "../../redux/user/user";
 import DefaultPic from "../../static/images/default_pic.png";
 import "./ProfilePreviewStyles.scss";
 import Axios from "axios";
+import { Link } from "react-router-dom";
 
 class ProfilePreview extends React.Component<IProps, IState> {
   state: IState | any = {
@@ -43,7 +44,9 @@ class ProfilePreview extends React.Component<IProps, IState> {
           <div className="info-section">
             <hr />
             <h2>
-              {this.props.username.toLocaleUpperCase()}
+              <Link to={`/user/${this.props.username}`}>
+                {this.props.username.toLocaleUpperCase()}
+              </Link>
               <div className="border"></div>
             </h2>
             <hr />

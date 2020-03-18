@@ -15,10 +15,10 @@ export default interface IUser {
   city?: string;
   github?: string;
   webpage?: string;
-  show_public_name: boolean;
-  show_public_email: boolean;
-  show_public_location: boolean;
+  showPublicName: boolean;
+  showPublicEmail: boolean;
+  showPublicLocation: boolean;
   followers?: string | number;
-  times_liked?: string | number;
-  times_posted?: string | number;
+  timesLiked?: string | number;
+  timesPosted?: string | number;
 }

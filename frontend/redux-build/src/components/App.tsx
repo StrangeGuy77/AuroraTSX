@@ -15,7 +15,7 @@ import { SoftwareSchema } from "../redux/software/software";
 import { Dispatch } from "redux";
 import SignInCard from "./SignIn/SignInModal";
 import Footer from "./Footer/Footer";
-import { Profile } from "../pages/Profile/Profile";
+import Profile from "../pages/Profile/Profile";
 
 class App extends React.Component<IProps> {
   async componentDidMount() {
