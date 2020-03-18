@@ -104,13 +104,16 @@ const ContactUs: React.FC<IProps> = ({
       </MDBRow>
 
       <MDBCol md="9" className="md-0 mb-5">
-        <h4 className="h1-responsive font-weight-bold text-center my-5 offset-4">
+        <h4
+          className="h1-responsive font-weight-bold text-center my-5 offset-4"
+          id="faq"
+        >
           {FAQ}
         </h4>
       </MDBCol>
 
       <MDBCard>
-        <MDBCardHeader className="align-items-center ">
+        <MDBCardHeader className="align-items-center">
           {" "}
           <QuestionComponent
             question={howToUploadASoftware}

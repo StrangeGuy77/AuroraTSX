@@ -10,6 +10,7 @@ import { uploadSoftware } from "../../redux/software/softwareActions";
 import Axios from "axios";
 import IUser from "../../redux/user/user";
 import { MDBContainer, MDBCol, MDBRow, MDBInput, MDBBtn } from "mdbreact";
+import { isEmpty } from "../../utils/utils";
 
 class SoftwareForm extends React.Component<IProps> {
   state = {
@@ -64,7 +65,7 @@ class SoftwareForm extends React.Component<IProps> {
         newSoftware.append("title", title);
         newSoftware.append("devLanguages", devLanguagesArray);
 
-        const userUploaderId = "20e5f568-0461-49c4-8f22-dcfe4fa725f9";
+        const userUploaderId = this.props.user.user.id;
         const response = await Axios.post(
           `http://localhost:3500/softwares/${userUploaderId}`,
           newSoftware
@@ -89,10 +90,14 @@ class SoftwareForm extends React.Component<IProps> {
       signSoftwareDescription,
       signSoftwareLanguage,
       signSoftwarePrice,
-      upload
+      upload,
+      loginToUpload
     } = this.props.language.softwareInfo;
 
-    const { confirmed, _id } = this.props.user as IUser;
+    const { confirmed, id } = isEmpty(this.props.user)
+      ? this.props.user
+      : this.props.user.user;
+    console.log(this.props.user);
 
     return (
       <MDBContainer>
@@ -198,9 +203,9 @@ class SoftwareForm extends React.Component<IProps> {
                 <MDBBtn
                   className="btn btn-success"
                   onClick={() => this.uploadSoftware()}
-                  disabled={confirmed && _id ? false : false}
+                  disabled={confirmed || id ? false : true}
                 >
-                  {upload}
+                  {confirmed || id ? upload : loginToUpload}
                 </MDBBtn>
               </MDBCol>
             </MDBRow>

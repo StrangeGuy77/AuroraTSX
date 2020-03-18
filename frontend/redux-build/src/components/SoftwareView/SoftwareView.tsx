@@ -62,7 +62,7 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
                     <MDBIcon icon="fas fa-thumbs-up" /> {like}
                   </MDBBtn>
                   <p>
-                    {software.likes}
+                    {software.likes + " "}
                     <MDBIcon icon="fas fa-heart" />
                   </p>
                   <p>
@@ -70,14 +70,15 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
                   </p>
                   <p>
                     <MDBIcon icon="far fa-clock" />
-                    {format(software.createdAt)}
+                    {" " + format(software.createdAt)}
                   </p>
                 </div>
               </MDBCardFooter>
               <MDBCardFooter>
                 {isEmpty(this.props.user) ? (
                   <MDBBtn color="dark" disabled>
-                    {youNeedToBeLogged}
+                    {youNeedToBeLogged + " "}
+                    <MDBIcon icon="fas fa-shopping-cart" />
                   </MDBBtn>
                 ) : (
                   <StripeButtonCheckout
@@ -102,26 +103,7 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-    ) : //                             /* User is not logged? */
-    //             /*
-    //                             *<button className="btn btn-dark btn-block" disabled>
-    //                             {{language.buyInfo.youNeedToBeLogged}} <i className="fas fa-shopping-cart"></i>
-    //                         </button>
-    //                             */
-    //             /*logged:
-    //                             <button className="btn btn-dark btn-block">
-    //                             {{language.buyInfo.buy}} <i className="fas fa-shopping-cart"></i>
-    //                         </button>
-    //                            */
-    //             /*
-    //                     </form>
-    //                 </div>*/}
-    //           </div>
-    //           <div className="card-footer d-flex justify-content-between align-items-center">
-
-    //           </div>
-    //         </div>
-    //         <div className="card mt-2">
+    ) : //         <div className="card mt-2">
     //           <button className="card-header d-flex justify-content-between align-items-center">
     //             <h3>{comments}</h3>
     //             {/* {{#if session.nonlogged}} */}

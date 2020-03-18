@@ -23,7 +23,7 @@ class SignUp extends React.Component<IProps, IState> {
       <div>
         <li>
           <MDBBtn color="indigo" onClick={() => this.openModal()}>
-            <i className="fas fa-user-plus">{register}</i>
+            <i className="fas fa-user-plus">{" " + register}</i>
           </MDBBtn>
           <SignUpModal isOpen={this.state.isOpen} toggler={this.openModal} />
         </li>

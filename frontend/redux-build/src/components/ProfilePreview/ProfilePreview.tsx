@@ -22,31 +22,28 @@ class ProfilePreview extends React.Component<IProps, IState> {
   }
   render() {
     const { profile_pic, github } = this.state.user;
-    console.log(this.state);
 
     return (
       <div className="x">
         <div className="card middle">
           <div className="top-section">
-            {profile_pic !== "default_profile_pic.jpg" ? (
+            {profile_pic === "default_profile_pic.jpg" ||
+            (this.state as any).user.profilePic ===
+              "default_profile_pic.jpg" ? (
               <img src={DefaultPic} alt="" />
             ) : (
-              <img src={profile_pic} alt="" />
+              <img src={(this.state as any).user.profilePic} alt="" />
             )}
             <div className="menuicon">
               <span className="s1"></span>
               <span className="s2"></span>
-            </div>
-            <div className="name">
-              <br />
-              <span>{this.props.username.toLocaleUpperCase()}</span>
             </div>
           </div>
 
           <div className="info-section">
             <hr />
             <h2>
-              About
+              {this.props.username.toLocaleUpperCase()}
               <div className="border"></div>
             </h2>
             <hr />
@@ -58,21 +55,44 @@ class ProfilePreview extends React.Component<IProps, IState> {
               ever since the 1500s.`}
             </p>
             <h2>
-              contact
+              Contact
               <div className="border"></div>
             </h2>
             <div className="s-m">
-              <a href="" className="fab fa-facebook-f"></a>
-              <a href="" className="fab fa-twitter"></a>
-              <a href="" className="fab fa-instagram"></a>
+              <a
+                href="https://facebook.com/StrangeGuy77x"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fab fa-facebook-f"
+              >
+                {""}
+              </a>
+              <a
+                href="https://twitter.com/StrangeGuy77"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fab fa-twitter"
+              >
+                {""}
+              </a>
+              <a
+                href="https://instagram.com/jhonatan_rgx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fab fa-instagram"
+              >
+                {""}
+              </a>
               <a
                 href={
                   github ? `https://github.com/${github}` : `https://github.com`
                 }
                 target="_blank"
+                rel="noopener noreferrer"
                 className="fab fa-github-square"
-              ></a>
-              <a href="" className="fab fa-whatsapp"></a>
+              >
+                {""}
+              </a>
             </div>
           </div>
         </div>

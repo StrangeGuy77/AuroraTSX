@@ -12,13 +12,14 @@ import { changeLanguage } from "../../redux/language/LangActions";
 import { selectCurrentUser } from "../../redux/user/userSelector";
 import SignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
+import { isEmpty } from "../../utils/utils";
+import ProfileButton from "../ProfileButton/ProfileButton";
 
 const Navigation: React.FC<IProps> = ({
   selectLanguage,
   language: { sectionsInfo },
   user
 }) => {
-  console.log(user);
   const {
     home,
     library,
@@ -139,15 +140,14 @@ const Navigation: React.FC<IProps> = ({
               </ul>
             </div>
           </ul>
-          {user ? (
+          {isEmpty(user) ? (
             <React.Fragment>
               <SignIn />
               <SignUp />
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <SignIn />
-              <SignUp />
+              <ProfileButton />
             </React.Fragment>
           )}
         </div>

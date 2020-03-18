@@ -187,8 +187,8 @@ class SignUpModal extends React.Component<IProps, IState> {
             }
           />
         </MDBModalBody>
-        <div className="input-group mb-3 d-flex align-items-center text-center">
-          <div>
+        <div className="input-group mb-3 ">
+          <div className="text-right">
             <p style={{ color: this.state.signUpErrorsColor }}>
               {this.state.signUpErrors}
             </p>
