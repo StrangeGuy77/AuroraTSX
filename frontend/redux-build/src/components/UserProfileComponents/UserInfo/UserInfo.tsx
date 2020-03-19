@@ -5,8 +5,55 @@ import { getLanguage } from "../../../redux/language/LangSelector";
 import ILanguage from "../../../redux/language/Lang";
 import IUser from "../../../redux/user/user";
 import { MDBListGroup, MDBListGroupItem, MDBIcon, MDBBadge } from "mdbreact";
+import Axios from "axios";
+import { setCurrentUser, clearUser } from "../../../redux/user/userActions";
+import { Dispatch } from "redux";
 
-class UserInfo extends React.Component<IProps> {
+class UserInfo extends React.Component<IProps, IState> {
+  state = {
+    file: null
+  };
+
+  handleInput = (
+    e: React.FormEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const files = (e.currentTarget as HTMLInputElement).files as FileList;
+
+    if (files) {
+      if ((files as FileList).length > 0) {
+        this.setState(_ => ({
+          file: (files as FileList).item(0) as any
+        }));
+      }
+    }
+  };
+
+  uploadProfilePic = async () => {
+    if (!this.state.file) {
+      return;
+    } else {
+      console.log(this.state.file);
+      try {
+        const newProfilePic = new FormData();
+        newProfilePic.append("file", this.state.file as any);
+        const { data } = await Axios.post(
+          `http://localhost:3500/user/update?username=${this.props.user.username}&userprofilepic=true`,
+          newProfilePic
+        );
+        if (data.userExist) {
+          this.props.clearUser();
+          this.props.setCurrentUser(data.userExist);
+        } else {
+          console.log("No funciono xdd");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   render() {
     const { signSelectFile, upload } = this.props.language.softwareInfo;
     const {
@@ -40,6 +87,9 @@ class UserInfo extends React.Component<IProps> {
                 name="image"
                 id="profilePicInput"
                 className="custom-file-input"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  this.handleInput(e)
+                }
               />
               <label htmlFor="profilePicInput" className="custom-file-label">
                 {signSelectFile}
@@ -47,7 +97,7 @@ class UserInfo extends React.Component<IProps> {
             </div>
           </div>
           <button
-            onClick={() => null}
+            onClick={() => this.uploadProfilePic()}
             className="input-group-text btn btn-primary"
           >
             {upload}
@@ -100,7 +150,10 @@ const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state)
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user)),
+  clearUser: () => dispatch(clearUser())
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);
 
@@ -108,4 +161,10 @@ interface IProps {
   language: ILanguage;
   isOwnProfile: boolean;
   user: IUser;
+  setCurrentUser: (user: IUser) => any;
+  clearUser: () => any;
+}
+
+interface IState {
+  file: FileList | null;
 }

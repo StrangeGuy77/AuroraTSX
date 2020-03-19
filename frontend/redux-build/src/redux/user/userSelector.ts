@@ -32,7 +32,7 @@ export const setCurrentUser = (state: GlobalState, user: IUser) => {
     {
         (state as any)[iterator] = (user as any)[iterator];
     }
-    return state;
+    return user;
 };
 
 export const selectCurrentUser = (state: GlobalState) => state.user;

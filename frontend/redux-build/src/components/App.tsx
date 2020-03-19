@@ -28,17 +28,13 @@ class App extends React.Component<IProps> {
       <Router>
         <Navigation />
         <div className="container-fluid p-5">
-          <div className="row">
-            <Route exact path="/signin" component={SignInCard} />
-            <Route exact path="/software" component={SoftwareHome} />
-            <Route
-              exact
-              path="/software/:softwareId"
-              component={SoftwareView}
-            />
-            <Route path="/contact-us" component={ContactUs} />
-            <Route exact path="/user/:username" component={Profile} />
-          </div>
+          <Route exact path="/signin" component={SignInCard} />
+
+          <Route exact path="/software" component={SoftwareHome} />
+          <Route exact path="/software/:softwareId" component={SoftwareView} />
+
+          <Route path="/contact-us" component={ContactUs} />
+          <Route exact path="/user/:username" component={Profile} />
         </div>
         <Footer />
       </Router>

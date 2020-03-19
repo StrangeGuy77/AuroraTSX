@@ -1,12 +1,8 @@
 import userTypes from './userTypes';
 import IUser from './user.d';
 
-export const signIn = (email: string, password: string) => ({
-    type: userTypes.SIGN_IN,
-    payload: {
-        email,
-        password
-    }
+export const clearUser = () => ({
+    type: userTypes.CLEAR_USER
 });
 
 export const setCurrentUser = (user: IUser) => ({

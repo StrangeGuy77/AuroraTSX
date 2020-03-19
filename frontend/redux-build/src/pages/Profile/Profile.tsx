@@ -22,7 +22,7 @@ import UserSettings from "../../components/UserProfileComponents/UserSettings/Us
 
 class Profile extends React.Component<IProps, IState> {
   state = {
-    isOwnProfile: true,
+    isOwnProfile: false,
     userProfileOwner: undefined,
     activeItem: "1"
   };
@@ -62,7 +62,6 @@ class Profile extends React.Component<IProps, IState> {
     const { home } = this.props.language.sectionsInfo;
 
     const { Settings, Contact, PayingHistory } = this.props.language.userInfo;
-    console.log(this.state.userProfileOwner);
 
     return (
       <div>
@@ -139,13 +138,7 @@ class Profile extends React.Component<IProps, IState> {
                 {this.state.isOwnProfile ? (
                   <React.Fragment>
                     <MDBTabPane tabId="2" role="tabpanel">
-                      <UserSettings
-                        user={
-                          this.state.userProfileOwner
-                            ? this.state.userProfileOwner
-                            : (this.props.user as any)
-                        }
-                      />
+                      <UserSettings user={this.state.userProfileOwner as any} />
                     </MDBTabPane>
                   </React.Fragment>
                 ) : null}

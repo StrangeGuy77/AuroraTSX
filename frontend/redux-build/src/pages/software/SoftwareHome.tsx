@@ -9,12 +9,15 @@ import SoftwareForm from "../../components/SoftwareForm/SoftwareForm";
 import { SoftwareSchema } from "../../redux/software/software";
 import { updateSoftwaresArray } from "../../redux/software/softwareActions";
 import { Dispatch } from "redux";
+import { MDBRow } from "mdbreact";
 
 class SoftwareHome extends React.Component<IProps, SoftwareSchema> {
   render() {
     return (
       <div>
-        <SoftwareForm />
+        <MDBRow>
+          <SoftwareForm />
+        </MDBRow>
         <SoftwareList />
       </div>
     );

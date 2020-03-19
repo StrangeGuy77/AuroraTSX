@@ -13,10 +13,13 @@ export const userReducer = (
         user: selectCurrentUser(state)
       };
     case userTypes.SET_CURRENT_USER:
+      console.log(action.payload);
       return {
         ...state,
         user: setCurrentUser(state, action.payload)
       };
+    case userTypes.CLEAR_USER:
+      return {};
     default:
       return state;
   }
