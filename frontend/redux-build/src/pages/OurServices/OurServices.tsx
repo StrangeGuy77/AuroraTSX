@@ -35,7 +35,7 @@ const OurServices: React.FC<IProps> = ({ language }) => {
                         <div className="services-container p-5 mb-5">
                             <div className="service-box p-5 mb-5">
                                 <div className="service-icon">
-                                    <i className="fas fa-paint-brush"></i>
+                                    <i className="fas fa-paint-brush" ></i>
                                 </div>
                                 <div className="service-title">{WebDesigns}</div>
                                 <div className="service-desc">
