@@ -216,13 +216,15 @@ export default {
     userAgreementAccept: "Accetta i termini",
     userAgreementDecline: "Rifiuta i termini"
   },
-  error404: "Eh, sembra che la pagina che stai cercando non esista.",
-  error403:
-    "La pagina a cui stai tentando di accedere richiede autorizzazioni speciali.",
-  error500:
-    "A quanto pare, si è verificato un errore durante il caricamento del file, riprovare e assicurarsi di caricare un file corretto. Se il problema persiste, contattare un amministratore.",
-  error503:
-    "Servizio non disponibile Stiamo riscontrando problemi interni, prevediamo la comprensione da parte tua.",
-  error504:
-    "Si è verificato un problema durante l'invio dei dati al server. Controlla la tua connessione Internet e riprova."
+  errors: {
+    error404: "Eh, sembra che la pagina che stai cercando non esista.",
+    error403:
+      "La pagina a cui stai tentando di accedere richiede autorizzazioni speciali.",
+    error500:
+      "A quanto pare, si è verificato un errore durante il caricamento del file, riprovare e assicurarsi di caricare un file corretto. Se il problema persiste, contattare un amministratore.",
+    error503:
+      "Servizio non disponibile Stiamo riscontrando problemi interni, prevediamo la comprensione da parte tua.",
+    error504:
+      "Si è verificato un problema durante l'invio dei dati al server. Controlla la tua connessione Internet e riprova."
+  }
 };

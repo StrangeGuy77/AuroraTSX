@@ -5,7 +5,7 @@ import GlobalState from '../../redux/State';
 import { getLanguage } from '../../redux/language/LangSelector';
 import './Error.scss';
 
-const Error: React.FC<IProps> = ({ language: { errors: { error404 } } }) => {
+const ErrorPage: React.FC<IProps> = ({ language: { errors: { error404 } } }) => {
     return (
         <div className="d-flex align-content-center text-center">
             <div className="container offset-4">
@@ -23,7 +23,7 @@ const mapStateToProps = (state: GlobalState) => ({
     language: getLanguage(state)
 });
 
-export default connect(mapStateToProps)(Error);
+export default connect(mapStateToProps)(ErrorPage);
 
 interface IProps {
     language: ILanguage;

@@ -1,0 +1,61 @@
+.home-about-section {
+  padding-bottom: 90px;
+}
+
+.ha-pic {
+  -webkit-box-shadow: 0px 0px 30px rgba(11, 12, 48, 0.15);
+  box-shadow: 0px 0px 30px rgba(11, 12, 48, 0.15);
+  margin-right: 30px;
+}
+
+.ha-pic img {
+  min-width: 100%;
+  border-radius: 2px;
+}
+
+.ha-text {
+  padding-top: 74px;
+}
+
+.ha-text h2 {
+  color: #171822;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.ha-text p {
+  margin-bottom: 21px;
+}
+
+.ha-text ul {
+  margin-bottom: 27px;
+}
+
+.ha-text ul li {
+  list-style: none;
+  font-size: 16px;
+  line-height: 30px;
+  color: #6a6b7c;
+}
+
+.ha-text ul li span {
+  color: #f44949;
+}
+
+.ha-text .ha-btn {
+  font-size: 16px;
+  color: #171822;
+  font-weight: 600;
+  position: relative;
+}
+
+.ha-text .ha-btn:before {
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 100%;
+  background: #f44949;
+  content: "";
+}

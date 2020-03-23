@@ -19,6 +19,7 @@ import Footer from "./Footer/Footer";
 import Profile from "../pages/Profile/Profile";
 import OurServices from "../pages/OurServices/OurServices";
 import ErrorComponent from "./Error/Error";
+import HomePage from "../pages/Home/HomePage";
 
 class App extends React.Component<IProps> {
   async componentDidMount () {
@@ -33,6 +34,7 @@ class App extends React.Component<IProps> {
 
         <div className="container-fluid p-5">
           <Switch >
+            <Route exact path="/" component={HomePage} />
             <Route exact path="/signin" component={SignInCard} />
 
             <Route exact path="/software" component={SoftwareHome} />

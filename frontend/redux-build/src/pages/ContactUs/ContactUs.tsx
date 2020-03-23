@@ -15,6 +15,7 @@ import {
 } from "mdbreact";
 import QuestionComponent from "../../components/Faq/QuestionComponent";
 import UserAgreementComponent from "../../components/Faq/UserAgreementComponent";
+import { Location } from "../../components/Location/Location";
 
 const ContactUs: React.FC<IProps> = ({
   language: {
@@ -103,7 +104,9 @@ const ContactUs: React.FC<IProps> = ({
         </MDBCol>
       </MDBRow>
 
-      <MDBCol md="9" className="md-0 mb-5">
+      <Location />
+
+      <MDBCol md="9" className="md-0 mb-5 mt-2">
         <h4
           className="h1-responsive font-weight-bold text-center my-5 offset-4"
           id="faq"
