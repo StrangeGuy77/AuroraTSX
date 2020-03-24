@@ -2,8 +2,28 @@ import * as React from "react";
 import "./Pricing.scss";
 import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import Cover from "../../static/images/cover.png";
+import { connect } from "react-redux";
+import { getLanguage } from "../../redux/language/LangSelector";
+import GlobalState from "../../redux/State";
+import ILanguage from "../../redux/language/Lang";
 
-export const Pricing = () => {
+const Pricing: React.FC<IProps> = ({ language }) => {
+  const {
+    getYourSubscriptionPlan,
+    juniorSubscription,
+    midSubscription,
+    seniorSubscription,
+    getSubscription,
+    supportPriority,
+    SupportWith,
+    advisingWhenNeeded,
+    projects,
+    unlimited,
+    contactWithCTO,
+    contactWithOurDevs,
+    reducedRateOfInterest
+  } = language.ourServicesSection;
+
   return (
     <div className="mt-5 p-1">
       <section
@@ -16,28 +36,29 @@ export const Pricing = () => {
           <MDBRow>
             <MDBCol lg="12">
               <div className="section-title">
-                <h2>Ticket Pricing</h2>
-                <p>Get your event ticket plan</p>
+                <p>{getYourSubscriptionPlan}</p>
               </div>
             </MDBCol>
           </MDBRow>
           <MDBRow className="justify-content-center">
             <MDBCol lg="4" md="8">
               <div className="price-item">
-                <h4>1 Day Pass</h4>
+                <h4>{juniorSubscription}</h4>
                 <div className="pi-price">
                   <h2>
                     <span>$</span>210
                   </h2>
                 </div>
                 <ul>
-                  <li>Support priority 24/7</li>
-                  <li>Advising whenever needed</li>
-                  <li>Contact with our developers</li>
-                  <li>Support with 2 projects.</li>
+                  <li>{supportPriority} 24/7</li>
+                  <li>{advisingWhenNeeded}</li>
+                  <li>{contactWithOurDevs}</li>
+                  <li>
+                    {SupportWith} 2 {projects}.
+                  </li>
                 </ul>
                 <a href="#" className="price-btn">
-                  Get Ticket <span className="arrow_right"></span>
+                  {getSubscription} <span className="arrow_right"></span>
                 </a>
               </div>
             </MDBCol>
@@ -46,45 +67,46 @@ export const Pricing = () => {
                 <div className="tr-tag">
                   <i className="fa fa-star"></i>
                 </div>
-                <h4>Full Pass</h4>
+                <h4>{seniorSubscription}</h4>
                 <div className="pi-price">
                   <h2>
                     <span>$</span>1200
                   </h2>
                 </div>
                 <ul>
-                  <li>Support priority 24/7</li>
-                  <li>Advising whenever needed</li>
-                  <li>Contact with our developers</li>
-                  <li>Contact with our CTO and Leads</li>
-                  <li>Support with unlimited projects</li>
+                  <li>{supportPriority} 24/7</li>
+                  <li>{advisingWhenNeeded}</li>
+                  <li>{contactWithOurDevs}</li>
                   <li>
-                    Reduced rate of distribution when software is published,
-                    less than 3%
+                    {SupportWith} {unlimited} {projects}.
                   </li>
+                  <li>{contactWithCTO}</li>
+                  <li>{reducedRateOfInterest} 3%</li>
                 </ul>
                 <a href="#" className="price-btn">
-                  Get Ticket <span className="arrow_right"></span>
+                  {getSubscription} <span className="arrow_right"></span>
                 </a>
               </div>
             </div>
             <div className="col-lg-4 col-md-8">
               <div className="price-item">
-                <h4>Group Pass</h4>
+                <h4>{midSubscription}</h4>
                 <div className="pi-price">
                   <h2>
                     <span>$</span>500
                   </h2>
                 </div>
                 <ul>
-                  <li>Support priority 24/7</li>
-                  <li>Advising whenever needed</li>
-                  <li>Contact with our developers</li>
-                  <li>Support with 6 projects</li>
-                  <li>Reduced rate of distribution less than 10%</li>
+                  <li>{supportPriority} 24/7</li>
+                  <li>{advisingWhenNeeded}</li>
+                  <li>{contactWithOurDevs}</li>
+                  <li>
+                    {SupportWith} 6 {projects}.
+                  </li>
+                  <li>{reducedRateOfInterest} 10%</li>
                 </ul>
                 <a href="#" className="price-btn">
-                  Get Ticket <span className="arrow_right"></span>
+                  {getSubscription} <span className="arrow_right"></span>
                 </a>
               </div>
             </div>
@@ -94,3 +116,13 @@ export const Pricing = () => {
     </div>
   );
 };
+
+const mapStateToProps = (state: GlobalState) => ({
+  language: getLanguage(state)
+});
+
+export default connect(mapStateToProps)(Pricing);
+
+interface IProps {
+  language: ILanguage;
+}

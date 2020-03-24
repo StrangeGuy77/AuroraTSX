@@ -2,8 +2,20 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as ReactLogo } from "../../../static/images/logo/isolated-layout.svg";
 import "./HomeAbout.scss";
+import { connect } from "react-redux";
+import { getLanguage } from "../../../redux/language/LangSelector";
+import GlobalState from "../../../redux/State";
+import ILanguage from "../../../redux/language/Lang";
 
-export const HomeAbout = () => {
+const HomeAbout: React.FC<IProps> = ({ language: { homePage } }) => {
+  const {
+    aboutAuroraTeam,
+    aboutAuroraTeamContent,
+    discoverNow,
+    missionSpan,
+    motivationSpan
+  } = homePage;
+
   return (
     <div>
       <section className="home-about-section spad">
@@ -16,36 +28,18 @@ export const HomeAbout = () => {
             </div>
             <div className="col-lg-6">
               <div className="ha-text">
-                <h2>About Conference</h2>
-                <p>
-                  When I first got into the online advertising business, I was
-                  looking for the magical combination that would put my website
-                  into the top search engine rankings, catapult me to the
-                  forefront of the minds or individuals looking to buy my
-                  product, and generally make me rich beyond my wildest dreams!
-                  After succeeding in the business for this long, I’m able to
-                  look back on my old self with this kind of thinking and shake
-                  my head.
-                </p>
+                <h2>{aboutAuroraTeam}</h2>
+                <p>{aboutAuroraTeamContent}</p>
                 <ul>
                   <li>
-                    <span className="icon_check"></span> Write On Your Business
-                    Card
+                    <span className="icon_check"></span> {motivationSpan}
                   </li>
                   <li>
-                    <span className="icon_check"></span> Advertising Outdoors
-                  </li>
-                  <li>
-                    <span className="icon_check"></span> Effective Advertising
-                    Pointers
-                  </li>
-                  <li>
-                    <span className="icon_check"></span> Kook 2 Directory Add
-                    Url Free
+                    <span className="icon_check"></span> {missionSpan}
                   </li>
                 </ul>
                 <Link to="/contact-us" className="ha-btn">
-                  Discover Now
+                  {discoverNow}
                 </Link>
               </div>
             </div>
@@ -56,3 +50,13 @@ export const HomeAbout = () => {
     </div>
   );
 };
+
+const mapStateToProps = (state: GlobalState) => ({
+  language: getLanguage(state)
+});
+
+export default connect(mapStateToProps)(HomeAbout);
+
+interface IProps {
+  language: ILanguage;
+}

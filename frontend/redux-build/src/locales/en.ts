@@ -149,7 +149,20 @@ export default {
       "We guarantee the persistence of your data and advise you to choose between relational and non-relational databases. We have AWS certificates and connect you with their cloud services.",
     AndroidIOS: "Android / iOS",
     AndroidIOSDesc:
-      "We make native Android and iOS applications scalable and easy to maintain"
+      "We make native Android and iOS applications scalable and easy to maintain",
+    getYourSubscriptionPlan: "Get your subscription plan",
+    juniorSubscription: "Junior subscription",
+    midSubscription: "Mid subscription",
+    seniorSubscription: "Senior subscription",
+    supportPriority: "Support priority",
+    advisingWhenNeeded: "Advising whenever needed",
+    contactWithOurDevs: "Contact with our developers",
+    SupportWith: "Support with ",
+    projects: " projects",
+    unlimited: "unlimited",
+    contactWithCTO: "Contact with our CTO and Leads",
+    reducedRateOfInterest: "Reduced rate of interest. Less than ",
+    getSubscription: "Get subscription"
   },
   sectionsInfo: {
     ourServices: "Our services",
@@ -218,6 +231,17 @@ export default {
       "At any time you may restrict the collection or use of personal information that is provided to our website. Each time you are asked to fill out a form, such as the user registration form, you can check or uncheck the option to receive information by email. In case you have marked the option to receive our newsletter or advertising you can cancel it at any time. This company will not sell, assign or distribute personal information that is collected without your consent, unless required by a judge with a court order. Aurora DevelopmentTM reserves the right to change the terms of this Privacy Policy at any time.",
     userAgreementAccept: "Accept the terms",
     userAgreementDecline: "Decline terms"
+  },
+  homePage: {
+    title: "Never stop advancing in mind develop",
+    aboutAuroraTeam: "About Aurora Team",
+    aboutAuroraTeamContent: "Our team is moved by the objective that we can allow people and business from everywhere to develop their model and convert into the future of the internet. Based on that, we allow them to search on us for support on all kind of things related to the software development. Check 'discover now' and see what we do!",
+    motivationSpan: "We think the mind cannot foresee its own advance.",
+    missionSpan: "We work with the most modern metodologies and tools.",
+    discoverNow: "Discover now",
+    ourCeo: "Our CEO",
+    CTO: "Chief Technological Officer",
+    LSFE: "Lead Senior Frontend Engineer"
   },
   errors: {
     error404: "Huh, it seems the page you're searching for doesn't exist.",

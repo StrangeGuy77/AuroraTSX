@@ -4,7 +4,7 @@ import { getLanguage } from "../../redux/language/LangSelector";
 import GlobalState from "../../redux/State";
 import ILanguage from "../../redux/language/Lang";
 import "./OurServices.scss";
-import { Pricing } from "../../components/Pricing/Pricing";
+import Pricing from "../../components/Pricing/Pricing";
 
 const OurServices: React.FC<IProps> = ({ language }) => {
   const {

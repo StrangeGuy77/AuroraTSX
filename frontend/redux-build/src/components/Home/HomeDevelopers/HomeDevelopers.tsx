@@ -1,8 +1,16 @@
 import * as React from "react";
 import TabPane from "./TabPanes/TabPane";
 import "./HomeDevelopers.scss";
+import { connect } from "react-redux";
+import { getLanguage } from "../../../redux/language/LangSelector";
+import GlobalState from "../../../redux/State";
+import ILanguage from "../../../redux/language/Lang";
 
-export const HomeDevelopers = () => {
+const HomeDevelopers: React.FC<IProps> = ({
+  language: {
+    homePage: { ourCeo }
+  }
+}) => {
   return (
     <div>
       <section className="schedule-section spad">
@@ -10,8 +18,7 @@ export const HomeDevelopers = () => {
           <div className="row">
             <div className="col-lg-12">
               <div className="section-title">
-                <h2>Our CEO</h2>
-                <p>Do not miss annything about our team!</p>
+                <h2>{ourCeo}</h2>
               </div>
             </div>
           </div>
@@ -44,3 +51,13 @@ export const HomeDevelopers = () => {
     </div>
   );
 };
+
+const mapStateToProps = (state: GlobalState) => ({
+  language: getLanguage(state)
+});
+
+export default connect(mapStateToProps)(HomeDevelopers);
+
+interface IProps {
+  language: ILanguage;
+}

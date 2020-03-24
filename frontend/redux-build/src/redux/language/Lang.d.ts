@@ -136,6 +136,19 @@ export default interface ILanguage {
     DatabasesDesc: string;
     AndroidIOS: string;
     AndroidIOSDesc: string;
+    getYourSubscriptionPlan: string;
+    juniorSubscription: string;
+    midSubscription: string;
+    seniorSubscription: string;
+    supportPriority: string;
+    advisingWhenNeeded: string;
+    contactWithOurDevs: string;
+    SupportWith: string;
+    projects: string;
+    unlimited: string;
+    contactWithCTO: string;
+    reducedRateOfInterest: string;
+    getSubscription: string;
   };
   sectionsInfo: {
     ourServices: string;
@@ -185,6 +198,17 @@ export default interface ILanguage {
     userAgreementPersonalInformationControl: string;
     userAgreementAccept: string;
     userAgreementDecline: string;
+  };
+  homePage: {
+    title: string;
+    aboutAuroraTeam: string;
+    aboutAuroraTeamContent: string;
+    motivationSpan: string;
+    missionSpan: string;
+    discoverNow: string;
+    ourCeo: string;
+    CTO: string;
+    LSFE: string;
   };
   errors: {
     error404: string;

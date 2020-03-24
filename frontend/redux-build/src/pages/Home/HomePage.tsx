@@ -6,11 +6,14 @@ import "./HomePage.scss";
 import Hero from "../../static/images/cover.png";
 import Logo from "../../static/images/LogoAuroraDev1.0.png";
 import Countdown from "../../components/Home/Countdown/Countdown";
-import { HomeAbout } from "../../components/Home/HomeAbout/HomeAbout";
-import { HomeDevelopers } from "../../components/Home/HomeDevelopers/HomeDevelopers";
+import HomeAbout from "../../components/Home/HomeAbout/HomeAbout";
+import HomeDevelopers from "../../components/Home/HomeDevelopers/HomeDevelopers";
+import ILanguage from "../../redux/language/Lang";
 
-class HomePage extends React.Component<any> {
+class HomePage extends React.Component<IProps> {
   render() {
+    const { title } = this.props.language.homePage;
+
     return (
       <div>
         <section
@@ -24,10 +27,7 @@ class HomePage extends React.Component<any> {
               <div className="col-lg-7">
                 <div className="hero-text">
                   <span>5 to 9 may 2019, mardavall hotel, New York</span>
-                  <h2>
-                    Never stop
-                    <br /> advancing in mind develop
-                  </h2>
+                  <h2>{title}</h2>
                 </div>
               </div>
               <div className="col-lg-5">
@@ -49,3 +49,7 @@ const mapStateToProps = (state: GlobalState) => ({
 });
 
 export default connect(mapStateToProps)(HomePage);
+
+interface IProps {
+  language: ILanguage;
+}

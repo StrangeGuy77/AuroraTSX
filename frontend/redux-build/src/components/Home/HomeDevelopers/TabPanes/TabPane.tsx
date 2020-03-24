@@ -1,10 +1,10 @@
 import * as React from "react";
+import { ReactComponent as AuroraLogo } from "../../../../static/images/logo/isolated-monochrome-black.svg";
 
 const TabPane: React.FC<IProps> = ({
   title,
   name,
   email,
-  img,
   schedule,
   location
 }) => {
@@ -15,7 +15,7 @@ const TabPane: React.FC<IProps> = ({
           <div className="row">
             <div className="col-lg-3">
               <div className="sc-pic">
-                <img src={img} alt="" />
+                <AuroraLogo />
               </div>
             </div>
             <div className="col-lg-5">

@@ -147,7 +147,20 @@ export default {
       "Wir garantieren die Persistenz Ihrer Daten und raten Ihnen, zwischen relationalen und nicht relationalen Datenbanken zu wählen. Wir haben AWS-Zertifikate und verbinden Sie mit deren Cloud-Diensten.",
     AndroidIOS: "Android / iOS",
     AndroidIOSDesc:
-      "Wir machen native Android- und iOS-Anwendungen skalierbar und wartungsfreundlich"
+      "Wir machen native Android- und iOS-Anwendungen skalierbar und wartungsfreundlich",
+    getYourSubscriptionPlan: "Holen Sie sich Ihr Abonnement",
+    juniorSubscription: "Junior Abonnement",
+    midSubscription: "Mid Abonnement",
+    seniorSubscription: "Senior Abonnement",
+    supportPriority: "Support-Priorität",
+    advisingWhenNeeded: "Beratung bei Bedarf",
+    contactWithOurDevs: "Kontakt mit unseren Entwicklern",
+    SupportWith: "Unterstützung mit ",
+    projects: " projekte",
+    unlimited: "unbegrenzt",
+    contactWithCTO: "Kontakt mit unserem CTO und Leads",
+    reducedRateOfInterest: "Reduzierter Zinssatz. Weniger als ",
+    getSubscription: "Abonnement erhalten"
   },
   sectionsInfo: {
     home: "Zuhause",
@@ -216,6 +229,17 @@ export default {
       "Sie können jederzeit die Erfassung oder Verwendung von persönlichen Informationen, die auf unserer Website bereitgestellt werden, einschränken. Jedes Mal, wenn Sie aufgefordert werden, ein Formular auszufüllen, z. B. das Benutzerregistrierungsformular, können Sie die Option zum Empfangen von Informationen per E-Mail aktivieren oder deaktivieren. Falls Sie die Option markiert haben, unseren Newsletter oder unsere Werbung zu erhalten, können Sie diesen jederzeit abbestellen. Dieses Unternehmen wird keine persönlichen Informationen verkaufen, zuweisen oder verteilen, die ohne Ihre Zustimmung gesammelt wurden, es sei denn, dies wird von einem Richter mit Gerichtsbeschluss verlangt. Aurora DevelopmentTM behält sich das Recht vor, die Bestimmungen dieser Datenschutzrichtlinie jederzeit zu ändern.",
     userAgreementAccept: "Akzeptiere die Bedingungen",
     userAgreementDecline: "Bedingungen ablehnen"
+  },
+  homePage: {
+    title: "Hören Sie nie auf, sich weiterzuentwickeln",
+    aboutAuroraTeam: "Über das Aurora-Team",
+    aboutAuroraTeamContent: "Unser Team ist bewegt von dem Ziel, Menschen und Unternehmen von überall her die Möglichkeit zu geben, ihr Modell zu entwickeln und in die Zukunft des Internets zu konvertieren. Auf dieser Grundlage können sie bei uns nach Unterstützung für alle möglichen Dinge im Zusammenhang mit der Softwareentwicklung suchen. Überprüfen Sie 'Jetzt entdecken' und sehen Sie, was wir tun!",
+    motivationSpan: "Wir denken, der Geist kann seinen eigenen Fortschritt nicht vorhersehen.",
+    missionSpan: "Wir arbeiten mit modernsten Methoden und Werkzeugen.",
+    discoverNow: "jetzt entdecken",
+    ourCeo: "Unser CEO",
+    CTO: "Chief Technological Officer",
+    LSFE: "Leitender Senior Frontend Engineer"
   },
   errors: {
     error404: "Die gesuchte Seite scheint nicht zu existieren.",

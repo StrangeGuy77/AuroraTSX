@@ -145,7 +145,20 @@ export default {
       "データの永続性を保証し、リレーショナルデータベースと非リレーショナルデータベースを選択することをお勧めします。 AWS証明書があり、お客様をクラウドサービスに接続します。",
     AndroidIOS: "Android / iOS",
     AndroidIOSDesc:
-      "スケーラブルでメンテナンスが容易なネイティブAndroidおよびiOSアプリケーションを実現します"
+      "スケーラブルでメンテナンスが容易なネイティブAndroidおよびiOSアプリケーションを実現します",
+    getYourSubscriptionPlan: "サブスクリプションプランを取得する",
+    juniorSubscription: "Junior サブスクリプション",
+    midSubscription: "Mid サブスクリプション",
+    seniorSubscription: "Senior サブスクリプション",
+    supportPriority: "サポート優先度",
+    advisingWhenNeeded: "必要なときにアドバイスする",
+    contactWithOurDevs: "開発者との連絡",
+    SupportWith: "でサポート ",
+    projects: " プロジェクト",
+    unlimited: "無制限",
+    contactWithCTO: "CTOおよびリードとの連絡",
+    reducedRateOfInterest: "金利の低下。 未満 ",
+    getSubscription: "サブスクリプションを取得する"
   },
   sectionsInfo: {
     stats: "統計",
@@ -214,6 +227,17 @@ export default {
       "いつでも、当社ウェブサイトに提供される個人情報の収集または使用を制限できます。 ユーザー登録フォームなどのフォームに記入するよう求められるたびに、電子メールで情報を受信するオプションをオンまたはオフにすることができます。 ニュースレターまたは広告を受け取るオプションをマークした場合は、いつでもキャンセルできます。 この会社は、裁判所の命令で裁判官によって要求されない限り、あなたの同意なしに収集された個人情報を販売、割り当て、または配布しません。 Aurora DevelopmentTMは、このプライバシーポリシーの条件をいつでも変更する権利を留保します。",
     userAgreementAccept: "利用規約に同意する",
     userAgreementDecline: "用語の辞退"
+  },
+  homePage: {
+    title: "発展を心に留めてください",
+    aboutAuroraTeam: "オーロラチームについて",
+    aboutAuroraTeamContent: "私たちのチームは、世界中の人々とビジネスがモデルを開発し、インターネットの未来に転換できるようにするという目標に感動しています。 これに基づいて、ソフトウェア開発に関連するあらゆるもののサポートを検索してもらいます。 「今すぐ発見」をチェックして、私たちが何をするか見てください！",
+    motivationSpan: "心は自分の進歩を予見できないと思います。",
+    missionSpan: "私たちは最新の方法論とツールを使用しています。",
+    discoverNow: "今すぐ発見",
+    ourCeo: "私たちの最高経営責任者",
+    CTO: "最高技術責任者",
+    LSFE: "主任シニアフロントエンドエンジニア"
   },
   errors: {
     error404: "ほら、探しているページは存在しないようです。",

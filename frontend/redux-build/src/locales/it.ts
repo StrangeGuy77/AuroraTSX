@@ -146,7 +146,20 @@ export default {
       "Garantiamo la persistenza dei tuoi dati e ti consigliamo di scegliere tra database relazionali e non relazionali. Abbiamo certificati AWS e ti colleghiamo con i loro servizi cloud.",
     AndroidIOS: "Android / iOS",
     AndroidIOSDesc:
-      "Realizziamo applicazioni Android e iOS native scalabili e di facile manutenzione"
+      "Realizziamo applicazioni Android e iOS native scalabili e di facile manutenzione",
+    getYourSubscriptionPlan: "Ottieni il tuo piano di abbonamento",
+    juniorSubscription: "Junior Sottoscrizione",
+    midSubscription: "Mid Sottoscrizione",
+    seniorSubscription: "Senior Sottoscrizione",
+    supportPriority: "Supportare la priorità",
+    advisingWhenNeeded: "Consigliare quando necessario",
+    contactWithOurDevs: "Contatta con i nostri sviluppatori",
+    SupportWith: "Sostieni con ",
+    projects: " progetti",
+    unlimited: "illimitato",
+    contactWithCTO: "Contatti con il nostro CTO e Leads",
+    reducedRateOfInterest: "Tasso di interesse ridotto. Meno di ",
+    getSubscription: "Ottieni abbonamento"
   },
   sectionsInfo: {
     ourServices: "Nostri servizi",
@@ -215,6 +228,17 @@ export default {
       "In qualsiasi momento è possibile limitare la raccolta o l'uso di informazioni personali fornite al nostro sito Web. Ogni volta che ti viene chiesto di compilare un modulo, come il modulo di registrazione dell'utente, puoi selezionare o deselezionare l'opzione per ricevere informazioni via e-mail. Se hai contrassegnato l'opzione per ricevere la nostra newsletter o pubblicità, puoi annullarla in qualsiasi momento. Questa società non venderà, assegnerà o distribuirà informazioni personali raccolte senza il tuo consenso, a meno che non sia richiesto da un giudice con un ordine del tribunale. Aurora DevelopmentTM si riserva il diritto di modificare i termini della presente Informativa sulla privacy in qualsiasi momento.",
     userAgreementAccept: "Accetta i termini",
     userAgreementDecline: "Rifiuta i termini"
+  },
+  homePage: {
+    title: "Non smettere mai di avanzare nella mente sviluppare",
+    aboutAuroraTeam: "Informazioni sul team Aurora",
+    aboutAuroraTeamContent: "Il nostro team è mosso dall'obiettivo di consentire a persone e aziende di qualsiasi parte del mondo di sviluppare il proprio modello e convertirsi nel futuro di Internet. Sulla base di ciò, permettiamo loro di cercarci su supporto per tutto ciò che riguarda lo sviluppo del software. Controlla 'scopri ora' e guarda cosa facciamo!",
+    motivationSpan: "Pensiamo che la mente non possa prevedere il proprio progresso.",
+    missionSpan: "Lavoriamo con le metodologie e gli strumenti più moderni.",
+    discoverNow: "scopri ora",
+    ourCeo: "Il nostro CEO",
+    CTO: "Chief Technological Officer",
+    LSFE: "Capo ingegnere frontend senior"
   },
   errors: {
     error404: "Eh, sembra che la pagina che stai cercando non esista.",

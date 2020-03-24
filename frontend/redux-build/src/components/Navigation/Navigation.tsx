@@ -51,7 +51,7 @@ const Navigation: React.FC<IProps> = ({
         >
           <ul className="navbar-nav mx-auto">
             <li className="nav-item">
-              <Link to="/home" className="nav-link">
+              <Link to="/" className="nav-link">
                 {home}
               </Link>
             </li>

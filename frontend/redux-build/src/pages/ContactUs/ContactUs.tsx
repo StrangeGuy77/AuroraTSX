@@ -41,11 +41,7 @@ const ContactUs: React.FC<IProps> = ({
       <h2 className="h1-responsive font-weight-bold text-center my-5">
         {contactUs}
       </h2>
-      <p className="text-center w-responsive mx-auto pb-5">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error
-        amet numquam iure provident voluptate esse quasi, veritatis totam
-        voluptas nostrum quisquam eum porro a pariatur veniam.
-      </p>
+      <p className="text-center w-responsive mx-auto pb-5"></p>
       <MDBRow>
         <MDBCol md="9" className="md-0 mb-5">
           <form>
