@@ -24,6 +24,7 @@
     "read-json-sync": "^2.0.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
     "redux-promise-middleware": "^6.1.2",
     "reselect": "^4.0.0",
     "timeago.js": "^4.0.2",

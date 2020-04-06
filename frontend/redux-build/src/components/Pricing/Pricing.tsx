@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { getLanguage } from "../../redux/language/LangSelector";
 import GlobalState from "../../redux/State";
 import ILanguage from "../../redux/language/Lang";
+import { Link } from "react-router-dom";
 
 const Pricing: React.FC<IProps> = ({ language }) => {
   const {
@@ -57,9 +58,9 @@ const Pricing: React.FC<IProps> = ({ language }) => {
                     {SupportWith} 2 {projects}.
                   </li>
                 </ul>
-                <a href="#" className="price-btn">
+                <Link to="#" className="price-btn">
                   {getSubscription} <span className="arrow_right"></span>
-                </a>
+                </Link>
               </div>
             </MDBCol>
             <div className="col-lg-4 col-md-8">
@@ -83,9 +84,9 @@ const Pricing: React.FC<IProps> = ({ language }) => {
                   <li>{contactWithCTO}</li>
                   <li>{reducedRateOfInterest} 3%</li>
                 </ul>
-                <a href="#" className="price-btn">
+                <Link to="#" className="price-btn">
                   {getSubscription} <span className="arrow_right"></span>
-                </a>
+                </Link>
               </div>
             </div>
             <div className="col-lg-4 col-md-8">
@@ -105,9 +106,9 @@ const Pricing: React.FC<IProps> = ({ language }) => {
                   </li>
                   <li>{reducedRateOfInterest} 10%</li>
                 </ul>
-                <a href="#" className="price-btn">
+                <Link to="#" className="price-btn">
                   {getSubscription} <span className="arrow_right"></span>
-                </a>
+                </Link>
               </div>
             </div>
           </MDBRow>

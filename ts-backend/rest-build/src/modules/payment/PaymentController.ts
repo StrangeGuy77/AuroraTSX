@@ -3,6 +3,13 @@ import { Payment } from "../../entity/Payment";
 import { User } from "../../entity/User";
 import { getConnectionManager } from "typeorm";
 
+/**
+ *
+ * @description Get all the payments from the server. It can be queried with three params. username or userId and quantity for both.
+ * @param req Automatically injected by Express
+ * @param res Automatically injected by Express
+ */
+
 export const RegisterPayment = async (req: Request, res: Response) => {
   if (!req.query) {
     res.json({
@@ -57,15 +64,17 @@ export const RegisterPayment = async (req: Request, res: Response) => {
         return;
       }
     }
+    console.log(req.body.card);
     const newPayment = new Payment();
     newPayment.user = UserEntity;
+    newPayment.paymentMethod = req.body;
 
     try {
       const test = await getConnectionManager()
         .get()
         .getRepository(Payment)
         .save(newPayment);
-      console.log(newPayment, test);
+      console.log(newPayment);
       res.json({
         message: "Payment succesfully saved."
       });

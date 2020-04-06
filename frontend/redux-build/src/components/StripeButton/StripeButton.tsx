@@ -7,6 +7,8 @@ import {
 } from "../../redux/language/LangSelector";
 import GlobalState from "../../redux/State";
 import ILanguage from "../../redux/language/Lang";
+import Axios from "axios";
+import { selectCurrentUser } from "../../redux/user/userSelector";
 
 const StripeCheckoutButton: React.FC<IProps> = ({
   price,
@@ -14,12 +16,21 @@ const StripeCheckoutButton: React.FC<IProps> = ({
   image,
   description,
   email,
-  languageAcronym
+  languageAcronym,
+  user
 }) => {
+  const { username } = user.user;
   const priceForStripe = (price as number) * 100;
   const publishableKey = "pk_test_Z5JZQq8QxBrvoKf8bgss1PkH0072q9LKtb";
-  const onToken = (token: any) => {
-    console.log(token);
+  const onToken = async (token: any) => {
+    const { data } = await Axios.post(
+      `http://localhost:3500/payment?username=${username}`,
+      token
+    );
+    if (data) {
+      console.log(data);
+    } else {
+    }
   };
   const { buy } = language.buyInfo;
 
@@ -43,7 +54,8 @@ const StripeCheckoutButton: React.FC<IProps> = ({
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state),
-  languageAcronym: getLanguageAcronym(state)
+  languageAcronym: getLanguageAcronym(state),
+  user: selectCurrentUser(state)
 });
 
 export default connect(mapStateToProps)(StripeCheckoutButton);
@@ -55,4 +67,5 @@ interface IProps {
   language: ILanguage;
   languageAcronym: string;
   email: string;
+  user: any;
 }
