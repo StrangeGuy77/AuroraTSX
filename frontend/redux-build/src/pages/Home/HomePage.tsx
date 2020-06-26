@@ -19,7 +19,7 @@ class HomePage extends React.Component<IProps> {
         <section
           className="hero-section set-bg"
           style={{
-            backgroundImage: `url(${Hero})`
+            backgroundImage: `url(${Hero})`,
           }}
         >
           <div className="container">
@@ -31,7 +31,7 @@ class HomePage extends React.Component<IProps> {
                 </div>
               </div>
               <div className="col-lg-5">
-                <img src={Logo} alt="" />>
+                <img src={Logo} alt="" />
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@ class HomePage extends React.Component<IProps> {
 }
 
 const mapStateToProps = (state: GlobalState) => ({
-  language: getLanguage(state)
+  language: getLanguage(state),
 });
 
 export default connect(mapStateToProps)(HomePage);

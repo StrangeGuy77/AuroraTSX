@@ -14,7 +14,7 @@ import {
   MDBModalBody,
   MDBModalFooter,
   MDBBtn,
-  MDBInput
+  MDBInput,
 } from "mdbreact";
 
 class SignInModal extends React.Component<IProps, IState> {
@@ -25,7 +25,7 @@ class SignInModal extends React.Component<IProps, IState> {
     signInErrors: "",
     signInErrorsColor: "#ff0000",
     fadeOut: "",
-    dataDismiss: ""
+    dataDismiss: "",
   };
 
   handleInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ class SignInModal extends React.Component<IProps, IState> {
     const { name, value } = e.currentTarget;
     this.setState((prevState: IState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -47,7 +47,7 @@ class SignInModal extends React.Component<IProps, IState> {
         JSON.stringify(
           await Axios.post(`http://localhost:3500/user/login`, {
             email,
-            password
+            password,
           })
         )
       );
@@ -55,22 +55,22 @@ class SignInModal extends React.Component<IProps, IState> {
         setCurrentUser(response.data.userData as IUser);
         this.setState({
           signInErrors: response.data.message,
-          signInErrorsColor: "#4BB543"
+          signInErrorsColor: "#4BB543",
         });
         setTimeout(() => {
           this.props.toggler();
           this.setState({
-            signInErrors: ""
+            signInErrors: "",
           });
         }, 1300);
       } else {
         this.setState({
-          signInErrors: response.data.message
+          signInErrors: response.data.message,
         });
       }
     } catch (error) {
       this.setState({
-        signInErrors: `There was a problem sending data to the server: ${error}`
+        signInErrors: `There was a problem sending data to the server: ${error}`,
       });
     }
   };
@@ -81,12 +81,15 @@ class SignInModal extends React.Component<IProps, IState> {
       email,
       password,
       NotRegisteredYet,
-      SignUpHere
+      SignUpHere,
     } = this.props.language.userInfo;
     return (
       <MDBModal
         isOpen={this.props.isOpen as boolean}
         toggle={this.props.toggler}
+        inline={true}
+        noClickableBodyWithoutBackdrop={true}
+        overflowScroll={true}
       >
         <MDBModalHeader toggle={this.props.toggler}>
           <div className="h5-responsive modal-title">{login}</div>
@@ -144,11 +147,11 @@ class SignInModal extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: GlobalState) => ({
-  language: getLanguage(state)
+  language: getLanguage(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user))
+  setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user)),
 });
 
 export default withRouter(

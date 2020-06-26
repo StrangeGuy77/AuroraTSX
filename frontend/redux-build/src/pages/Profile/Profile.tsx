@@ -10,11 +10,11 @@ import Axios from "axios";
 import {
   MDBNav,
   MDBNavItem,
-  MDBNavLink,
+  // MDBNavLink,
   MDBTabContent,
   MDBTabPane,
   MDBContainer,
-  MDBCol
+  MDBCol,
 } from "mdbreact";
 import UserInfo from "../../components/UserProfileComponents/UserInfo/UserInfo";
 import { isEmpty } from "../../utils/utils";
@@ -24,7 +24,7 @@ class Profile extends React.Component<IProps, IState> {
   state = {
     isOwnProfile: false,
     userProfileOwner: undefined,
-    activeItem: "1"
+    activeItem: "1",
   };
 
   async componentDidMount() {
@@ -34,14 +34,14 @@ class Profile extends React.Component<IProps, IState> {
     );
     if (data.user) {
       this.setState({
-        userProfileOwner: data.user
+        userProfileOwner: data.user,
       });
       if (!isEmpty(this.props.user)) {
         const { id } = (this.props.user as any).user;
         console.log((this.state.userProfileOwner as any).id === id);
         if ((this.state.userProfileOwner as any).id === id) {
           this.setState({
-            isOwnProfile: true
+            isOwnProfile: true,
           });
         }
       }
@@ -53,15 +53,15 @@ class Profile extends React.Component<IProps, IState> {
   toggle = (tab: string) => () => {
     if (this.state.activeItem !== tab) {
       this.setState({
-        activeItem: tab
+        activeItem: tab,
       });
     }
   };
 
   render() {
-    const { home } = this.props.language.sectionsInfo;
+    // const { home } = this.props.language.sectionsInfo;
 
-    const { Settings, Contact, PayingHistory } = this.props.language.userInfo;
+    // const { Settings, Contact, PayingHistory } = this.props.language.userInfo;
 
     return (
       <div>
@@ -77,50 +77,50 @@ class Profile extends React.Component<IProps, IState> {
             <MDBCol xl="12" className="offset-0">
               <MDBNav className="nav-tabs mt-5">
                 <MDBNavItem>
-                  <MDBNavLink
+                  {/* <MDBNavLink
                     to="#"
                     active={this.state.activeItem === "1"}
                     onClick={this.toggle("1")}
                     role="tab"
                   >
                     {home}
-                  </MDBNavLink>
+                  </MDBNavLink> */}
                 </MDBNavItem>
                 {this.state.isOwnProfile ? (
                   <React.Fragment>
                     <MDBNavItem>
-                      <MDBNavLink
+                      {/* <MDBNavLink
                         to="#"
                         active={this.state.activeItem === "2"}
                         onClick={this.toggle("2")}
                         role="tab"
                       >
                         {Settings}
-                      </MDBNavLink>
+                      </MDBNavLink> */}
                     </MDBNavItem>
                   </React.Fragment>
                 ) : null}
                 <MDBNavItem>
-                  <MDBNavLink
+                  {/* <MDBNavLink
                     to="#"
                     active={this.state.activeItem === "3"}
                     onClick={this.toggle("3")}
                     role="tab"
                   >
                     {Contact}
-                  </MDBNavLink>
+                  </MDBNavLink> */}
                 </MDBNavItem>
                 {this.state.isOwnProfile ? (
                   <React.Fragment>
                     <MDBNavItem>
-                      <MDBNavLink
+                      {/* <MDBNavLink
                         to="#"
                         active={this.state.activeItem === "4"}
                         onClick={this.toggle("4")}
                         role="tab"
                       >
                         {PayingHistory}
-                      </MDBNavLink>
+                      </MDBNavLink> */}
                     </MDBNavItem>
                   </React.Fragment>
                 ) : null}
@@ -175,7 +175,7 @@ class Profile extends React.Component<IProps, IState> {
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state),
-  user: selectCurrentUser(state) as IUser
+  user: selectCurrentUser(state) as IUser,
 });
 
 export default connect(mapStateToProps)(Profile);

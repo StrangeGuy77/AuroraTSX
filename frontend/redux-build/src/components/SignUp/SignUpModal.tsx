@@ -5,7 +5,7 @@ import {
   MDBModal,
   MDBModalHeader,
   MDBModalBody,
-  MDBModalFooter
+  MDBModalFooter,
 } from "mdbreact";
 import { RouteComponentProps, withRouter, Link } from "react-router-dom";
 import ILanguage from "../../redux/language/Lang";
@@ -25,7 +25,7 @@ class SignUpModal extends React.Component<IProps, IState> {
     signUpErrors: "",
     signUpErrorsColor: "#ff0000",
     username: "",
-    confirmPassword: ""
+    confirmPassword: "",
   };
 
   handleInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ class SignUpModal extends React.Component<IProps, IState> {
     const { name, value } = e.currentTarget;
     this.setState((prevState: IState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -46,32 +46,32 @@ class SignUpModal extends React.Component<IProps, IState> {
       youMustConfirmYourPassword,
       youMustEnterAPassword,
       youMustEnterAnEmail,
-      youMustEnterAnUser
+      youMustEnterAnUser,
     } = this.props.language.signUpInfo;
 
     if (username === "") {
       this.setState({
-        signUpErrors: youMustEnterAnUser
+        signUpErrors: youMustEnterAnUser,
       });
     } else {
       if (email === "") {
         this.setState({
-          signUpErrors: youMustEnterAnEmail
+          signUpErrors: youMustEnterAnEmail,
         });
       } else {
         if (password === "") {
           this.setState({
-            signUpErrors: youMustEnterAPassword
+            signUpErrors: youMustEnterAPassword,
           });
         } else {
           if (confirmPassword === "") {
             this.setState({
-              signUpErrors: youMustConfirmYourPassword
+              signUpErrors: youMustConfirmYourPassword,
             });
           } else {
             if (password !== confirmPassword) {
               this.setState({
-                signUpErrors: passwordDoesntMatch
+                signUpErrors: passwordDoesntMatch,
               });
             } else {
               try {
@@ -84,7 +84,7 @@ class SignUpModal extends React.Component<IProps, IState> {
                     await Axios.post(`http://localhost:3500/user`, {
                       email,
                       password,
-                      username
+                      username,
                     })
                   )
                 );
@@ -92,22 +92,22 @@ class SignUpModal extends React.Component<IProps, IState> {
                   setCurrentUser(response.data.newUser as IUser);
                   this.setState({
                     signUpErrors: response.data.message,
-                    signUpErrorsColor: "#4BB543"
+                    signUpErrorsColor: "#4BB543",
                   });
                   setTimeout(() => {
                     this.props.toggler();
                     this.setState({
-                      signUpErrors: ""
+                      signUpErrors: "",
                     });
                   }, 2000);
                 } else {
                   this.setState({
-                    signUpErrors: response.data.message
+                    signUpErrors: response.data.message,
                   });
                 }
               } catch (error) {
                 this.setState({
-                  signUpErrors: `There was a problem sending data to the server: ${error}`
+                  signUpErrors: `There was a problem sending data to the server: ${error}`,
                 });
               }
             }
@@ -124,13 +124,16 @@ class SignUpModal extends React.Component<IProps, IState> {
       password,
       username,
       confirmPassword,
-      onceRegisteredAgreementAccepted
+      onceRegisteredAgreementAccepted,
     } = this.props.language.userInfo;
     const { userAgreementModal } = this.props.language.userAgreementPolicy;
     return (
       <MDBModal
         isOpen={this.props.isOpen as boolean}
         toggle={this.props.toggler}
+        inline={false}
+        noClickableBodyWithoutBackdrop={false}
+        overflowScroll={true}
       >
         <MDBModalHeader toggle={this.props.toggler}>
           <div className="h5-responsive modal-title">{register}</div>
@@ -205,7 +208,7 @@ class SignUpModal extends React.Component<IProps, IState> {
           <MDBBtn
             color="primary"
             type="submit"
-            onClick={e => this.signUpEvent(e)}
+            onClick={(e) => this.signUpEvent(e)}
           >
             {register}
           </MDBBtn>
@@ -216,11 +219,11 @@ class SignUpModal extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: GlobalState) => ({
-  language: getLanguage(state)
+  language: getLanguage(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user))
+  setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user)),
 });
 
 export default withRouter(

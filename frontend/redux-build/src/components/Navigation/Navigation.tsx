@@ -18,16 +18,9 @@ import ProfileButton from "../ProfileButton/ProfileButton";
 const Navigation: React.FC<IProps> = ({
   selectLanguage,
   language: { sectionsInfo },
-  user
+  user,
 }) => {
-  const {
-    home,
-    library,
-    ourServices,
-    software,
-    contactUs,
-    foro
-  } = sectionsInfo;
+  const { home, ourServices, software, contactUs } = sectionsInfo;
   return (
     <div>
       <nav className="navbar navbar-expand-md navbar-dark nav-color">
@@ -56,18 +49,8 @@ const Navigation: React.FC<IProps> = ({
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/library" className="nav-link">
-                {library}
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link to="/software" className="nav-link">
                 {software}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/forum" className="nav-link">
-                {foro}
               </Link>
             </li>
             <li className="nav-item">
@@ -157,12 +140,12 @@ const Navigation: React.FC<IProps> = ({
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  selectLanguage: (language: string) => dispatch(changeLanguage(language))
+  selectLanguage: (language: string) => dispatch(changeLanguage(language)),
 });
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state),
-  user: selectCurrentUser(state)
+  user: selectCurrentUser(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
