@@ -1,12 +1,10 @@
-import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column } from "typeorm";
+import { Base } from "./utils/base.model";
 
 @Entity("users")
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
+export class User extends Base {
   @Column("varchar", {
-    length: 55
+    length: 55,
   })
   email: string;
 
@@ -14,111 +12,106 @@ export class User extends BaseEntity {
   password: string;
 
   @Column("varchar", {
-    length: 55
+    length: 55,
   })
   username: string;
 
   @Column("boolean", { default: false })
   confirmed: boolean;
 
-  @Column("date", {
-    default: () => "CURRENT_TIMESTAMP"
-  })
-  createdAt: string;
-
   @Column("varchar", {
     default: "unconfirmed",
-    name: "user_role"
+    name: "user_role",
   })
   userRole: string;
 
   @Column("varchar", {
     length: 255,
     name: "profile_pic",
-    default: "default_profile_pic.png"
+    default: "default_profile_pic.png",
   })
   profilePic: string;
 
   @Column("varchar", {
     length: 55,
-    nullable: true
+    nullable: true,
   })
   name: string;
 
   @Column("varchar", {
     length: 55,
-    nullable: true
+    nullable: true,
   })
   lastname: string;
 
   @Column("varchar", {
     length: 55,
-    nullable: true
+    nullable: true,
   })
   cellphone: string;
 
   @Column("varchar", {
     length: 55,
-    nullable: true
+    nullable: true,
   })
   worksite: string;
 
   @Column("varchar", {
     length: 55,
-    nullable: true
+    nullable: true,
   })
   company: string;
 
   @Column("varchar", {
     length: 10,
-    nullable: true
+    nullable: true,
   })
   country: string;
 
   @Column("varchar", {
     length: 55,
-    nullable: true
+    nullable: true,
   })
   github: string;
 
   @Column("varchar", {
     length: 55,
-    nullable: true
+    nullable: true,
   })
   webpage: string;
 
   @Column("boolean", {
     name: "show_public_name",
-    default: false
+    default: false,
   })
   showPublicName: string;
 
   @Column("boolean", {
     name: "show_public_email",
-    default: false
+    default: false,
   })
   showPublicEmail: string;
 
   @Column("boolean", {
     name: "show_public_location",
-    default: false
+    default: false,
   })
   showPublicLocation: string;
 
   @Column("integer", {
-    default: 0
+    default: 0,
   })
   followers: number;
 
   @Column("integer", {
     default: 0,
-    name: "times_liked"
+    name: "times_liked",
   })
   timesLiked: number;
 
   @Column("integer", {
     default: 0,
-    name: "times_posted"
+    name: "times_posted",
   })
   timesPosted: number;
 }

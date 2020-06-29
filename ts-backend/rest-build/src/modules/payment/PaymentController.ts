@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Payment } from "../../entity/Payment";
 import { User } from "../../entity/User";
-import { getConnectionManager } from "typeorm";
+import { getRepository } from "typeorm";
 
 /**
  *
@@ -12,11 +12,10 @@ import { getConnectionManager } from "typeorm";
 
 export const RegisterPayment = async (req: Request, res: Response) => {
   if (!req.query) {
-    res.json({
+    return res.json({
       message:
-        "You must set the query to have a valid payment. The query must have this structure: ../payment?userId= or ../payment?username="
+        "You must set the query to have a valid payment. The query must have this structure: ../payment?userId= or ../payment?username=",
     });
-    return;
   } else {
     let UserEntity: any;
     if (req.query.username) {
@@ -24,44 +23,40 @@ export const RegisterPayment = async (req: Request, res: Response) => {
       try {
         UserEntity = await User.findOne({
           where: {
-            username
-          }
+            username,
+          },
         });
         if (!UserEntity) {
-          res.json({
+          return res.json({
             message:
-              "The user you're trying to associate this payment with, doesnt exist. Check the username you sent."
+              "The user you're trying to associate this payment with, doesnt exist. Check the username you sent.",
           });
-          return;
         }
       } catch (error) {
-        res.json({
+        return res.json({
           message: "There was a problem while searching for a valid user.",
-          error
+          error,
         });
-        return;
       }
     } else if (req.query.userId) {
       const { userId } = req.query;
       try {
         UserEntity = await User.findOne({
           where: {
-            id: userId
-          }
+            id: userId,
+          },
         });
         if (!UserEntity) {
-          res.json({
+          return res.json({
             message:
-              "The user you're trying to associate this payment with, doesnt exist. Check the username you sent."
+              "The user you're trying to associate this payment with, doesnt exist. Check the username you sent.",
           });
-          return;
         }
       } catch (error) {
-        res.json({
+        return res.json({
           message: "There was a problem while searching for a valid user.",
-          error
+          error,
         });
-        return;
       }
     }
     console.log(req.body.card);
@@ -70,19 +65,15 @@ export const RegisterPayment = async (req: Request, res: Response) => {
     newPayment.paymentMethod = req.body;
 
     try {
-      const test = await getConnectionManager()
-        .get()
-        .getRepository(Payment)
-        .save(newPayment);
+      const test = await getRepository(Payment).save(newPayment);
       console.log(newPayment);
-      res.json({
-        message: "Payment succesfully saved."
+      return res.json({
+        message: "Payment succesfully saved.",
       });
-      return;
     } catch (error) {
-      res.json({
+      return res.json({
         message: "There was a problem while trying to save the payment.",
-        error
+        error,
       });
     }
   }
@@ -98,19 +89,19 @@ export const getPayments = async (req: Request, res: Response) => {
     try {
       const AllPayments = await Payment.find();
       if (AllPayments) {
-        res.json({
-          message: "There are no payments available at the moment."
+        return res.json({
+          message: "There are no payments available at the moment.",
         });
       } else {
-        res.json({
-          AllPayments
+        return res.json({
+          AllPayments,
         });
         return;
       }
     } catch (error) {
-      res.json({
+      return res.json({
         message: "There was a problem while searching for all payments.",
-        error
+        error,
       });
     }
   } else if (req.query.username) {
@@ -121,27 +112,26 @@ export const getPayments = async (req: Request, res: Response) => {
         const PaymentsByUsername = await Payment.find({
           where: {
             user: {
-              username
+              username,
             },
-            skip: quantity
-          }
+            skip: quantity,
+          },
         });
         if (PaymentsByUsername) {
-          res.json({
-            PaymentsByUsername
+          return res.json({
+            PaymentsByUsername,
           });
           return;
         } else {
-          res.json({
-            message: `${username} doesn't have any payments available right now. `
+          return res.json({
+            message: `${username} doesn't have any payments available right now. `,
           });
-          return;
         }
       } catch (error) {
-        res.json({
+        return res.json({
           message:
             "There was a problem while searching for payments by username",
-          error
+          error,
         });
       }
     }
@@ -154,27 +144,25 @@ export const getPayments = async (req: Request, res: Response) => {
         PaymentsByUserID = await Payment.find({
           where: {
             user: {
-              id: userId
+              id: userId,
             },
-            skip: quantity
-          }
+            skip: quantity,
+          },
         });
         if (PaymentsByUserID) {
-          res.json({
-            PaymentsByUserID
+          return res.json({
+            PaymentsByUserID,
           });
-          return;
         } else {
-          res.json({
-            message: `The user with ID ${userId} doesn't have any payments available right now. `
+          return res.json({
+            message: `The user with ID ${userId} doesn't have any payments available right now. `,
           });
-          return;
         }
       } catch (error) {
-        res.json({
+        return res.json({
           message:
             "There was a problem while searching for payments by UserID with quantity",
-          error
+          error,
         });
       }
     } else {
@@ -182,14 +170,14 @@ export const getPayments = async (req: Request, res: Response) => {
         PaymentsByUserID = await Payment.find({
           where: {
             user: {
-              id: userId
-            }
-          }
+              id: userId,
+            },
+          },
         });
       } catch (error) {
-        res.json({
+        return res.json({
           message:
-            "There was a problem while searching for payments by UserID without quantity."
+            "There was a problem while searching for payments by UserID without quantity.",
         });
       }
     }

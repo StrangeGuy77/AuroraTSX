@@ -1,13 +1,11 @@
-import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column } from "typeorm";
+import { Base } from "./utils/base.model";
 
 @Entity("wishlist")
-export class Wishlist extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
+export class Wishlist extends Base {
   @Column("varchar", {
     length: 55,
-    name: "test_column"
+    name: "test_column",
   })
   testColumn: string;
 }

@@ -1,28 +1,19 @@
-import {
-  Entity,
-  Column,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn
-} from "typeorm";
+import { Entity, Column, ManyToOne } from "typeorm";
 import { User } from "./User";
+import { Base } from "./utils/base.model";
 
-@Entity("books")
-export class Book extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
+@Entity()
+export class Book extends Base {
   @Column("varchar", {
-    length: 50
+    length: 50,
   })
   title: string;
 
-  @Column("text")
+  @Column("character varying", { length: 2000 })
   description: string;
 
   @Column("varchar", {
-    length: 30
+    length: 30,
   })
   author: string;
 
@@ -30,41 +21,40 @@ export class Book extends BaseEntity {
   price: number;
 
   @Column("varchar", {
-    length: 5
+    length: 5,
   })
   extension: string;
 
   @Column("varchar", {
-    length: 50
+    length: 50,
   })
   publisher: string;
 
-  @Column("integer")
-  publisherYear: number;
+  @Column("date")
+  publisherYear: Date;
 
-  @Column("integer")
-  writingYear: number;
+  @Column("date")
+  writingYear: Date;
 
   @Column("varchar", {
-    array: true
+    array: true,
   })
-  categories: [string];
+  categories: string[];
 
   @Column("varchar", {
-    length: 50
+    length: 50,
   })
   filename: string;
 
-  @Column("integer")
+  @Column("integer", { default: 0 })
   views: number;
 
-  @Column("integer")
+  @Column("integer", { default: 0 })
   likes: number;
 
-  @Column("integer")
+  @Column("integer", { default: 0 })
   timesDownloaded: number;
 
-  @OneToOne(_ => User)
-  @JoinColumn()
+  @ManyToOne((_) => User, (user) => user.id)
   user: User;
 }

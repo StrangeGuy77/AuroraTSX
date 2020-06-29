@@ -4,42 +4,40 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   JoinColumn,
-  ManyToOne
+  ManyToOne,
 } from "typeorm";
 import { User } from "./User";
+import { Base } from "./utils/base.model";
 
 @Entity("payment")
-export class Payment extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
+export class Payment extends Base {
   @Column("json", {
-    name: "payment_method"
+    name: "payment_method",
   })
   paymentMethod: CardPaymentMethod;
 
   @Column("varchar", {
-    length: 3
+    length: 3,
   })
   currency: string;
 
   @Column("integer", {
-    name: "amount"
+    name: "amount",
   })
   amount: number;
 
   @Column("varchar", {
-    length: 55
+    length: 55,
   })
   name: string;
 
   @Column("varchar", {
     length: 55,
-    name: "description"
+    name: "description",
   })
   description: string;
 
-  @ManyToOne(_ => User)
+  @ManyToOne((_) => User)
   @JoinColumn()
   user: User;
 }

@@ -1,20 +1,11 @@
-import {
-  Entity,
-  Column,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-  ManyToOne
-} from "typeorm";
+import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
 import { User } from "./User";
+import { Base } from "./utils/base.model";
 
 @Entity("softwares")
-export class Software extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
-
+export class Software extends Base {
   @Column("varchar", {
-    length: 255
+    length: 255,
   })
   title: string;
 
@@ -22,13 +13,13 @@ export class Software extends BaseEntity {
   description: string;
 
   @Column("varchar", {
-    array: true
+    array: true,
   })
-  devLanguages: [string];
+  devLanguages: string[];
 
   @Column("varchar", {
     array: true,
-    nullable: true
+    nullable: true,
   })
   frameworks: [string];
 
@@ -36,43 +27,38 @@ export class Software extends BaseEntity {
   price: number;
 
   @Column("varchar", {
-    length: 255
+    length: 255,
   })
   filename: string;
 
   @Column("varchar", {
     length: 255,
-    nullable: true
+    nullable: true,
   })
   userUploaderName: string;
 
   @Column("varchar", {
     length: 255,
-    nullable: true
+    nullable: true,
   })
   imageUrl: string;
 
   @Column("integer", {
-    default: 0
+    default: 0,
   })
   views: number;
 
   @Column("integer", {
-    default: 0
+    default: 0,
   })
   likes: number;
 
   @Column("integer", {
-    default: 0
+    default: 0,
   })
   timesDownloaded: number;
 
-  @ManyToOne(_ => User)
+  @ManyToOne((_) => User)
   @JoinColumn()
   user: User;
-
-  @Column("date", {
-    default: () => "CURRENT_TIMESTAMP"
-  })
-  createdAt: string;
 }

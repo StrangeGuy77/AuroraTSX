@@ -1,61 +1,53 @@
 import { Software } from "../../entity/Software";
 import { Request, Response } from "express";
 import { User } from "../../entity/User";
+import { uuidRegexValidator } from "../../validators/regex";
 
 export const getRecentSoftwares = async (_: Request, res: Response) => {
-  try
-  {
+  try {
     const data = await Software.find({
       order: {
-        createdAt: "ASC"
-      }
-
+        createdAt: "ASC",
+      },
     });
     res.json({
       message: "Succesful",
-      data
+      data,
     });
-  } catch (error)
-  {
+  } catch (error) {
     res.json({
       message: "There was an error retrieving recent softwares",
-      error
+      error,
     });
   }
 };
 
 export const getOneSoftware = async (req: Request, res: Response) => {
   const softId = req.params.softId;
-  if (!softId)
-  {
+  if (!softId) {
     res.json({
-      message: "There's no softId in the params. Try /softwares/:softId"
+      message: "There's no softId in the params. Try /softwares/:softId",
     });
-  } else
-  {
-    try
-    {
+  } else {
+    try {
       const softwareExist = await Software.findOne({
         where: {
-          id: softId
-        }
+          id: softId,
+        },
       });
-      if (!softwareExist)
-      {
+      if (!softwareExist) {
         res.json({
-          message: "The software you're trying to retrieve doesn't exist."
+          message: "The software you're trying to retrieve doesn't exist.",
         });
-      } else
-      {
+      } else {
         res.json({
-          message: 'Succesfully retrieved',
-          data: softwareExist
+          message: "Succesfully retrieved",
+          data: softwareExist,
         });
       }
-    } catch (error)
-    {
+    } catch (error) {
       res.json({
-        message: "There was an error retrieving the software from the database"
+        message: "There was an error retrieving the software from the database",
       });
     }
   }
@@ -63,141 +55,118 @@ export const getOneSoftware = async (req: Request, res: Response) => {
 
 export const deleteASoftware = async (req: Request, res: Response) => {
   const softId = req.params.softId;
-  if (!softId)
-  {
+  if (!softId) {
     res.json({
-      message: "There's no softId in the params. Try /softwares/:softId"
+      message: "There's no softId in the params. Try /softwares/:softId",
     });
-  } else
-  {
-    try
-    {
+  } else {
+    try {
       const softwareExist = await Software.findOne({
         where: {
-          id: softId
-        }
+          id: softId,
+        },
       });
-      if (!softwareExist)
-      {
+      if (!softwareExist) {
         res.json({
-          message: "The software you're trying to delete doesn't exist."
+          message: "The software you're trying to delete doesn't exist.",
         });
-      } else
-      {
+      } else {
         res.json({
-          message: 'The software was succesfully deleted from the database'
+          message: "The software was succesfully deleted from the database",
         });
       }
-    } catch (error)
-    {
+    } catch (error) {
       res.json({
         message: "There was an error while trying to delete the software",
-        error
+        error,
       });
     }
   }
 };
 
 export const getUsers = async (req: Request, res: Response) => {
-  if (!req.query)
-  {
+  if (!req.query) {
     res.json({
-      message: "To find a user you must send either his Id or his username through the query param. ?userId= || ?username="
+      message:
+        "To find a user you must send either his Id or his username through the query param. ?userId= || ?username=",
     });
-  } else
-  {
-    if (req.query.userId)
-    {
+  } else {
+    if (req.query.userId) {
       const { userId } = req.query;
-      const uuidRegex = /[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}/;
-      if (uuidRegex.test(userId))
-      {
-        try
-        {
+      if (uuidRegexValidator.test(userId as string)) {
+        try {
           const userExist = await User.findOne({
             where: {
-              id: userId
-            }
+              id: userId,
+            },
           });
-          if (userExist)
-          {
+          if (userExist) {
             userExist.password = "";
-            res.json({
+            return res.status(200).json({
               message: "Success",
-              code: 200,
-              user: userExist
+              user: userExist,
             });
-          } else
-          {
-            res.json({
-              message: "The user you're trying to search doesn't exist."
+          } else {
+            return res.status(404).json({
+              message: "The user you're trying to search doesn't exist.",
             });
           }
-        } catch (error)
-        {
-          res.json({
+        } catch (error) {
+          return res.status(500).json({
             message: "There was an error while searching for the user.",
-            error
+            error,
           });
         }
-      } else
-      {
-        res.json({
-          message: "The ID you've sent doesnt match the UUID pattern. Check it out."
+      } else {
+        return res.status(400).json({
+          message:
+            "The ID you've sent doesnt match the UUID pattern. Check it out.",
         });
       }
-    } else if (req.query.username)
-    {
+    } else if (req.query.username) {
       const { username } = req.query;
-      if (username !== "")
-      {
-        try
-        {
+      if (username !== "") {
+        try {
           const userExist = await User.findOne({
             where: {
-              username
-            }
+              username,
+            },
           });
-          if (userExist)
-          {
+          if (userExist) {
             userExist.password = "";
-            res.json({
+            return res.status(200).json({
               message: "Success",
-              code: 200,
-              user: userExist
+              user: userExist,
             });
-          } else
-          {
-            res.json({
-              message: "The user you're trying to search doesn't exist."
+          } else {
+            return res.status(404).json({
+              message: "The user you're trying to search doesn't exist.",
             });
           }
-        } catch (error)
-        {
-          res.json({
+        } catch (error) {
+          return res.status(500).json({
             message: "There was an error while searching for the user.",
-            error
+            error,
           });
         }
-      } else
-      {
-        res.json({
-          message: "The username you've sent is empty"
+      } else {
+        return res.status(400).json({
+          message: "The username you've sent is empty",
         });
       }
-    } else
-    {
-      res.json({
-        message: "To find a user you must send either his Id or his username through the query param. ?userId= || ?username="
+    } else {
+      return res.status(400).json({
+        message:
+          "To find a user you must send either his Id or his username through the query param. ?userId= || ?username=",
       });
     }
   }
 };
 
 export const defaultRouteAnswer = (req: Request, res: Response) => {
-  res.send(
+  return res.send(
     `The route you're trying to access ${
-    req.originalUrl
+      req.originalUrl
     } and the method you're trying to use ${req.method.toUpperCase()} is not available, created or is restricted.`
   );
 };
