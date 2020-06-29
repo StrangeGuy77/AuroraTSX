@@ -7,15 +7,15 @@ export const getRecentSoftwares = async (_: Request, res: Response) => {
   try {
     const data = await Software.find({
       order: {
-        createdAt: "ASC",
+        createdAt: "DESC",
       },
     });
-    res.json({
+    return res.json({
       message: "Succesful",
       data,
     });
   } catch (error) {
-    res.json({
+    return res.json({
       message: "There was an error retrieving recent softwares",
       error,
     });
@@ -25,8 +25,8 @@ export const getRecentSoftwares = async (_: Request, res: Response) => {
 export const getOneSoftware = async (req: Request, res: Response) => {
   const softId = req.params.softId;
   if (!softId) {
-    res.json({
-      message: "There's no softId in the params. Try /softwares/:softId",
+    return res.json({
+      message: "There's no softId within the params. Try /softwares/:softId",
     });
   } else {
     try {
@@ -36,7 +36,7 @@ export const getOneSoftware = async (req: Request, res: Response) => {
         },
       });
       if (!softwareExist) {
-        res.json({
+        return res.json({
           message: "The software you're trying to retrieve doesn't exist.",
         });
       } else {
@@ -46,7 +46,7 @@ export const getOneSoftware = async (req: Request, res: Response) => {
         });
       }
     } catch (error) {
-      res.json({
+      return res.json({
         message: "There was an error retrieving the software from the database",
       });
     }
@@ -56,7 +56,7 @@ export const getOneSoftware = async (req: Request, res: Response) => {
 export const deleteASoftware = async (req: Request, res: Response) => {
   const softId = req.params.softId;
   if (!softId) {
-    res.json({
+    return res.json({
       message: "There's no softId in the params. Try /softwares/:softId",
     });
   } else {
@@ -67,16 +67,16 @@ export const deleteASoftware = async (req: Request, res: Response) => {
         },
       });
       if (!softwareExist) {
-        res.json({
+        return res.json({
           message: "The software you're trying to delete doesn't exist.",
         });
       } else {
-        res.json({
+        return res.json({
           message: "The software was succesfully deleted from the database",
         });
       }
     } catch (error) {
-      res.json({
+      return res.json({
         message: "There was an error while trying to delete the software",
         error,
       });
@@ -86,7 +86,7 @@ export const deleteASoftware = async (req: Request, res: Response) => {
 
 export const getUsers = async (req: Request, res: Response) => {
   if (!req.query) {
-    res.json({
+    return res.json({
       message:
         "To find a user you must send either his Id or his username through the query param. ?userId= || ?username=",
     });

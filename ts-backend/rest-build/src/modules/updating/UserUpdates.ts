@@ -7,12 +7,12 @@ import * as fs from "fs";
 
 export const UpdateUserInfo = async (req: Request, res: Response) => {
   if (!req.query) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "Query is empty! Test something with ?username= or ?userId=",
     });
   } else {
     if (!req.body) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "You cannot send empty body request for an update!",
       });
     } else {
@@ -26,7 +26,10 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
             },
           });
         } catch (error) {
-          console.log(error);
+          return res.status(500).json({
+            message: "There was an error while searching user existance.",
+            error,
+          });
         }
       } else {
         try {
@@ -36,7 +39,10 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
             },
           });
         } catch (error) {
-          console.log(error);
+          return res.status(500).json({
+            message: "There was an error while searching user existance.",
+            error,
+          });
         }
       }
 
@@ -58,27 +64,26 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
             );
             userExist.profilePic = response.secure_url;
             fs.unlink(imageTempPath, () => null);
-            console.log(response);
             try {
               await userExist.save();
-              res.status(200).json({
+              return res.status(200).json({
                 message: "Profile pic has been updated.",
                 userExist,
               });
             } catch (error) {
-              res.status(500).json({
+              return res.status(500).json({
                 message: "There was an error while saving pic within database.",
                 error,
               });
             }
           } catch (error) {
-            res.status(500).json({
+            return res.status(500).json({
               message: "There was an error while sending pic to cloudinary",
               error,
             });
           }
         } else {
-          res.status(400).json({
+          return res.status(400).json({
             message:
               "The image you're trying to upload doesn't meet the requirements for an image. Check extension.",
           });
@@ -90,12 +95,12 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
           const updatedUser = await getManager()
             .getRepository(User)
             .update(userExist.id, body);
-          res.status(200).json({
+          return res.status(200).json({
             message: "User has been succesfully updated.",
             updatedUser,
           });
         } catch (error) {
-          res.status(500).json({
+          return res.status(500).json({
             message: "There was an error trying to update the user",
             error,
           });

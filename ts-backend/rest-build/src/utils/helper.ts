@@ -1,3 +1,5 @@
+import { camelValidator } from "../validators/regex";
+
 export const genRandomId = () => {
   const possible = "0123456789";
   let randomId = "";
@@ -22,4 +24,15 @@ export const deleteEmptyOrUndefined = (obj: any) => {
   }
 
   return obj;
+};
+
+/**
+ * @description Convierte un string de snake_case a camelCase
+ * @returns El argumento 's' convertido a camelCase
+ * @param s String para convertir a camelCase
+ */
+export const toCamel = (s: string) => {
+  return s.replace(camelValidator, ($1) => {
+    return $1.toUpperCase().replace("-", "").replace("_", "");
+  });
 };

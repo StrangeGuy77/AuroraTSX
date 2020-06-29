@@ -96,7 +96,6 @@ export const getPayments = async (req: Request, res: Response) => {
         return res.json({
           AllPayments,
         });
-        return;
       }
     } catch (error) {
       return res.json({
@@ -121,7 +120,6 @@ export const getPayments = async (req: Request, res: Response) => {
           return res.json({
             PaymentsByUsername,
           });
-          return;
         } else {
           return res.json({
             message: `${username} doesn't have any payments available right now. `,

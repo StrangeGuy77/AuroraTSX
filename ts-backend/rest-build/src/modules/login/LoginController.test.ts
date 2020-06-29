@@ -13,7 +13,7 @@ beforeAll(async () => {
   await Axios.post("http://localhost:3500/user", {
     username: "StrangeGuy77",
     email: "jhonatanrg@live.com",
-    password: "1234"
+    password: "1234",
   });
 });
 
@@ -24,7 +24,7 @@ afterAll(async () => {
 const login = async (email: string, password: string, equalObject: any) => {
   const { data } = await Axios.post("http://localhost:3500/user/login", {
     email,
-    password
+    password,
   });
   return expect(data).toMatchObject(equalObject);
 };
@@ -35,7 +35,6 @@ describe("Testing login controller response to everything.", () => {
       await login("", "", {
         message:
           "There are fields that are compulsory for login and are not within the body. Check email or password fields.",
-        code: 400
       });
     } catch (error) {
       console.log(error);
@@ -47,7 +46,6 @@ describe("Testing login controller response to everything.", () => {
       await login("asdas", "asdads", {
         message:
           "The email you've sent is not valid. Check the correct email structuration: test@test.com",
-        code: 400
       });
     } catch (error) {
       console.log(error);
@@ -58,7 +56,6 @@ describe("Testing login controller response to everything.", () => {
     try {
       await login("jhonatanrg@l.com", "asdsd", {
         message: "Incorrect email or password",
-        code: 400
       });
     } catch (error) {
       console.log(error);
@@ -69,7 +66,6 @@ describe("Testing login controller response to everything.", () => {
     try {
       await login("jhonatanrg@live.com", "asdsd", {
         message: "Incorrect email or password",
-        code: 400
       });
     } catch (error) {
       console.log(error);
@@ -78,7 +74,6 @@ describe("Testing login controller response to everything.", () => {
   test("Check succesful login", async () => {
     await login("jhonatanrg@live.com", "1234", {
       message: "Succesfully logged in",
-      code: 200
     });
   });
 });
