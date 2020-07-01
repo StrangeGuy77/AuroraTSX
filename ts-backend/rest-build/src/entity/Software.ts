@@ -1,8 +1,8 @@
 import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { User } from "./User";
+import { Users } from "./User";
 import { Base } from "./utils/base.model";
 
-@Entity()
+@Entity("softwares")
 export class Software extends Base {
   @Column("varchar", {
     length: 255,
@@ -21,7 +21,7 @@ export class Software extends Base {
     array: true,
     nullable: true,
   })
-  frameworks: [string];
+  frameworks: string[];
 
   @Column("float")
   price: number;
@@ -58,7 +58,7 @@ export class Software extends Base {
   })
   timesDownloaded: number;
 
-  @ManyToOne((_) => User)
+  @ManyToOne((_) => Users)
   @JoinColumn()
-  user: User;
+  user: Users;
 }

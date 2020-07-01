@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../../entity/User";
+import { Users } from "../../entity/User";
 import { getManager } from "typeorm";
 import * as cloudinary from "cloudinary";
 import * as path from "path";
@@ -17,10 +17,10 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
       });
     } else {
       const { username, userId } = req.query;
-      let userExist: User;
+      let userExist: Users;
       if (username) {
         try {
-          userExist = await User.findOne({
+          userExist = await Users.findOne({
             where: {
               username,
             },
@@ -33,7 +33,7 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
         }
       } else {
         try {
-          userExist = await User.findOne({
+          userExist = await Users.findOne({
             where: {
               id: userId,
             },
@@ -93,10 +93,10 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
 
         try {
           const updatedUser = await getManager()
-            .getRepository(User)
+            .getRepository(Users)
             .update(userExist.id, body);
           return res.status(200).json({
-            message: "User has been succesfully updated.",
+            message: "Users has been succesfully updated.",
             updatedUser,
           });
         } catch (error) {

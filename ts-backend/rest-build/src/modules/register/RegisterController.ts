@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../../entity/User";
+import { Users } from "../../entity/User";
 import * as bcrypt from "bcryptjs";
 import { EmailRegexValidator } from "../../validators/regex";
 
@@ -12,7 +12,7 @@ export const SignUp = async (req: Request, res: Response) => {
     });
   } else {
     try {
-      const duplicatedEmail = await User.findOne({
+      const duplicatedEmail = await Users.findOne({
         where: {
           email,
         },
@@ -25,7 +25,7 @@ export const SignUp = async (req: Request, res: Response) => {
         if (EmailRegexValidator.test(email)) {
           try {
             const hashedPassword = bcrypt.hashSync(password, 10);
-            const newUser = User.create({
+            const newUser = Users.create({
               email,
               password: hashedPassword,
               username,

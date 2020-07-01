@@ -1,5 +1,5 @@
 import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { User } from "./User";
+import { Users } from "./User";
 import { Base } from "./utils/base.model";
 
 @Entity("comments")
@@ -15,7 +15,7 @@ export class Comment extends Base {
   })
   timestamp: string;
 
-  @ManyToOne((_) => User)
+  @ManyToOne((_) => Users)
   @JoinColumn()
-  user: User;
+  user: Users;
 }

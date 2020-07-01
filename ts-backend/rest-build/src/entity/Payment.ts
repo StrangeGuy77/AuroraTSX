@@ -1,5 +1,5 @@
 import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { User } from "./User";
+import { Users } from "./User";
 import { Base } from "./utils/base.model";
 
 @Entity()
@@ -30,9 +30,9 @@ export class Payment extends Base {
   })
   description: string;
 
-  @ManyToOne((_) => User)
+  @ManyToOne((_) => Users)
   @JoinColumn()
-  user: User;
+  user: Users;
 }
 
 interface CardPaymentMethod {

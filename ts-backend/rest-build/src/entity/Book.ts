@@ -1,5 +1,5 @@
 import { Entity, Column, ManyToOne } from "typeorm";
-import { User } from "./User";
+import { Users } from "./User";
 import { Base } from "./utils/base.model";
 
 @Entity()
@@ -31,9 +31,6 @@ export class Book extends Base {
   publisher: string;
 
   @Column("date")
-  publisherYear: Date;
-
-  @Column("date")
   writingYear: Date;
 
   @Column("varchar", {
@@ -55,6 +52,6 @@ export class Book extends Base {
   @Column("integer", { default: 0 })
   timesDownloaded: number;
 
-  @ManyToOne((_) => User, (user) => user.id)
-  user: User;
+  @ManyToOne((_) => Users, (user) => user.id)
+  user: Users;
 }

@@ -3,7 +3,7 @@ import * as path from "path";
 import * as fs from "fs-extra";
 import { Software } from "../../entity/Software";
 import { genRandomId } from "../../utils/helper";
-import { User } from "../../entity/User";
+import { Users } from "../../entity/User";
 import * as cloudinary from "cloudinary";
 import { uuidRegexValidator } from "../../validators/regex";
 
@@ -29,7 +29,7 @@ export const uploadSoftware = async (req: Request, res: Response) => {
         });
       } else {
         if (uuidRegexValidator.test(userId)) {
-          const userExist = await User.findOne({
+          const userExist = await Users.findOne({
             where: {
               id: userId,
             },

@@ -1,6 +1,6 @@
 import { Software } from "../../entity/Software";
 import { Request, Response } from "express";
-import { User } from "../../entity/User";
+import { Users } from "../../entity/User";
 import { uuidRegexValidator } from "../../validators/regex";
 
 export const getRecentSoftwares = async (_: Request, res: Response) => {
@@ -103,7 +103,7 @@ export const getUsers = async (req: Request, res: Response) => {
       const { userId } = req.query;
       if (uuidRegexValidator.test(userId as string)) {
         try {
-          const userExist = await User.findOne({
+          const userExist = await Users.findOne({
             where: {
               id: userId,
             },
@@ -135,7 +135,7 @@ export const getUsers = async (req: Request, res: Response) => {
       const { username } = req.query;
       if (username !== "") {
         try {
-          const userExist = await User.findOne({
+          const userExist = await Users.findOne({
             where: {
               username,
             },

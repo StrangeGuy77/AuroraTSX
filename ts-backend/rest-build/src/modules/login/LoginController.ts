@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../../entity/User";
+import { Users } from "../../entity/User";
 import * as bcrypt from "bcryptjs";
 import { EmailRegexValidator } from "../../validators/regex";
 
@@ -23,7 +23,7 @@ export const Login = async (req: Request, res: Response) => {
         });
       } else {
         // Validar que el correo del usuario exista dentro de la base de datos.
-        const isValidUser = await User.findOne({
+        const isValidUser = await Users.findOne({
           where: {
             email,
           },
@@ -59,6 +59,7 @@ export const Login = async (req: Request, res: Response) => {
     }
   } catch (error) {
     // Error en la solicitud.
+    console.log(error);
     return res.status(500).json({
       error,
     });

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Payment } from "../../entity/Payment";
-import { User } from "../../entity/User";
+import { Users } from "../../entity/User";
 import { getRepository } from "typeorm";
 
 /**
@@ -24,7 +24,7 @@ export const RegisterPayment = async (req: Request, res: Response) => {
       const { username } = req.query;
       try {
         // Buscar al usuario.
-        UserEntity = await User.findOne({
+        UserEntity = await Users.findOne({
           where: {
             username,
           },
@@ -47,7 +47,7 @@ export const RegisterPayment = async (req: Request, res: Response) => {
     } else if (req.query.userId) {
       const { userId } = req.query;
       try {
-        UserEntity = await User.findOne({
+        UserEntity = await Users.findOne({
           where: {
             id: userId,
           },
