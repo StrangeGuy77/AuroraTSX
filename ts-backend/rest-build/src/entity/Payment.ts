@@ -1,15 +1,8 @@
-import {
-  Entity,
-  Column,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-  ManyToOne,
-} from "typeorm";
+import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
 import { User } from "./User";
 import { Base } from "./utils/base.model";
 
-@Entity("payment")
+@Entity()
 export class Payment extends Base {
   @Column("json", {
     name: "payment_method",

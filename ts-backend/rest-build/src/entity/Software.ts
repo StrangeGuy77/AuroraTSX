@@ -2,7 +2,7 @@ import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
 import { User } from "./User";
 import { Base } from "./utils/base.model";
 
-@Entity("softwares")
+@Entity()
 export class Software extends Base {
   @Column("varchar", {
     length: 255,

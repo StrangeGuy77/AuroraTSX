@@ -5,16 +5,19 @@ import { uuidRegexValidator } from "../../validators/regex";
 
 export const getRecentSoftwares = async (_: Request, res: Response) => {
   try {
+    // Obtener los softwares por fecha de creación descendente.
     const data = await Software.find({
       order: {
         createdAt: "DESC",
       },
     });
+    // Devolverlos
     return res.json({
       message: "Succesful",
       data,
     });
   } catch (error) {
+    // Error en la solicitud
     return res.json({
       message: "There was an error retrieving recent softwares",
       error,
@@ -24,18 +27,22 @@ export const getRecentSoftwares = async (_: Request, res: Response) => {
 
 export const getOneSoftware = async (req: Request, res: Response) => {
   const softId = req.params.softId;
+  // Verificar que el id del software esté presente en los parámetros de la solicitud.
   if (!softId) {
+    // No lo está.
     return res.json({
       message: "There's no softId within the params. Try /softwares/:softId",
     });
   } else {
     try {
+      // Buscar el software por id.
       const softwareExist = await Software.findOne({
         where: {
           id: softId,
         },
       });
       if (!softwareExist) {
+        // El software no existe.
         return res.json({
           message: "The software you're trying to retrieve doesn't exist.",
         });
@@ -46,6 +53,7 @@ export const getOneSoftware = async (req: Request, res: Response) => {
         });
       }
     } catch (error) {
+      // Error en la solicitud.
       return res.json({
         message: "There was an error retrieving the software from the database",
       });

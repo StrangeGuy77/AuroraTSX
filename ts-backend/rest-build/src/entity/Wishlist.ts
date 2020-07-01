@@ -1,7 +1,7 @@
 import { Entity, Column } from "typeorm";
 import { Base } from "./utils/base.model";
 
-@Entity("wishlist")
+@Entity()
 export class Wishlist extends Base {
   @Column("varchar", {
     length: 55,

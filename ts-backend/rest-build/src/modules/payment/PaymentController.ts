@@ -11,6 +11,7 @@ import { getRepository } from "typeorm";
  */
 
 export const RegisterPayment = async (req: Request, res: Response) => {
+  // Validar si la petición carece de query params.
   if (!req.query) {
     return res.json({
       message:
@@ -18,26 +19,31 @@ export const RegisterPayment = async (req: Request, res: Response) => {
     });
   } else {
     let UserEntity: any;
+    // Verificar si la estructura busca por nombre de usuario.
     if (req.query.username) {
       const { username } = req.query;
       try {
+        // Buscar al usuario.
         UserEntity = await User.findOne({
           where: {
             username,
           },
         });
         if (!UserEntity) {
+          // El usuario buscado mediante username no existe.
           return res.json({
             message:
               "The user you're trying to associate this payment with, doesnt exist. Check the username you sent.",
           });
         }
       } catch (error) {
+        // Error en la petición.
         return res.json({
           message: "There was a problem while searching for a valid user.",
           error,
         });
       }
+      // Buscar al usuario por id.
     } else if (req.query.userId) {
       const { userId } = req.query;
       try {
@@ -47,6 +53,7 @@ export const RegisterPayment = async (req: Request, res: Response) => {
           },
         });
         if (!UserEntity) {
+          // El usuario no existe.
           return res.json({
             message:
               "The user you're trying to associate this payment with, doesnt exist. Check the username you sent.",
@@ -59,18 +66,19 @@ export const RegisterPayment = async (req: Request, res: Response) => {
         });
       }
     }
-    console.log(req.body.card);
+    // Estructurar la entidad del pago
     const newPayment = new Payment();
     newPayment.user = UserEntity;
     newPayment.paymentMethod = req.body;
 
     try {
-      const test = await getRepository(Payment).save(newPayment);
-      console.log(newPayment);
+      // Guardar el pago
+      await getRepository(Payment).save(newPayment);
       return res.json({
         message: "Payment succesfully saved.",
       });
     } catch (error) {
+      // Error al guardar el pago
       return res.json({
         message: "There was a problem while trying to save the payment.",
         error,
