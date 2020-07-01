@@ -61,7 +61,7 @@ class Profile extends React.Component<IProps, IState> {
   render() {
     // const { home } = this.props.language.sectionsInfo;
 
-    // const { Settings, Contact, PayingHistory } = this.props.language.userInfo;
+    // const { Settings, /* Contact,  PayingHistory */ } = this.props.language.userInfo;
 
     return (
       <div>
@@ -127,13 +127,15 @@ class Profile extends React.Component<IProps, IState> {
               </MDBNav>
               <MDBTabContent activeItem={this.state.activeItem}>
                 <MDBTabPane tabId="1" role="tabpanel">
-                  <p className="mt-2">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Nihil odit magnam minima, soluta doloribus reiciendis
-                    molestiae placeat unde eos molestias. Quisquam aperiam,
-                    pariatur. Tempora, placeat ratione porro voluptate odit
-                    minima.
-                  </p>
+                  {this.state.isOwnProfile ? (
+                    <React.Fragment>
+                      <MDBTabPane tabId="2" role="tabpanel">
+                        <UserSettings
+                          user={this.state.userProfileOwner as any}
+                        />
+                      </MDBTabPane>
+                    </React.Fragment>
+                  ) : null}
                 </MDBTabPane>
                 {this.state.isOwnProfile ? (
                   <React.Fragment>

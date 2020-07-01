@@ -11,7 +11,7 @@ import { Dispatch } from "redux";
 
 class UserInfo extends React.Component<IProps, IState> {
   state = {
-    file: null
+    file: null,
   };
 
   handleInput = (
@@ -23,8 +23,8 @@ class UserInfo extends React.Component<IProps, IState> {
 
     if (files) {
       if ((files as FileList).length > 0) {
-        this.setState(_ => ({
-          file: (files as FileList).item(0) as any
+        this.setState((_) => ({
+          file: (files as FileList).item(0) as any,
         }));
       }
     }
@@ -61,7 +61,7 @@ class UserInfo extends React.Component<IProps, IState> {
       TimesLiked,
       TimesPosted,
       TimesShared,
-      Followers
+      Followers,
     } = this.props.language.userInfo;
     return (
       <div className="flex-fill">
@@ -108,37 +108,27 @@ class UserInfo extends React.Component<IProps, IState> {
           <MDBListGroupItem>
             <MDBIcon icon="fas fa-comments" />
             {" " + Activity}
-            <MDBBadge color="primary" pill className="offset-2">
-              14
-            </MDBBadge>
+            <MDBBadge color="primary" pill className="offset-2" />
           </MDBListGroupItem>
           <MDBListGroupItem>
             <MDBIcon icon="fas fa-share-alt-square" />
             {" " + TimesShared}
-            <MDBBadge color="primary" pill className="">
-              14
-            </MDBBadge>
+            <MDBBadge color="primary" pill className="" />
           </MDBListGroupItem>
           <MDBListGroupItem>
             <MDBIcon icon="fas fa-thumbs-up" />
             {" " + TimesLiked}
-            <MDBBadge color="primary" pill className="offset-7">
-              14
-            </MDBBadge>
+            <MDBBadge color="primary" pill className="offset-7" />
           </MDBListGroupItem>
           <MDBListGroupItem>
             <MDBIcon icon="fas fa-rss" />
             {" " + TimesPosted}
-            <MDBBadge color="primary" pill className="offset-6">
-              14
-            </MDBBadge>
+            <MDBBadge color="primary" pill className="offset-6" />
           </MDBListGroupItem>
           <MDBListGroupItem>
             <MDBIcon icon="fas fa-users" />
             {" " + Followers}
-            <MDBBadge color="primary" pill className="">
-              14
-            </MDBBadge>
+            <MDBBadge color="primary" pill className="" />
           </MDBListGroupItem>
         </MDBListGroup>
       </div>
@@ -147,12 +137,12 @@ class UserInfo extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: GlobalState) => ({
-  language: getLanguage(state)
+  language: getLanguage(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   setCurrentUser: (user: IUser) => dispatch(setCurrentUser(user)),
-  clearUser: () => dispatch(clearUser())
+  clearUser: () => dispatch(clearUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserInfo);

@@ -19,7 +19,7 @@ import {
   MDBCardText,
   MDBCardFooter,
   MDBIcon,
-  MDBBtn
+  MDBBtn,
 } from "mdbreact";
 import ProfilePreview from "../ProfilePreview/ProfilePreview";
 import StripeButtonCheckout from "../StripeButton/StripeButton";
@@ -36,7 +36,7 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
     const {
       // price,
       // description,
-      like
+      like,
       // comments
     } = this.props.language.softwareInfo;
     const { youNeedToBeLogged } = this.props.language.buyInfo;
@@ -70,7 +70,7 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
                   </p>
                   <p>
                     <MDBIcon icon="far fa-clock" />
-                    {" " + format(software.createdAt)}
+                    {" " + format(software.createdAt, "en_US")}
                   </p>
                 </div>
               </MDBCardFooter>
@@ -132,7 +132,7 @@ const mapStateToProps = (state: GlobalState, ownProps: IProps) => ({
     (ownProps.match as match<IMatchParams>).params.softwareId as string,
     state
   ) as SoftwareSchema,
-  user: selectCurrentUser(state) as IUser
+  user: selectCurrentUser(state) as IUser,
 });
 
 export default withRouter(connect(mapStateToProps)(SoftwareView));

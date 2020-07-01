@@ -4,7 +4,7 @@ import {
   MDBIcon,
   MDBDropdownMenu,
   MDBDropdownItem,
-  MDBDropdownToggle
+  MDBDropdownToggle,
 } from "mdbreact";
 import { connect } from "react-redux";
 import ILanguage from "../../redux/language/Lang";
@@ -13,10 +13,17 @@ import { Link } from "react-router-dom";
 import GlobalState from "../../redux/State";
 import { getLanguage } from "../../redux/language/LangSelector";
 import { selectCurrentUser } from "../../redux/user/userSelector";
+import { Dispatch } from "redux";
+import { clearUser } from "../../redux/user/userActions";
 
-const ProfileButton: React.FC<IProps> = ({ language: { userInfo }, user }) => {
-  const { MyProfile, MySoftwares, MyBooks, MyTickets, Help } = userInfo;
+const ProfileButton: React.FC<IProps> = ({
+  language: { userInfo },
+  user,
+  clearUser,
+}) => {
+  const { MyProfile } = userInfo;
   const username = (user as any).user.username;
+
   return (
     <div>
       <MDBDropdown>
@@ -29,22 +36,9 @@ const ProfileButton: React.FC<IProps> = ({ language: { userInfo }, user }) => {
             <MDBIcon icon="fas fa-id-card" />
             <Link to={`/user/${username}`}>{MyProfile}</Link>
           </MDBDropdownItem>
-          <MDBDropdownItem>
-            <MDBIcon icon="fas fa-file-code" />
-            <Link to={`/user/${username}/softwares`}>{MySoftwares}</Link>
-          </MDBDropdownItem>
-          <MDBDropdownItem>
-            <MDBIcon icon="fas fa-book" />
-            <Link to={`/user/${username}/books`}>{MyBooks}</Link>
-          </MDBDropdownItem>
-          <MDBDropdownItem>
-            <MDBIcon icon="fas fa-ticket-alt" />
-            <Link to={`/user/${username}/tickets`}>{MyTickets}</Link>
-          </MDBDropdownItem>
-          <MDBDropdownItem divider />
-          <MDBDropdownItem>
-            <MDBIcon icon="fas fa-question-circle" />
-            <Link to={`/contact-us`}>{Help}</Link>
+          <MDBDropdownItem onClick={() => clearUser()}>
+            <MDBIcon icon="fas fa-sign-out-alt" />
+            <Link to={`/user/${username}`}>{"Logout"}</Link>
           </MDBDropdownItem>
         </MDBDropdownMenu>
       </MDBDropdown>
@@ -54,12 +48,17 @@ const ProfileButton: React.FC<IProps> = ({ language: { userInfo }, user }) => {
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state),
-  user: selectCurrentUser(state) as IUser
+  user: selectCurrentUser(state) as IUser,
 });
 
-export default connect(mapStateToProps)(ProfileButton);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  clearUser: () => dispatch(clearUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileButton);
 
 interface IProps {
   language: ILanguage;
+  clearUser: () => any;
   user: IUser;
 }

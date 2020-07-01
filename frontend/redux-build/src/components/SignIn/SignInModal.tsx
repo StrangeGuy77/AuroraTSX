@@ -43,7 +43,7 @@ class SignInModal extends React.Component<IProps, IState> {
     const { setCurrentUser } = this.props;
 
     try {
-      const response: IUser | Promise<IUser> | null | any = JSON.parse(
+      const response = JSON.parse(
         JSON.stringify(
           await Axios.post(`http://localhost:3500/user/login`, {
             email,
@@ -51,7 +51,8 @@ class SignInModal extends React.Component<IProps, IState> {
           })
         )
       );
-      if (response.data.code === 200) {
+      console.log(response);
+      if (response.status === 200) {
         setCurrentUser(response.data.userData as IUser);
         this.setState({
           signInErrors: response.data.message,
@@ -87,7 +88,7 @@ class SignInModal extends React.Component<IProps, IState> {
       <MDBModal
         isOpen={this.props.isOpen as boolean}
         toggle={this.props.toggler}
-        inline={true}
+        inline={false}
         noClickableBodyWithoutBackdrop={true}
         overflowScroll={true}
       >

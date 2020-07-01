@@ -75,11 +75,7 @@ class SignUpModal extends React.Component<IProps, IState> {
               });
             } else {
               try {
-                const response:
-                  | IUser
-                  | Promise<IUser>
-                  | null
-                  | any = JSON.parse(
+                const response = JSON.parse(
                   JSON.stringify(
                     await Axios.post(`http://localhost:3500/user`, {
                       email,
@@ -88,7 +84,7 @@ class SignUpModal extends React.Component<IProps, IState> {
                     })
                   )
                 );
-                if (response.data.code === 200) {
+                if (response.status === 200) {
                   setCurrentUser(response.data.newUser as IUser);
                   this.setState({
                     signUpErrors: response.data.message,
