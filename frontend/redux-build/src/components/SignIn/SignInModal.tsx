@@ -42,38 +42,39 @@ class SignInModal extends React.Component<IProps, IState> {
     const { email, password } = this.state;
     const { setCurrentUser } = this.props;
 
-    try {
-      const response = JSON.parse(
-        JSON.stringify(
-          await Axios.post(`http://localhost:3500/user/login`, {
-            email,
-            password,
-          })
-        )
-      );
-      console.log(response);
-      if (response.status === 200) {
-        setCurrentUser(response.data.userData as IUser);
-        this.setState({
-          signInErrors: response.data.message,
-          signInErrorsColor: "#4BB543",
-        });
-        setTimeout(() => {
-          this.props.toggler();
-          this.setState({
-            signInErrors: "",
-          });
-        }, 1300);
-      } else {
-        this.setState({
-          signInErrors: response.data.message,
-        });
-      }
-    } catch (error) {
+    // try {
+    const response = JSON.parse(
+      JSON.stringify(
+        await Axios.post(`http://localhost:3500/user/login`, {
+          email,
+          password,
+        })
+      )
+    );
+    console.log(response);
+    if (response.status === 200) {
+      setCurrentUser(response.data.userData as IUser);
       this.setState({
-        signInErrors: `There was a problem sending data to the server: ${error}`,
+        signInErrors: response.data.message,
+        signInErrorsColor: "#4BB543",
+      });
+      setTimeout(() => {
+        this.props.toggler();
+        this.setState({
+          signInErrors: "",
+        });
+      }, 1300);
+    } else {
+      this.setState({
+        signInErrors: response.data.message,
       });
     }
+    // } catch (error) {
+    //   console.log(error.response.data);
+    //   this.setState({
+    //     signInErrors: `There was a problem sending data to the server: ${error.response.status}`,
+    //   });
+    // }
   };
 
   render() {

@@ -103,7 +103,7 @@ class SignUpModal extends React.Component<IProps, IState> {
                 }
               } catch (error) {
                 this.setState({
-                  signUpErrors: `There was a problem sending data to the server: ${error}`,
+                  signUpErrors: `There was a problem sending data to the server: ${error.response.data.message}`,
                 });
               }
             }
