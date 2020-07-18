@@ -31,7 +31,7 @@ export const SignUp = async (req: Request, res: Response) => {
               username,
             });
             try {
-              // await newUser.save();
+              await newUser.save();
               newUser.password = "";
               return res.status(200).json({
                 message: "The user was created succesfully",

@@ -3,7 +3,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { connect } from "react-redux";
 import {
   getLanguage,
-  getLanguageAcronym
+  getLanguageAcronym,
 } from "../../redux/language/LangSelector";
 import GlobalState from "../../redux/State";
 import ILanguage from "../../redux/language/Lang";
@@ -17,7 +17,7 @@ const StripeCheckoutButton: React.FC<IProps> = ({
   description,
   email,
   languageAcronym,
-  user
+  user,
 }) => {
   const { username } = user.user;
   const priceForStripe = (price as number) * 100;
@@ -55,7 +55,7 @@ const StripeCheckoutButton: React.FC<IProps> = ({
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state),
   languageAcronym: getLanguageAcronym(state),
-  user: selectCurrentUser(state)
+  user: selectCurrentUser(state),
 });
 
 export default connect(mapStateToProps)(StripeCheckoutButton);

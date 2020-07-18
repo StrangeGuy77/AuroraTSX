@@ -152,6 +152,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
 
 interface IProps {
   language: ILanguage;
-  selectLanguage: (language: string) => any;
   user: any;
+  selectLanguage: (language: string) => any;
 }

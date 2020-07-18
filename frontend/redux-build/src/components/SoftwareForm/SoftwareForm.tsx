@@ -18,7 +18,7 @@ class SoftwareForm extends React.Component<IProps> {
     description: "",
     price: "",
     devLanguages: "",
-    file: ""
+    file: "",
   };
 
   handleInput = (
@@ -32,13 +32,13 @@ class SoftwareForm extends React.Component<IProps> {
 
     if (files) {
       if ((files as FileList).length > 0) {
-        this.setState(_ => ({
-          file: (files as FileList).item(0)
+        this.setState((_) => ({
+          file: (files as FileList).item(0),
         }));
       }
     } else {
-      this.setState(_ => ({
-        [name]: value
+      this.setState((_) => ({
+        [name]: value,
       }));
     }
   };
@@ -91,7 +91,7 @@ class SoftwareForm extends React.Component<IProps> {
       signSoftwareLanguage,
       signSoftwarePrice,
       upload,
-      loginToUpload
+      loginToUpload,
     } = this.props.language.softwareInfo;
 
     const { confirmed, id } = isEmpty(this.props.user)
@@ -218,12 +218,12 @@ class SoftwareForm extends React.Component<IProps> {
 
 const mapStateToProps = (state: GlobalState) => ({
   language: getLanguage(state),
-  user: selectCurrentUser(state)
+  user: selectCurrentUser(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   uploadSoftware: (software: SoftwareSchema) =>
-    dispatch(uploadSoftware(software))
+    dispatch(uploadSoftware(software)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SoftwareForm);

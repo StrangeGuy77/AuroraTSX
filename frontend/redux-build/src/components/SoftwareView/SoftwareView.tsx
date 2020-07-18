@@ -50,11 +50,6 @@ class SoftwareView extends React.Component<IProps, SoftwareSchema> {
               <MDBCardBody>
                 <MDBCardTitle>{software.title}</MDBCardTitle>
                 <MDBCardText>${software.price}</MDBCardText>
-                <div className="d-flex justify-content-start align-items-end">
-                  <MDBBtn color="dark-green" data-id="{{soft.filename}}">
-                    <MDBIcon icon="fas fa-thumbs-up"></MDBIcon> {like}
-                  </MDBBtn>
-                </div>
               </MDBCardBody>
               <MDBCardFooter>
                 <div className="d-flex justify-content-between align-items-center">

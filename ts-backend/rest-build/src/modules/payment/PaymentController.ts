@@ -4,7 +4,6 @@ import { Users } from "../../entity/User";
 import { getRepository } from "typeorm";
 
 /**
- *
  * @description Get all the payments from the server. It can be queried with three params. username or userId and quantity for both.
  * @param req Automatically injected by Express
  * @param res Automatically injected by Express
