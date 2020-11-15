@@ -1,32 +1,32 @@
-import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { Users } from "./User";
-import { Base } from "./utils/base.model";
+import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
+import { Users } from './User';
+import { Base } from './utils/base.model';
 
 @Entity()
 export class Payment extends Base {
-  @Column("json", {
-    name: "payment_method",
+  @Column('json', {
+    name: 'payment_method',
   })
   paymentMethod: CardPaymentMethod;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 3,
   })
   currency: string;
 
-  @Column("integer", {
-    name: "amount",
+  @Column('integer', {
+    name: 'amount',
   })
   amount: number;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 55,
   })
   name: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 55,
-    name: "description",
+    name: 'description',
   })
   description: string;
 

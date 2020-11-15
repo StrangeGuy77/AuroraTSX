@@ -21,7 +21,7 @@ export declare namespace GQL {
   }
 
   interface IQuery {
-    __typename: "Query";
+    __typename: 'Query';
     hello: string;
   }
 
@@ -30,7 +30,7 @@ export declare namespace GQL {
   }
 
   interface IMutation {
-    __typename: "Mutation";
+    __typename: 'Mutation';
     register: boolean | null;
   }
 

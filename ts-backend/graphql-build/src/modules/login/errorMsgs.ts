@@ -1,1 +1,1 @@
-export const invalidLogin = "Invalid Login";
+export const invalidLogin = 'Invalid Login';

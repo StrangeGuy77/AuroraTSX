@@ -21,7 +21,7 @@ export declare namespace GQL {
   }
 
   interface IQuery {
-    __typename: "Query";
+    __typename: 'Query';
     bye2: string | null;
     me: IUser | null;
     _: IPayment | null;
@@ -34,13 +34,13 @@ export declare namespace GQL {
   }
 
   interface IUser {
-    __typename: "User";
+    __typename: 'User';
     id: string;
     email: string;
   }
 
   interface IPayment {
-    __typename: "Payment";
+    __typename: 'Payment';
     amount: number;
     description: string;
     currency: string;
@@ -50,7 +50,7 @@ export declare namespace GQL {
   }
 
   interface IMutation {
-    __typename: "Mutation";
+    __typename: 'Mutation';
     login: Array<IError> | null;
     payment_registration: IPayment;
     register: Array<IError> | null;
@@ -76,7 +76,7 @@ export declare namespace GQL {
   }
 
   interface IError {
-    __typename: "Error";
+    __typename: 'Error';
     path: string;
     message: string;
   }

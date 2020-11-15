@@ -8,16 +8,14 @@ let app: Application | Server;
 let shutdownManager: GracefulShutdownManager;
 
 beforeAll(async () => {
-    app = await startServer(true);
-    shutdownManager = new GracefulShutdownManager(app as Server);
+  app = await startServer(true);
+  shutdownManager = new GracefulShutdownManager(app as Server);
 });
 
 afterAll(async () => {
-    shutdownManager.terminate(() => null);
+  shutdownManager.terminate(() => null);
 });
 
 describe('Testing home querying and all of its functionalities.', () => {
-    test('Getting recent softwares', async () => {
-
-    });
+  test('Getting recent softwares', async () => {});
 });

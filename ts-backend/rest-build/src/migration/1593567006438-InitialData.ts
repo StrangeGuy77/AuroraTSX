@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class InitialData1593567006438 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -13,18 +13,10 @@ export class InitialData1593567006438 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `ALTER TABLE "softwares" DROP CONSTRAINT "FK_6c14cb87d54372edffed8a30906"`
-    );
-    await queryRunner.query(
-      `ALTER TABLE "payment" DROP CONSTRAINT "FK_b046318e0b341a7f72110b75857"`
-    );
-    await queryRunner.query(
-      `ALTER TABLE "comments" DROP CONSTRAINT "FK_7e8d7c49f218ebb14314fdb3749"`
-    );
-    await queryRunner.query(
-      `ALTER TABLE "book" DROP CONSTRAINT "FK_04f66cf2a34f8efc5dcd9803693"`
-    );
+    await queryRunner.query(`ALTER TABLE "softwares" DROP CONSTRAINT "FK_6c14cb87d54372edffed8a30906"`);
+    await queryRunner.query(`ALTER TABLE "payment" DROP CONSTRAINT "FK_b046318e0b341a7f72110b75857"`);
+    await queryRunner.query(`ALTER TABLE "comments" DROP CONSTRAINT "FK_7e8d7c49f218ebb14314fdb3749"`);
+    await queryRunner.query(`ALTER TABLE "book" DROP CONSTRAINT "FK_04f66cf2a34f8efc5dcd9803693"`);
     await queryRunner.query(`DROP TABLE "wishlist"`);
     await queryRunner.query(`DROP TABLE "softwares"`);
     await queryRunner.query(`DROP TABLE "payment"`);

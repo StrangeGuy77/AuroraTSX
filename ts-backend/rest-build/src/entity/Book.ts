@@ -1,55 +1,55 @@
-import { Entity, Column, ManyToOne } from "typeorm";
-import { Users } from "./User";
-import { Base } from "./utils/base.model";
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { Users } from './User';
+import { Base } from './utils/base.model';
 
 @Entity()
 export class Book extends Base {
-  @Column("varchar", {
+  @Column('varchar', {
     length: 50,
   })
   title: string;
 
-  @Column("character varying", { length: 2000 })
+  @Column('character varying', { length: 2000 })
   description: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 30,
   })
   author: string;
 
-  @Column("float")
+  @Column('float')
   price: number;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 5,
   })
   extension: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 50,
   })
   publisher: string;
 
-  @Column("date")
+  @Column('date')
   writingYear: Date;
 
-  @Column("varchar", {
+  @Column('varchar', {
     array: true,
   })
   categories: string[];
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 50,
   })
   filename: string;
 
-  @Column("integer", { default: 0 })
+  @Column('integer', { default: 0 })
   views: number;
 
-  @Column("integer", { default: 0 })
+  @Column('integer', { default: 0 })
   likes: number;
 
-  @Column("integer", { default: 0 })
+  @Column('integer', { default: 0 })
   timesDownloaded: number;
 
   @ManyToOne((_) => Users, (user) => user.id)

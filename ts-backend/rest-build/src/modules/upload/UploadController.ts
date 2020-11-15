@@ -1,16 +1,16 @@
-import { Request, Response } from "express";
-import * as path from "path";
-import * as fs from "fs-extra";
-import { Software } from "../../entity/Software";
-import { genRandomId } from "../../utils/helper";
-import { Users } from "../../entity/User";
-import * as cloudinary from "cloudinary";
-import { uuidRegexValidator } from "../../validators/regex";
+import { uuidRegexValidator } from '../../validators/regex';
+import { Request, Response } from 'express';
+import { genRandomId } from '../../utils/helper';
+import { Software } from '../../entity/Software';
+import { Users } from '../../entity/User';
+import * as cloudinary from 'cloudinary';
+import * as path from 'path';
+import * as fs from 'fs-extra';
 
 export const uploadSoftware = async (req: Request, res: Response) => {
   if (!req.body) {
     return res.status(400).json({
-      message: "Body is empty! You cannot save an empty software.",
+      message: 'Body is empty! You cannot save an empty software.',
     });
   } else {
     const { title, description, devLanguages, price } = req.body;
@@ -19,7 +19,7 @@ export const uploadSoftware = async (req: Request, res: Response) => {
     if (!userId) {
       return res.status(400).json({
         message:
-          "userId param is empty! You cannot save a software without a user relationship. Please add userId to the route with /softwares/:userId",
+          'userId param is empty! You cannot save a software without a user relationship. Please add userId to the route with /softwares/:userId',
       });
     } else {
       if (!title || !description || !devLanguages || !price || !req.files) {
@@ -46,17 +46,9 @@ export const uploadSoftware = async (req: Request, res: Response) => {
 
               const imageTempPath = req.files[0].path;
               const ext = path.extname(req.files[0].originalname).toLowerCase();
-              const targetPath = path.resolve(
-                `src/server/temp/upload/${url}${ext}`
-              );
+              const targetPath = path.resolve(`src/server/temp/upload/${url}${ext}`);
 
-              if (
-                ext === ".png" ||
-                ext === ".jpg" ||
-                ext === ".jpeg" ||
-                ext === ".gif" ||
-                ext === ".svg"
-              ) {
+              if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif' || ext === '.svg') {
                 /*
                  * Example Cloudinary uploading
                  * cloudinary.uploader.upload("sample.jpg", {"crop":"limit","tags":"samples","width":3000,"height":2000}, function(result) { console.log(result) });
@@ -65,10 +57,7 @@ export const uploadSoftware = async (req: Request, res: Response) => {
                 try {
                   await fs.rename(imageTempPath, targetPath);
                   try {
-                    const response = await cloudinary.v2.uploader.upload(
-                      targetPath,
-                      {}
-                    );
+                    const response = await cloudinary.v2.uploader.upload(targetPath, {});
                     const newSoftware = Software.create({
                       description,
                       price,
@@ -82,42 +71,38 @@ export const uploadSoftware = async (req: Request, res: Response) => {
                     try {
                       await newSoftware.save();
                       return res.status(200).json({
-                        message: "Software succesfully saved.",
+                        message: 'Software succesfully saved.',
                         newSoftware,
                       });
                     } catch (error) {
                       return res.status(500).json({
-                        message:
-                          "There was a problem trying to save the software.",
+                        message: 'There was a problem trying to save the software.',
                         error,
                       });
                     }
                   } catch (error) {
                     return res.status(500).json({
-                      message:
-                        "There was an error uploading image to the remote server.",
+                      message: 'There was an error uploading image to the remote server.',
                       error,
                     });
                   }
                 } catch (error) {
                   return res.status(500).json({
-                    message:
-                      "There was an error while replacing image route path",
+                    message: 'There was an error while replacing image route path',
                     error,
                   });
                 }
               }
             } catch (error) {
               return res.status(500).json({
-                message: "There was an error while verifying image extensions",
+                message: 'There was an error while verifying image extensions',
                 error,
               });
             }
           }
         } else {
           return res.status(400).json({
-            message:
-              "The uuid is non-sense! UUID's patterns are like: 6a2f41a3-c54c-fce8-32d2-0324e1c32e22",
+            message: "The uuid is non-sense! UUID's patterns are like: 6a2f41a3-c54c-fce8-32d2-0324e1c32e22",
           });
         }
       }

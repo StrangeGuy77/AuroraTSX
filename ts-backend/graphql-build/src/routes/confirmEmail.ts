@@ -1,6 +1,6 @@
-import { User } from "../entity/User";
-import { Request, Response } from "express";
-import { redis } from "../redis";
+import { Request, Response } from 'express';
+import { redis } from '../redis';
+import { User } from '../entity/User';
 
 export const confirmEmail = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -8,15 +8,15 @@ export const confirmEmail = async (req: Request, res: Response) => {
   if (userId) {
     await User.update(
       {
-        id: userId?.toString()
+        id: userId?.toString(),
       },
       {
-        confirmed: true
+        confirmed: true,
       }
     );
     await redis.del(id);
-    res.send("ok");
+    res.send('ok');
   } else {
-    res.send("Invalid");
+    res.send('Invalid');
   }
 };

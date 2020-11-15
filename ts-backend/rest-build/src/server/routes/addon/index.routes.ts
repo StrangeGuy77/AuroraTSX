@@ -1,13 +1,10 @@
-import { Router, Request, Response } from "express";
-import {
-  getPayments,
-  RegisterPayment
-} from "../../../modules/payment/PaymentController";
+import { Router, Request, Response } from 'express';
+import { getPayments, RegisterPayment } from '../../../modules/payment/PaymentController';
 
 const router = Router();
 
 router
-  .route("/payment")
+  .route('/payment')
   .get(getPayments)
   .post(RegisterPayment)
   .all((req: Request, res: Response) =>

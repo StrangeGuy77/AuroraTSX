@@ -1,59 +1,59 @@
-import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { Users } from "./User";
-import { Base } from "./utils/base.model";
+import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
+import { Users } from './User';
+import { Base } from './utils/base.model';
 
-@Entity("softwares")
+@Entity('softwares')
 export class Software extends Base {
-  @Column("varchar", {
+  @Column('varchar', {
     length: 255,
   })
   title: string;
 
-  @Column("text")
+  @Column('text')
   description: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     array: true,
   })
   devLanguages: string[];
 
-  @Column("varchar", {
+  @Column('varchar', {
     array: true,
     nullable: true,
   })
   frameworks: string[];
 
-  @Column("float")
+  @Column('float')
   price: number;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 255,
   })
   filename: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 255,
     nullable: true,
   })
   userUploaderName: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 255,
     nullable: true,
   })
   imageUrl: string;
 
-  @Column("integer", {
+  @Column('integer', {
     default: 0,
   })
   views: number;
 
-  @Column("integer", {
+  @Column('integer', {
     default: 0,
   })
   likes: number;
 
-  @Column("integer", {
+  @Column('integer', {
     default: 0,
   })
   timesDownloaded: number;

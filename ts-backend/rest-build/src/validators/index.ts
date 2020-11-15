@@ -1,4 +1,4 @@
-import { toCamel } from "../utils/helper";
+import { toCamel } from '../utils/helper';
 
 /**
  * @description Formatea la respuesta de la base de datos cuando esta viene con el alias como prefijo.
@@ -6,15 +6,12 @@ import { toCamel } from "../utils/helper";
  * @param response Respuesta cruda de la base de datos.
  * @param replaceString QueryBuilder alias.
  */
-export const formatedFilteredResponse = <T>(
-  response: T[],
-  replaceString: string
-): T[] => {
+export const formatedFilteredResponse = <T>(response: T[], replaceString: string): T[] => {
   return response.map((test) => {
     const formattedResponse: any = {};
     for (const [key, value] of Object.entries(test)) {
       // Remueve el prefijo del índice.
-      const removePrefix = key.replace(`${replaceString}`, "");
+      const removePrefix = key.replace(`${replaceString}`, '');
       // Actualiza la key a camelCase de ser necesario.
       const newlyKey = toCamel(removePrefix);
       // Asignar la key formateada y después asignar el valor que viene con ella.

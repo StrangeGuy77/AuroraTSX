@@ -1,46 +1,39 @@
-import {
-  Entity,
-  Column,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn
-} from "typeorm";
-import { User } from "./User";
+import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { User } from './User';
 
-@Entity("payment")
+@Entity('payment')
 export class Payment extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     array: true,
-    name: "payment_method"
+    name: 'payment_method',
   })
   paymentMethod: string[];
 
-  @Column("varchar", {
-    length: 3
+  @Column('varchar', {
+    length: 3,
   })
   currency: string;
 
-  @Column("integer", {
-    name: "amount"
+  @Column('integer', {
+    name: 'amount',
   })
   amount: number;
 
-  @Column("varchar", {
-    length: 55
+  @Column('varchar', {
+    length: 55,
   })
   name: string;
 
-  @Column("varchar", {
+  @Column('varchar', {
     length: 55,
-    name: "description"
+    name: 'description',
   })
   description: string;
 
-  @OneToOne(_ => User)
+  @OneToOne((_) => User)
   @JoinColumn()
-  user: User["id"];
+  user: User['id'];
 }

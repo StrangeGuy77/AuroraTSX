@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { Payment } from "../../entity/Payment";
-import { Users } from "../../entity/User";
-import { getRepository } from "typeorm";
+import { Request, Response } from 'express';
+import { Payment } from '../../entity/Payment';
+import { Users } from '../../entity/User';
+import { getRepository } from 'typeorm';
 
 /**
  * @description Get all the payments from the server. It can be queried with three params. username or userId and quantity for both.
@@ -14,7 +14,7 @@ export const RegisterPayment = async (req: Request, res: Response) => {
   if (!req.query) {
     return res.json({
       message:
-        "You must set the query to have a valid payment. The query must have this structure: ../payment?userId= or ../payment?username=",
+        'You must set the query to have a valid payment. The query must have this structure: ../payment?userId= or ../payment?username=',
     });
   } else {
     let UserEntity: any;
@@ -38,7 +38,7 @@ export const RegisterPayment = async (req: Request, res: Response) => {
       } catch (error) {
         // Error en la petición.
         return res.json({
-          message: "There was a problem while searching for a valid user.",
+          message: 'There was a problem while searching for a valid user.',
           error,
         });
       }
@@ -60,7 +60,7 @@ export const RegisterPayment = async (req: Request, res: Response) => {
         }
       } catch (error) {
         return res.json({
-          message: "There was a problem while searching for a valid user.",
+          message: 'There was a problem while searching for a valid user.',
           error,
         });
       }
@@ -74,12 +74,12 @@ export const RegisterPayment = async (req: Request, res: Response) => {
       // Guardar el pago
       await getRepository(Payment).save(newPayment);
       return res.json({
-        message: "Payment succesfully saved.",
+        message: 'Payment succesfully saved.',
       });
     } catch (error) {
       // Error al guardar el pago
       return res.json({
-        message: "There was a problem while trying to save the payment.",
+        message: 'There was a problem while trying to save the payment.',
         error,
       });
     }
@@ -97,7 +97,7 @@ export const getPayments = async (req: Request, res: Response) => {
       const AllPayments = await Payment.find();
       if (AllPayments) {
         return res.json({
-          message: "There are no payments available at the moment.",
+          message: 'There are no payments available at the moment.',
         });
       } else {
         return res.json({
@@ -106,7 +106,7 @@ export const getPayments = async (req: Request, res: Response) => {
       }
     } catch (error) {
       return res.json({
-        message: "There was a problem while searching for all payments.",
+        message: 'There was a problem while searching for all payments.',
         error,
       });
     }
@@ -134,8 +134,7 @@ export const getPayments = async (req: Request, res: Response) => {
         }
       } catch (error) {
         return res.json({
-          message:
-            "There was a problem while searching for payments by username",
+          message: 'There was a problem while searching for payments by username',
           error,
         });
       }
@@ -165,8 +164,7 @@ export const getPayments = async (req: Request, res: Response) => {
         }
       } catch (error) {
         return res.json({
-          message:
-            "There was a problem while searching for payments by UserID with quantity",
+          message: 'There was a problem while searching for payments by UserID with quantity',
           error,
         });
       }
@@ -181,8 +179,7 @@ export const getPayments = async (req: Request, res: Response) => {
         });
       } catch (error) {
         return res.json({
-          message:
-            "There was a problem while searching for payments by UserID without quantity.",
+          message: 'There was a problem while searching for payments by UserID without quantity.',
         });
       }
     }

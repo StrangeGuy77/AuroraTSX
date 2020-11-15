@@ -1,8 +1,8 @@
-import { camelValidator } from "../validators/regex";
+import { camelValidator } from '../validators/regex';
 
 export const genRandomId = () => {
-  const possible = "0123456789";
-  let randomId = "";
+  const possible = '0123456789';
+  let randomId = '';
   for (let index = 0; index < 16; index++) {
     randomId += possible.charAt(Math.floor(Math.random() * possible.length));
   }
@@ -18,7 +18,7 @@ export const isEmpty = (obj: {}) => {
 
 export const deleteEmptyOrUndefined = (obj: any) => {
   for (const [key, value] of Object.entries(obj)) {
-    if (value === undefined || key === "" || value === "") {
+    if (value === undefined || key === '' || value === '') {
       delete obj[key];
     }
   }
@@ -33,6 +33,6 @@ export const deleteEmptyOrUndefined = (obj: any) => {
  */
 export const toCamel = (s: string) => {
   return s.replace(camelValidator, ($1) => {
-    return $1.toUpperCase().replace("-", "").replace("_", "");
+    return $1.toUpperCase().replace('-', '').replace('_', '');
   });
 };

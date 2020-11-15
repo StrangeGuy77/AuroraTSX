@@ -1,17 +1,17 @@
-import { Entity, Column, JoinColumn, ManyToOne } from "typeorm";
-import { Users } from "./User";
-import { Base } from "./utils/base.model";
+import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
+import { Users } from './User';
+import { Base } from './utils/base.model';
 
-@Entity("comments")
+@Entity('comments')
 export class Comment extends Base {
-  @Column("uuid")
+  @Column('uuid')
   postId: string;
 
-  @Column("text")
+  @Column('text')
   content: string;
 
-  @Column("date", {
-    default: () => "CURRENT_TIMESTAMP",
+  @Column('date', {
+    default: () => 'CURRENT_TIMESTAMP',
   })
   timestamp: string;
 

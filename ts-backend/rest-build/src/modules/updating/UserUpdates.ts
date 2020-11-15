@@ -1,19 +1,19 @@
-import { Request, Response } from "express";
-import { Users } from "../../entity/User";
-import { getManager } from "typeorm";
-import * as cloudinary from "cloudinary";
-import * as path from "path";
-import * as fs from "fs";
+import { Request, Response } from 'express';
+import { Users } from '../../entity/User';
+import { getManager } from 'typeorm';
+import * as cloudinary from 'cloudinary';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export const UpdateUserInfo = async (req: Request, res: Response) => {
   if (!req.query) {
     return res.status(400).json({
-      message: "Query is empty! Test something with ?username= or ?userId=",
+      message: 'Query is empty! Test something with ?username= or ?userId=',
     });
   } else {
     if (!req.body) {
       return res.status(400).json({
-        message: "You cannot send empty body request for an update!",
+        message: 'You cannot send empty body request for an update!',
       });
     } else {
       const { username, userId } = req.query;
@@ -27,7 +27,7 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
           });
         } catch (error) {
           return res.status(500).json({
-            message: "There was an error while searching user existance.",
+            message: 'There was an error while searching user existance.',
             error,
           });
         }
@@ -40,7 +40,7 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
           });
         } catch (error) {
           return res.status(500).json({
-            message: "There was an error while searching user existance.",
+            message: 'There was an error while searching user existance.',
             error,
           });
         }
@@ -50,35 +50,26 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
         const imageTempPath = req.files[0].path;
         const ext = path.extname(req.files[0].originalname).toLowerCase();
 
-        if (
-          ext === ".png" ||
-          ext === ".jpg" ||
-          ext === ".jpeg" ||
-          ext === ".gif" ||
-          ext === ".svg"
-        ) {
+        if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif' || ext === '.svg') {
           try {
-            const response = await cloudinary.v2.uploader.upload(
-              imageTempPath,
-              {}
-            );
+            const response = await cloudinary.v2.uploader.upload(imageTempPath, {});
             userExist.profilePic = response.secure_url;
             fs.unlink(imageTempPath, () => null);
             try {
               await userExist.save();
               return res.status(200).json({
-                message: "Profile pic has been updated.",
+                message: 'Profile pic has been updated.',
                 userExist,
               });
             } catch (error) {
               return res.status(500).json({
-                message: "There was an error while saving pic within database.",
+                message: 'There was an error while saving pic within database.',
                 error,
               });
             }
           } catch (error) {
             return res.status(500).json({
-              message: "There was an error while sending pic to cloudinary",
+              message: 'There was an error while sending pic to cloudinary',
               error,
             });
           }
@@ -92,16 +83,14 @@ export const UpdateUserInfo = async (req: Request, res: Response) => {
         const body = req.body;
 
         try {
-          const updatedUser = await getManager()
-            .getRepository(Users)
-            .update(userExist.id, body);
+          const updatedUser = await getManager().getRepository(Users).update(userExist.id, body);
           return res.status(200).json({
-            message: "Users has been succesfully updated.",
+            message: 'Users has been succesfully updated.',
             updatedUser,
           });
         } catch (error) {
           return res.status(500).json({
-            message: "There was an error trying to update the user",
+            message: 'There was an error trying to update the user',
             error,
           });
         }

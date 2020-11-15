@@ -1,30 +1,23 @@
-import {
-  Entity,
-  BaseEntity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn
-} from "typeorm";
-import { User } from "./User";
+import { Entity, BaseEntity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { User } from './User';
 
-@Entity("comments")
+@Entity('comments')
 export class Comment extends BaseEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column("uuid")
+  @Column('uuid')
   postId: string;
 
-  @Column("text")
+  @Column('text')
   content: string;
 
-  @Column("date", {
-    default: () => "CURRENT_TIMESTAMP"
+  @Column('date', {
+    default: () => 'CURRENT_TIMESTAMP',
   })
   timestamp: string;
 
-  @OneToOne(_ => User)
+  @OneToOne((_) => User)
   @JoinColumn()
   user: User;
 }
